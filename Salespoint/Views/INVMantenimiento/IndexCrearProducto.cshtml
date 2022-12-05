@@ -1,0 +1,139 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <style>
+        .col-form-label {
+            padding-top: 10px;
+            padding-right: 1px;
+            text-align: right;
+            font-size: 10.6px;
+            color: gray;
+            font-weight: bold;
+            width: 115px;
+            /*border: 1px solid;
+            background-color: darkseagreen;*/
+        }
+    </style>
+}
+
+@section scripts{
+    <script src="~/Scripts/Inventario/CrearProducto.js"></script>
+}
+
+<div class="card">
+    <span class="badge badge-pill badge-secondary">DATOS CREACIÓN PRODUCTO</span>
+    <div class="card-body">
+        <form id="formGuardarProducto">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">NOMBRE:</span>
+                        <input type="text" class="form-control" id="txtNombre" name="txtNombre" required>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">DESCRIPCIÓN:</span>
+                        <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">PRECIO COSTO:</span>
+                        <input type="number" class="form-control text-right" id="txtPrecioCosto" name="txtPrecioCosto" required>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">PRECIO VENTA:</span>
+                        <input type="number" class="form-control text-right" id="txtPrecioVenta" name="txtPrecioVenta" required>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">STOCK:</span>
+                        <input type="number" class="form-control text-center" id="txtStock" name="txtStock" onkeypress="return valideKey(event);" required>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">CÓDIGO:</span>
+                        <input type="text" class="form-control text-center" id="txtCodigo" name="txtCodigo" required>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">CÓDIGO 2:</span>
+                        <input type="text" class="form-control text-center" id="txtCodigo2" name="txtCodigo2" required>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">MARCA REPUESTO:</span>
+                        <input type="text" class="form-control text-center" id="txtNombreMarcaRepuesto" name="txtNombreMarcaRepuesto">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">DISTRIBUIDOR:</span>
+                        <input type="text" class="form-control text-center" id="txtNombreDistribuidor" name="txtNombreDistribuidor">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">MARCA VEHICULO:</span>
+                        <input type="text" class="form-control text-center" id="txtNombreMarcaVehiculo" name="txtNombreMarcaVehiculo">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 pt-1">
+                    <div class="input-group text-right">
+                        <span class="col-form-label">SERIE VEHICULO:</span>
+                        <input type="text" class="form-control text-center" id="txtNombreSerieVehiculo" name="txtNombreSerieVehiculo">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 pt-1">
+                    <div class="input-group text-center">
+                        <span class="col-form-label">AÑO INICIAL:</span>
+                        <input type="text" class="form-control" id="txtAnioI" name="txtAnioI" readonly>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 pt-1">
+                    <div class="input-group text-center">
+                        <span class="col-form-label">AÑO FINAL:</span>
+                        <input type="text" class="form-control" id="txtAnioF" name="txtAnioF" readonly>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-4 text-center justify-content-center">
+                    <div class="btn-group text-center">
+                        <div class="form-group text-center" style="margin-top:-5px">
+                            <div class="input-group">
+                                <button style="margin-right:10px" class="btn btn-success" type="submit"><i class="fad fa-save text-white me-1"></i> GUARDAR</button>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pt-4 text-center justify-content-center">
+                    <div class="btn-group text-center">
+                        <div class="form-group text-center" style="margin-top:-5px">
+                            <div class="input-group">
+                                <label for="txtUploadExcel" class="subir btn btn-primary"><i class="far fa-file-upload"></i> CARGAR ARCHIVO</label>
+                                <input id="txtUploadExcel" type="file" style="display:none;" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                <div id="info"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

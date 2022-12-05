@@ -1,0 +1,11 @@
+C:\Development\Salespoint\BLL\bin\Debug\BLL.dll
+C:\Development\Salespoint\BLL\bin\Debug\BLL.pdb
+C:\Development\Salespoint\BLL\bin\Debug\BE.dll
+C:\Development\Salespoint\BLL\bin\Debug\DAL.dll
+C:\Development\Salespoint\BLL\bin\Debug\BE.pdb
+C:\Development\Salespoint\BLL\bin\Debug\DAL.pdb
+C:\Development\Salespoint\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
+C:\Development\Salespoint\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+C:\Development\Salespoint\BLL\obj\Debug\BLL.csproj.CopyComplete
+C:\Development\Salespoint\BLL\obj\Debug\BLL.dll
+C:\Development\Salespoint\BLL\obj\Debug\BLL.pdb
