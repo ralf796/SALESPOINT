@@ -31,6 +31,8 @@ namespace BE
         public decimal PRECIO_COSTO { get; set; }
         public decimal PRECIO_VENTA { get; set; }
         public int STOCK { get; set; }
+        public int STOCK_ANTERIOR { get; set; }
+        public int STOCK_ACTUAL { get; set; }
         public string CODIGO { get; set; }
         public string CODIGO2 { get; set; }
         public string TIPO_COBRO { get; set; }
@@ -60,5 +62,9 @@ namespace BE
         public DateTime FECHA_VENTA { get; set; }
         public string CODIGO_INTERNO { get; set; }
         public string NOMBRE_DISTRIBUIDOR { get; set; }
+        public string UUID { get; set; }
+        public string SERIE_FEL { get; set; }
+        public decimal NUMERO_FEL { get; set; }
+        public int FEL { get; set; }
     }
 }
