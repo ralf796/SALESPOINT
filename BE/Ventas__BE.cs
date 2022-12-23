@@ -56,6 +56,5 @@ namespace BE
         public string CODIGO_INTERNO { get; set; }
         public int ANIO_INICIAL { get; set; }
         public int ANIO_FINAL { get; set; }
-        public int FEL { get; set; }
     }
 }

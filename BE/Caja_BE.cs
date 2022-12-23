@@ -31,7 +31,6 @@ namespace BE
         public decimal MONTO_TARJETA { get; set; }
         public decimal MONTO_EFECTIVO { get; set; }
         public string RESPUESTA { get; set; }
-        public int FEL { get; set; }
 
     }
 }
