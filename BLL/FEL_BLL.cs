@@ -20,14 +20,5 @@ namespace BLL
             }
             return data;
         }
-        public static List<FEL_BE> LOG(FEL_BE item)
-        {
-            List<FEL_BE> data = null;
-            using (var model = new FEL_DAL())
-            {
-                data = model.LOG(item);
-            }
-            return data;
-        }
     }
 }
