@@ -1,0 +1,193 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    background-color: rgb(33, 37, 41);
+    background-image: url('../Content/images/material_background.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    font-family: Roboto;*/
+}
+
+/*.brand-logo {
+    line-height: 2.8em;
+}*/
+
+:root {
+    --darkgray: #333333;
+    --lightgray: #eee;
+    --nmhebron: #86deac;
+    --glass: rgba(255,255,255,0.5);
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.no-border {
+    border: none !important;
+}
+
+.column-2 {
+    columns: 2;
+}
+
+.list-icons {
+    list-style-type: disc !important;
+    padding-left: revert !important;
+}
+
+    .list-icons li {
+        list-style-type: disc !important;
+        padding-left: 1em;
+    }
+
+.row {
+    margin-bottom: 0;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.card .card-image {
+    max-height: 17.5em;
+}
+
+.loader {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    background-color: rgba(0,0,0,0.75);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+    .loader::before {
+        content: 'Espere un momento';
+        position: absolute;
+        width: 100%;
+        display: block;
+        top: calc(50% + 1.5em);
+        text-align: center;
+        opacity: 0.5;
+        color: #fff;
+    }
+
+    .loader::after {
+        content: '';
+        position: absolute;
+        height: 5em;
+        width: 5em;
+        display: block;
+        background-image: url('../Content/images/oriflame-spinner.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        top: calc(50% - 3.5em);
+        left: calc(50% - 2.5em);
+        animation: rotate-spinner 2s linear infinite;
+        opacity: 0.75;
+    }
+
+@keyframes rotate-spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.file-path {
+    padding-left: 3em !important;
+}
+
+input:not([type]).validate + label, input[type=text]:not(.browser-default).validate + label, input[type=password]:not(.browser-default).validate + label, input[type=email]:not(.browser-default).validate + label, input[type=url]:not(.browser-default).validate + label, input[type=time]:not(.browser-default).validate + label, input[type=date]:not(.browser-default).validate + label, input[type=datetime]:not(.browser-default).validate + label, input[type=datetime-local]:not(.browser-default).validate + label, input[type=tel]:not(.browser-default).validate + label, input[type=number]:not(.browser-default).validate + label, input[type=search]:not(.browser-default).validate + label, textarea.materialize-textarea.validate + label {
+    width: inherit;
+}
+
+.modal .modal-content {
+    padding: 0;
+}
+
+    .modal .modal-content .card {
+        margin: 0;
+    }
+
+.d-inline {
+    display: inline-block;
+}
+
+.vw-full {
+    width: 90vw !important;
+}
+
+div.iframe {
+    background-image: url('../img/main/spinner.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+iframe {
+    /*max-height: calc(100vh - 225px) !important;*/
+    width: 100%;
+    min-height: 768px;
+}
+
+table thead tr:last-child, table tbody tr:last-child, table tfoot tr:last-child {
+    border-bottom: solid 0.25em #26a69a;
+}
+/*table tfoot tr:first-child {
+    border-bottom: solid 0.25em #26a69a;
+}*/
+table th, table td {
+    padding: 5px;
+}
+
+.input-field {
+    margin-bottom: 5px;
+}
+
+.sweet-alert {
+    font-family: inherit;
+    border-radius: 2px;
+}
+
+    .sweet-alert .cancel {
+        background-color: #F44336 !important;
+        border-radius: 2px;
+    }
+
+    .sweet-alert .confirm {
+        background-color: #26a69a !important;
+        border-radius: 2px;
+    }
+
+/*.table thead tr * {
+    color: var(--white);
+}*/
+
+/*.w-100 {
+    width: 100%;
+}*/
+/*.input-field .prefix ~ select {
+    width: 86%;
+    width: calc(100% - 3rem);
+}*/
+
+
+
+@media screen and (max-width:1440px) {
+    .card .card-image {
+        max-height: 13em;
+    }
+}

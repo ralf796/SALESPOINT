@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    @Html.Partial("_HeadMaterialize")
+    @RenderSection("styles", required: false)
+</head>
+@Html.Partial("_LoadingFire")
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="row justify-content-center text-dark">
+        <div class="navbar">
+            <nav class="navbar navbar-expand justify-content-center text-center">
+                <ul class="nav nav-pills nav-sidebar" data-widget="treeview" data-accordion="false">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-users text-dark"></i>
+                            <p class="text-dark">
+                                CONECTIVIDAD
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">
+                            <p class="text-dark">
+                                CONCILIACION
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/INVMantenimiento/IndexListarProductos" class="dropdown-item text-dark">
+                                    @*<i class="far fa-list" style="color:white"></i>*@
+                                    <p class="text-dark">CONCILIACION 1</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/INVMantenimiento/IndexCrearProducto" class="dropdown-item text-dark">
+                                    <p class="text-dark">CONCILIACION 2</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="~/INVMantenimiento/IndexEditarProducto" class="dropdown-item text-dark">
+                                    <p class="text-dark">CONCILIACION 3</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="container-fluid p-0">
+        @RenderBody()
+    </div>
+    @Html.Partial("_JSMaterialize")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
