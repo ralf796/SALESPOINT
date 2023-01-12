@@ -48,6 +48,19 @@ namespace DAL
             }
             return result;
         }
+        public List<Accesos_BE> GetAccesos(Accesos_BE item)
+        {
+            List<Accesos_BE> result = new List<Accesos_BE>();
+            using (var model = new Base_SQL("sp_login"))
+            {
+                model.Command.Parameters.AddWithValue("@USUARIO", item.USUARIO);
+                model.Command.Parameters.AddWithValue("@PASSWORD", item.PASSWORD);
+                model.Command.Parameters.AddWithValue("@CORREO", item.EMAIL);
+                model.Command.Parameters.AddWithValue("@MTIPO", item.MTIPO);
+                result = model.GetData<Accesos_BE>();
+            }
+            return result;
+        }
 
     }
 }
