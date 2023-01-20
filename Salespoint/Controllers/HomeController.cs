@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BE;
 using BLL;
+using System.Text;
 
 namespace Ventas.Controllers
 {
@@ -23,13 +24,20 @@ namespace Ventas.Controllers
             lista = Usuarios_BLL.GetSPLogin(item);
             return lista;
         }
+        private List<Accesos_BE> GetAccesos_(Accesos_BE item)
+        {
+            List<Accesos_BE> lista = new List<Accesos_BE>();
+            lista = Usuarios_BLL.GetAccesos(item);
+            return lista;
+        }
         public JsonResult ValidarLogin(string usuario = "", string password = "")
         {
             try
             {
+                StringBuilder html = new StringBuilder();
                 string url = "";
                 var item = new Usuarios_BE();
-                item.EMAIL= usuario.ToUpper();
+                item.EMAIL = usuario.ToUpper();
                 item.USUARIO = usuario.ToUpper();
                 item.PASSWORD = new Encryption().Encrypt(password.ToUpper().Trim());
                 item.MTIPO = 1;
@@ -51,24 +59,63 @@ namespace Ventas.Controllers
                     item.URL_PANTALLA = url;
                     Session["url_pantalla"] = url;
 
-                    List<Usuarios_BE> Accesos = new List<Usuarios_BE>();
-                    item.MTIPO = 3;
-                    Accesos = GetSPLogin_(item);
-                    Session["lista_accesos"] = Accesos;
+                    List<Accesos_BE> Accesos = new List<Accesos_BE>();
+                    var itemAcceso = new Accesos_BE
+                    {
+                        USUARIO = item.USUARIO,
+                        MTIPO = 8
+                    };
+                    model.Menus = GetAccesos_(itemAcceso);
+                    Session["lista_accesos"] = model.Menus;
+
+
+                    var listado = Session["lista_accesos"];
+                    string sss = "";
+                    /*
+                    html.AppendLine("'");
+                    foreach (var row1 in model.Menus)
+                    {
+                        html.AppendLine($@"
+                            <li class=""nav-item"">
+                                <a href=""#"" class=""nav-link"">
+                                    <i class=""far fa-inventory""></i>
+                                    <p>{row1.NOMBRE}<i class=""fas fa-angle-left right""></i>
+                                    </p>
+                                </a>
+                        ");
+                        foreach (var row2 in model.Menus.Where(x => x.ID_PADRE == row1.ID_MENU_SYS))
+                        {
+                            html.AppendLine($@"
+                                    <ul class=""nav nav-treeview"">
+                                        <li class=""nav-item"">
+                                        </li>
+                                        <li class=""nav-item"">
+                                            <a href=""{row2.LINK}"" class=""nav-link"">
+                                                <i class=""{row1.ICONO}"" style=""color:white""></i>
+                                                <p>{row2.NOMBRE}</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                            ");
+                        }
+                        html.AppendLine($@"</li>");
+                    }
+                    html.AppendLine("'");
+                    */
                 }
                 else
                     item = null;
 
-                
+                //string htmlString = html.ToString().Replace("\r\n", "").Replace("\n", "").Replace("\r", "");
 
-                return Json(new { State = 1, data = item }, JsonRequestBehavior.AllowGet);
+                return Json(new { State = 1, data = item}, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { State = -1, Message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public JsonResult ChangePassword(string correo = "",string usuario="", string password = "")
+        public JsonResult ChangePassword(string correo = "", string usuario = "", string password = "")
         {
             try
             {
@@ -102,14 +149,5 @@ namespace Ventas.Controllers
             Session.Abandon();
             return RedirectToAction("Index");
         }
-
-        /*
-            SUPER_USUARIO = 1,
-            ADMINISTRADOR = 2,
-            CAJERO = 3,
-            BODEGUERO = 4,
-            SECRETARIA = 5,
-            VENDEDOR = 6
-        */
     }
 }

@@ -1,9 +1,8 @@
 ﻿@font-face {
-    font-family: "Salesment-normal";
-    src: url('fonts/SalesmentSansPrint-Regular.ttf');
+    font-family: 'iossansprint-regular';
+    src: url('fonts/iossansprint-regular.ttf') format('truetype');
 }
-
 @font-face {
-    font-family: "Salesment-Bold";
-    src: url('fonts/SalesmentSansPrint-Bold.ttf');
+    font-family: 'iossansprint-bold';
+    src: url('fonts/iossansprint-bold.ttf') format('truetype');
 }

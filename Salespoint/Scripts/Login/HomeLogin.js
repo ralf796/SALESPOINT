@@ -26,6 +26,7 @@
             showConfirmButton: false,
         })
     }
+    ValidarLogin('admin', 'admin')
     function ValidarLogin(usuario, password) {
         $.ajax({
             type: 'GET',
@@ -39,7 +40,12 @@
                 if (state == 1) {
                     var datoUsuario = data["data"];
                     if (datoUsuario != null) {
+                        var menus = data['menuHtml'];
+                        console.log(menus)
+                        //$('#divMenus').append(menus)
                         window.location.href = datoUsuario.URL_PANTALLA;
+
+                        //$('#divMenus').append('                            <li class="nav-item">                                <a href="#" class="nav-link">                                    <i class="far fa-inventory"></i>                                    <p>USUARIOS<i class="fas fa-angle-left right"></i>                                    </p>                                </a>                                                            <ul class="nav nav-treeview">                                        <li class="nav-item">                                        </li>                                        <li class="nav-item">                                            <a href="~/Usuarios/Listar" class="nav-link">                                                <i class="far fa-stop-circle" style="color:white"></i>                                                <p>LISTAR</p>                                            </a>                                        </li>                                    </ul>                            </li>                            <li class="nav-item">                                <a href="#" class="nav-link">                                    <i class="far fa-inventory"></i>                                    <p>CLIENTES<i class="fas fa-angle-left right"></i>                                    </p>                                </a>                        </li>                            <li class="nav-item">                                <a href="#" class="nav-link">                                    <i class="far fa-inventory"></i>                                    <p>INVENTARIO<i class="fas fa-angle-left right"></i>                                    </p>                                </a>                        </li>                            <li class="nav-item">                                <a href="#" class="nav-link">                                    <i class="far fa-inventory"></i>                                    <p>VENTAS<i class="fas fa-angle-left right"></i>                                    </p>                                </a>                        </li>                            <li class="nav-item">                                <a href="#" class="nav-link">                                    <i class="far fa-inventory"></i>                                    <p>CAJA<i class="fas fa-angle-left right"></i>                                    </p>                                </a>                        </li>                            <li class="nav-item">                                <a href="#" class="nav-link">                                    <i class="far fa-inventory"></i>                                    <p>REPORTES<i class="fas fa-angle-left right"></i>                                    </p>                                </a>                        </li>                            <li class="nav-item">                                <a href="#" class="nav-link">                                    <i class="far fa-inventory"></i>                                    <p>ANULACIONES<i class="fas fa-angle-left right"></i>                                    </p>                                </a>                        </li>                            <li class="nav-item">                                <a href="#" class="nav-link">                                    <i class="far fa-inventory"></i>                                    <p>DEVOLUCIONES<i class="fas fa-angle-left right"></i>                                    </p>                                </a>                        </li>                            <li class="nav-item">                                <a href="#" class="nav-link">                                    <i class="far fa-inventory"></i>                                    <p>LISTAR<i class="fas fa-angle-left right"></i>                                    </p>                                </a>                        </li>')
                     }
                     else {
                         $('#txtUsuarioChange').val('');
@@ -71,7 +77,7 @@
                         $('#modalRecuperarPass').modal('hide');
                     }
                     else {
-                        ShowAlertMessage('info','El correo ingresado no es válido en el sistema SALESMENT.')
+                        ShowAlertMessage('info', 'El correo ingresado no es válido en el sistema SALESMENT.')
 
                         $('#txtUsuarioChange').val('');
                         $('#txtCorreo').val('');
@@ -109,11 +115,11 @@
         var pass2 = $('#txtpass2').val();
 
         if (pass1 != pass2) {
-            ShowAlertMessage('warning','Las contraseñas no coinciden.')
+            ShowAlertMessage('warning', 'Las contraseñas no coinciden.')
             return;
         }
 
-        ChangePassword(correo,usuario, pass1);
+        ChangePassword(correo, usuario, pass1);
     });
 
 });

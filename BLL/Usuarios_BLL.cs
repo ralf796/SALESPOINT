@@ -29,5 +29,14 @@ namespace BLL
             }
             return data;
         }
+        public static List<Accesos_BE> GetAccesos(Accesos_BE item)
+        {
+            List<Accesos_BE> data = null;
+            using (var model = new Usuarios_DAL())
+            {
+                data = model.GetAccesos(item);
+            }
+            return data;
+        }
     }
 }
