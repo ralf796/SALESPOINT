@@ -21,13 +21,13 @@ namespace Ventas.Controllers
         private List<Usuarios_BE> GetSPLogin_(Usuarios_BE item)
         {
             List<Usuarios_BE> lista = new List<Usuarios_BE>();
-            lista = Usuarios_BLL.GetSPLogin(item);
+            lista = sp_store_procedure_BLL.GetSPLogin(item);
             return lista;
         }
         private List<Accesos_BE> GetAccesos_(Accesos_BE item)
         {
             List<Accesos_BE> lista = new List<Accesos_BE>();
-            lista = Usuarios_BLL.GetAccesos(item);
+            lista = sp_store_procedure_BLL.GetAccesos(item);
             return lista;
         }
         public JsonResult ValidarLogin(string usuario = "", string password = "")
@@ -65,8 +65,8 @@ namespace Ventas.Controllers
                         USUARIO = item.USUARIO,
                         MTIPO = 8
                     };
-                    model.Menus = GetAccesos_(itemAcceso);
-                    Session["lista_accesos"] = model.Menus;
+                    //model.Menus = GetAccesos_(itemAcceso);
+                    Session["lista_accesos"] = GetAccesos_(itemAcceso);
 
 
                     var listado = Session["lista_accesos"];

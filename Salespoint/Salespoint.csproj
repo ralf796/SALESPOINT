@@ -2599,6 +2599,7 @@
     <Compile Include="Class\Utils.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\USUARIOS\USU_ListarController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3404,6 +3405,7 @@
     <Content Include="Views\Shared\_Head.cshtml" />
     <Content Include="Views\Shared\_JS.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\USU_Listar\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3419,7 +3421,6 @@
     <Folder Include="Controllers\DEVOLUCIONES\" />
     <Folder Include="Controllers\INVENTARIO\" />
     <Folder Include="Controllers\REPORTES\" />
-    <Folder Include="Controllers\USUARIOS\" />
     <Folder Include="Controllers\VENTAS\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Login\" />

@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.TitleCard = " ";
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            //$('#modalFullScreen').modal('show');
+            $('#modalViewDocs').modal('show');
+        });
+    </script>
+}
+
+<style>
+    .modal-fullscreen {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+
+        .modal-fullscreen .modal-content {
+            height: 100%;
+            border: 0;
+            border-radius: 0;
+        }
+</style>
+
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <form class="form-group">
+            <label class="lblFloating" for="txtDescripcionActivoDet">PRIMER NOMBRE</label>
+            <input type="text" class="form-control inputForms" id="txtDescripcionActivoDet">
+        </form>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <form class="form-group">
+            <label class="lblFloating" for="txtDescripcionActivoDet">SEGUNDO NOMBRE</label>
+            <input type="text" class="form-control inputForms" id="txtDescripcionActivoDet">
+        </form>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <form class="form-group">
+            <label class="lblFloating" for="txtDescripcionActivoDet">PRIMER APELLID</label>
+            <input type="text" class="form-control inputForms" id="txtDescripcionActivoDet">
+        </form>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+        <form class="form-group">
+            <label class="lblFloating" for="txtDescripcionActivoDet">SEGUNDO APELLIDO</label>
+            <input type="text" class="form-control inputForms" id="txtDescripcionActivoDet">
+        </form>
+    </div>
+</div>
+
+<div class="modal modal-fullscreen-xl" id="modalFullScreen" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="background-color: #e4e5eb ">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen ">
+        <div class="modal-content">
+            <div class="card-header">
+                <div class="row justify-content-center">
+                    <h4 class="text-secondary font-weight-bold">12345</h4>
+                </div>
+            </div>
+            <div class="modal-body" style="overflow-y:hidden">
+
+            </div>
+            <div class="card-footer text-center text-md-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalViewDocs" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="row">
+                    <div class="col-12 col-md-6 offset-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title fw-bold border-bottom" id="titleModalViewDocs"></div>
+                                <table class="table" id="tblDocumentos">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">#</th>
+                                            <th scope="col" class="text-center">Fecha</th>
+                                            <th scope="col" class="text-center d-none">Documento</th>
+                                            <th scope="col" class="text-center">Link</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyDocumentos">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer text-center text-md-center">
+                                <button class="btn btn-danger" data-bs-dismiss="modal"><i class="fad fa-times me-1"></i>Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,15 +1,16 @@
-﻿using System;
+﻿using BE;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BE;
 
 namespace DAL
 {
-    public class Usuarios_DAL : IDisposable
+    public class sp_store_procedure_DAL : IDisposable
     {
         public void Dispose() { }
+
         public List<Usuarios_BE> GetSPUsuario(Usuarios_BE item)
         {
             List<Usuarios_BE> result = new List<Usuarios_BE>();
@@ -61,6 +62,5 @@ namespace DAL
             }
             return result;
         }
-
     }
 }

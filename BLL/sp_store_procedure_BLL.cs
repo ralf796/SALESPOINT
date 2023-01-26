@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BE;
+﻿using BE;
 using DAL;
+using System;
+using System.Collections.Generic;
 
 namespace BLL
 {
-    public class Usuarios_BLL:IDisposable
+    public class sp_store_procedure_BLL : IDisposable
     {
         public void Dispose() { }
+
+        #region PROCESO ACCESOS
         public static List<Usuarios_BE> GetSPUsuario(Usuarios_BE item)
         {
             List<Usuarios_BE> data = null;
-            using (var model = new Usuarios_DAL())
+            using (var model = new sp_store_procedure_DAL())
             {
                 data = model.GetSPUsuario(item);
             }
@@ -23,7 +22,7 @@ namespace BLL
         public static List<Usuarios_BE> GetSPLogin(Usuarios_BE item)
         {
             List<Usuarios_BE> data = null;
-            using (var model = new Usuarios_DAL())
+            using (var model = new sp_store_procedure_DAL())
             {
                 data = model.GetSPLogin(item);
             }
@@ -32,11 +31,13 @@ namespace BLL
         public static List<Accesos_BE> GetAccesos(Accesos_BE item)
         {
             List<Accesos_BE> data = null;
-            using (var model = new Usuarios_DAL())
+            using (var model = new sp_store_procedure_DAL())
             {
                 data = model.GetAccesos(item);
             }
             return data;
         }
+
+        #endregion
     }
 }
