@@ -1,5 +1,3 @@
-C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.csproj.AssemblyReference.cache
-C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.csproj.CoreCompileInputs.cache
 C:\Development\Salespoint\Salespoint\bin\Salespoint.dll.config
 C:\Development\Salespoint\Salespoint\bin\Salespoint.dll
 C:\Development\Salespoint\Salespoint\bin\Salespoint.pdb
@@ -89,6 +87,8 @@ C:\Development\Salespoint\Salespoint\bin\es\System.Web.Helpers.resources.dll
 C:\Development\Salespoint\Salespoint\bin\es\System.Web.Mvc.resources.dll
 C:\Development\Salespoint\Salespoint\bin\Select.Html.dep
 C:\Development\Salespoint\Salespoint\bin\Select.Tools.dep
+C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.csproj.AssemblyReference.cache
+C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.csproj.CoreCompileInputs.cache
 C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.csproj.CopyComplete
 C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.dll
 C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.pdb

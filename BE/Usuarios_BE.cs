@@ -34,5 +34,9 @@ namespace BE
         //public string URL_FOTOGRAFIA { get; set; }
         public int ESTADO { get; set; }
         public int ID_EMPLEADO { get; set; }
+        public DateTime FECHA_CREACION { get; set; }
+        public string URL_FOTOGRAFIA { get; set; }
+        public int RESPUESTA_CODIGO { get; set; }
+        public string RESPUESTA_DESCRIPCION { get; set; }
     }
 }

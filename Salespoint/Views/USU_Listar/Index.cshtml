@@ -1,56 +1,370 @@
 ﻿
 @{
-    ViewBag.TitleCard = " ";
+    ViewBag.TitleCard = "USUARIOS";
 }
 
 @section scripts{
+
     <script>
+        function cambiar() {
+            var pathArray = $('input[type=file]').val().split('\\');
+            var pdrs = pathArray[pathArray.length - 1];
+            $('#info').text(pdrs);
+        }
+        function cambiar2() {
+            //var pathArray = $('#idFotografiaUpdate input[type=file]').val().split('\\');
+            var pathArray = $('#idFotografiaUpdate').prop('type', 'file')[0].value.split('\\');
+            console.log(pathArray)
+            var pdrs = pathArray[pathArray.length - 1];
+            $('#info2').text(pdrs);
+        }
+        function ClearModalCreate() {
+            $('#txtGuardarPrimerNombre').val();
+            $('#txtGuardarSegundoNombre').val();
+            $('#txtGuardarPrimerApellido').val();
+            $('#txtGuardarSegundoApellido').val();
+            $('#txtGuardarTelCasa').val();
+            $('#txtGuardarDireccion').val();
+            $('#txtGuardarEmail').val();
+            $('#idFotografia').val();
+        }
+        function ClearModalUpdate() {
+            $('#txtUpdatePrimerNombre').val();
+            $('#txtUpdateSegundoNombre').val();
+            $('#txtUpdatePrimerApellido').val();
+            $('#txtUpdateSegundoApellido').val();
+            $('#txtUpdateTelCasa').val();
+            $('#txtUpdateDireccion').val();
+            $('#txtUpdateEmail').val();
+            $('#idFotografiaUpdate').val();
+        }
+        function OpenModalCreate() {
+            $('#modalCreate').modal('show');
+            FillRolUsuario('#selRolCreate');
+        }
+        function FillRolUsuario(object) {
+            $(object).load('@Url.Action("Select_RolUsuario")', function () {});
+
+        }
+
+        function Listar() {
+            $('#divData').load('@Url.Action("Listar")', function () {
+                //TableNoSearch('#tableData');
+            });
+        }
+        function Create() {
+            var primerNombre = $('#txtGuardarPrimerNombre').val();
+            var segundoNombre = $('#txtGuardarSegundoNombre').val();
+            var primerApellido = $('#txtGuardarPrimerApellido').val();
+            var segundoApellido = $('#txtGuardarSegundoApellido').val();
+            var telefono = $('#txtGuardarTelCasa').val();
+            var direccion = $('#txtGuardarDireccion').val();
+            var email = $('#txtGuardarEmail').val();
+            var urlFoto = $('#idFotografia').val();
+            var idRol = $('#selRolCreate').val();
+
+            if (idRol == '' || idRol == null) {
+                Alert('¡DEBES SELECCIONAR EL ROL DE ACCESOS!', NotifyIcon.warning);
+                $('#selRolCreate').focus();
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('primerNombre', primerNombre);
+            formData.append('segundoNombre', segundoNombre);
+            formData.append('primerApellido', primerApellido);
+            formData.append('segundoApellido', segundoApellido);
+            formData.append('telefono', telefono);
+            formData.append('direccion', direccion);
+            formData.append('email', email);
+            formData.append('idRol', idRol);
+            formData.append('urlFoto', urlFoto);
+            if ($('#idFotografia')[0].files != undefined) {
+                let files = $('#idFotografia')[0].files;
+                formData.append('foto', files[0]);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Create")',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.Codigo == '1') {
+                        Notify(response.Descripcion, NotifyIcon.success);
+                        Listar();
+                        $('#modalCreate').modal('hide');
+                        ClearModalCreate();
+                    }
+                    else {
+                        Alert(response.Descripcion, NotifyIcon.warning);
+                    }
+                }
+            });
+        }
+        function GetDatosActualizar(ID_EMPLEADO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, DIRECCION, CORREO, TELEFONO, ID_ROL) {
+            $('#modalUpdate').modal('show');
+            $('#hfIdEmpleado').val(ID_EMPLEADO);
+            $('#txtUpdatePrimerNombre').val(PRIMER_NOMBRE);
+            $('#txtUpdateSegundoNombre').val(SEGUNDO_NOMBRE);
+            $('#txtUpdatePrimerApellido').val(PRIMER_APELLIDO);
+            $('#txtUpdateSegundoApellido').val(SEGUNDO_APELLIDO);
+            $('#txtUpdateDireccion').val(DIRECCION);
+            $('#txtUpdateEmail').val(CORREO);
+            $('#txtUpdateTelCasa').val(TELEFONO);
+
+            $('#selRolUpdate').val(ID_ROL);
+
+        }
+        function Update() {
+            var idEmpleado = $('#hfIdEmpleado').val();
+            var primerNombre = $('#txtUpdatePrimerNombre').val();
+            var segundoNombre = $('#txtUpdateSegundoNombre').val();
+            var primerApellido = $('#txtUpdatePrimerApellido').val();
+            var segundoApellido = $('#txtUpdateSegundoApellido').val();
+            var telefono = $('#txtUpdateTelCasa').val();
+            var direccion = $('#txtUpdateDireccion').val();
+            var email = $('#txtUpdateEmail').val();
+            var urlFoto = $('#idFotografiaUpdate').val();
+            var idRol = $('#selRolUpdate').val();
+            console.log(urlFoto)
+            if (idRol == '' || idRol == null) {
+                Alert('¡DEBES SELECCIONAR EL ROL DE ACCESOS!', NotifyIcon.warning);
+                $('#selRolUpdate').focus();
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('idEmpleado', idEmpleado);
+            formData.append('primerNombre', primerNombre);
+            formData.append('segundoNombre', segundoNombre);
+            formData.append('primerApellido', primerApellido);
+            formData.append('segundoApellido', segundoApellido);
+            formData.append('telefono', telefono);
+            formData.append('direccion', direccion);
+            formData.append('email', email);
+            formData.append('idRol', idRol);
+            formData.append('urlFoto', urlFoto);
+            if ($('#idFotografiaUpdate')[0].files != undefined) {
+                let files = $('#idFotografiaUpdate')[0].files;
+                formData.append('foto', files[0]);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Update")',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.Codigo == '1') {
+                        Notify(response.Descripcion, NotifyIcon.success);
+                        Listar();
+                        $('#modalUpdate').modal('hide');
+                        ClearModalUpdate();
+                    }
+                    else {
+                        Alert(response.Descripcion, NotifyIcon.warning);
+                    }
+                }
+            });
+        }
+        function Delete(ID_EMPLEADO) {
+            $.post('@Url.Action("Delete")', { ID_EMPLEADO }, function (response) {
+                if (response.Codigo == '1') {
+                    Notify(response.Descripcion, NotifyIcon.success);
+                    Listar();
+                }
+                else {
+                    Alert(response.Descripcion, NotifyIcon.warning);
+                }
+            });
+        }
+        function ConfirmDelete(ID_EMPLEADO) {
+            Confirm('Se inactivará el item seleccionado. ¿Quieres continuar?', function () { Delete(ID_EMPLEADO) });
+        }
+
         $(document).ready(function () {
-            //$('#modalFullScreen').modal('show');
-            $('#modalViewDocs').modal('show');
+            Listar();
+            FillRolUsuario('#selRolUpdate');
         });
     </script>
 }
-
 <style>
-    .modal-fullscreen {
-        width: 100%;
-        max-width: 100%;
-        height: 100%;
-        margin: 0;
+    .custom-file-input ~ .custom-file-label::after {
+        content: "Archivo";
     }
-
-        .modal-fullscreen .modal-content {
-            height: 100%;
-            border: 0;
-            border-radius: 0;
-        }
 </style>
 
-<div class="row">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-        <form class="form-group">
-            <label class="lblFloating" for="txtDescripcionActivoDet">PRIMER NOMBRE</label>
-            <input type="text" class="form-control inputForms" id="txtDescripcionActivoDet">
-        </form>
+<div class="col-md-12">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title" style="height:10px; margin-top:-3px">USUARIOS</h3>
+        </div>
+        <div class="card-body">
+            <div class="col-12 text-center">
+                <button class="btn btn-secondary" onclick="OpenModalCreate()"><i class="fad fa-file-plus"></i> NUEVO REGISTRO</button>
+            </div>
+            <div class="col-12 mt-1" id="divData"></div>
+        </div>
     </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-        <form class="form-group">
-            <label class="lblFloating" for="txtDescripcionActivoDet">SEGUNDO NOMBRE</label>
-            <input type="text" class="form-control inputForms" id="txtDescripcionActivoDet">
-        </form>
+</div>
+
+<div class="modal" id="modalCreate" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="card-header">
+                <div class="row justify-content-center">
+                    <h4 class="text-secondary font-weight-bold">CREAR NUEVO REGISTRO</h4>
+                </div>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title fw-bold border-bottom" id="titleModalViewDocs"></div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtGuardarPrimerNombre">PRIMER NOMBRE</label>
+                                    <input type="text" class="form-control inputForms" id="txtGuardarPrimerNombre">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtGuardarSegundoNombre">SEGUNDO NOMBRE</label>
+                                    <input type="text" class="form-control inputForms" id="txtGuardarSegundoNombre">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtGuardarPrimerApellido">PRIMER APELLIDO</label>
+                                    <input type="text" class="form-control inputForms" id="txtGuardarPrimerApellido">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtGuardarSegundoApellido">SEGUNDO APELLIDO</label>
+                                    <input type="text" class="form-control inputForms" id="txtGuardarSegundoApellido">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-12">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtGuardarDireccion">DIRECCIÓN</label>
+                                    <input type="text" class="form-control inputForms" id="txtGuardarDireccion">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-12">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtGuardarEmail">CORREO</label>
+                                    <input type="text" class="form-control inputForms" id="txtGuardarEmail">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtGuardarTelCasa">TELÉFONO</label>
+                                    <input type="text" class="form-control inputForms" id="txtGuardarTelCasa">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" form="exampleFormControlSelect1">ROL USUARIO</label>
+                                    <select class="form-control inputForms" id="selRolCreate"></select>
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-12 justify-content-center text-center">
+                                <label for="idFotografia" class="subir btn btn-secondary"><i class="fas fa-images"></i> Seleccionar fotografía</label>
+                                <input id="idFotografia" onchange="cambiar()" type="file" style="display:none;" />
+                                <div id="info"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center text-md-center">
+                        <button type="button" class="btn btn-success" onclick="Create()"><i class="fad fa-check"></i> GUARDAR</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fad fa-times me-1"></i> CERRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-        <form class="form-group">
-            <label class="lblFloating" for="txtDescripcionActivoDet">PRIMER APELLID</label>
-            <input type="text" class="form-control inputForms" id="txtDescripcionActivoDet">
-        </form>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
-        <form class="form-group">
-            <label class="lblFloating" for="txtDescripcionActivoDet">SEGUNDO APELLIDO</label>
-            <input type="text" class="form-control inputForms" id="txtDescripcionActivoDet">
-        </form>
+</div>
+
+<input id="hfIdEmpleado" type="hidden"/>
+<div class="modal" id="modalUpdate" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="card-header">
+                <div class="row justify-content-center">
+                    <h4 class="text-secondary font-weight-bold">ACTUALIZACIÓN DE DATOS</h4>
+                </div>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title fw-bold border-bottom" id="titleModalViewDocs"></div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtUpdatePrimerNombre">PRIMER NOMBRE</label>
+                                    <input type="text" class="form-control inputForms" id="txtUpdatePrimerNombre">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtUpdateSegundoNombre">SEGUNDO NOMBRE</label>
+                                    <input type="text" class="form-control inputForms" id="txtUpdateSegundoNombre">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtUpdatePrimerApellido">PRIMER APELLIDO</label>
+                                    <input type="text" class="form-control inputForms" id="txtUpdatePrimerApellido">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtUpdateSegundoApellido">SEGUNDO APELLIDO</label>
+                                    <input type="text" class="form-control inputForms" id="txtUpdateSegundoApellido">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-12">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtUpdateDireccion">DIRECCIÓN</label>
+                                    <input type="text" class="form-control inputForms" id="txtUpdateDireccion">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-12">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtUpdateEmail">CORREO</label>
+                                    <input type="text" class="form-control inputForms" id="txtUpdateEmail">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" for="txtUpdateTelCasa">TELÉFONO</label>
+                                    <input type="text" class="form-control inputForms" id="txtUpdateTelCasa">
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                <form class="form-group">
+                                    <label class="lblFloating" form="exampleFormControlSelect1">ROL USUARIO</label>
+                                    <select class="form-control inputForms" id="selRolUpdate"></select>
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-12 justify-content-center text-center">
+                                <label for="idFotografiaUpdate" class="subir btn btn-secondary"><i class="fas fa-images"></i> Seleccionar fotografía</label>
+                                <input id="idFotografiaUpdate" onchange="cambiar2()" type="file" style="display:none;" />
+                                <div id="info2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center text-md-center">
+                        <button type="button" class="btn btn-success" onclick="Update()"><i class="fad fa-check"></i> ACTUALIZAR</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fad fa-times me-1"></i> CERRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -72,35 +386,4 @@
     </div>
 </div>
 
-<div class="modal" id="modalViewDocs" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-                <div class="row">
-                    <div class="col-12 col-md-6 offset-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-title fw-bold border-bottom" id="titleModalViewDocs"></div>
-                                <table class="table" id="tblDocumentos">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" class="text-center">#</th>
-                                            <th scope="col" class="text-center">Fecha</th>
-                                            <th scope="col" class="text-center d-none">Documento</th>
-                                            <th scope="col" class="text-center">Link</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbodyDocumentos">
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="card-footer text-center text-md-center">
-                                <button class="btn btn-danger" data-bs-dismiss="modal"><i class="fad fa-times me-1"></i>Cerrar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+

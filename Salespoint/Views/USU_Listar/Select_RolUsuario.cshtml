@@ -1,0 +1,7 @@
+﻿@{
+    List<BE.Usuarios_BE> lista = ViewBag.lista;
+}
+@foreach (var row in lista)
+{
+    <option value="@row.ID_ROL">@row.NOMBRE</option>
+}

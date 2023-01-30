@@ -10,12 +10,12 @@ namespace BLL
         public void Dispose() { }
 
         #region PROCESO ACCESOS
-        public static List<Usuarios_BE> GetSPUsuario(Usuarios_BE item)
+        public static List<Usuarios_BE> BLL_sp_usuarios(Usuarios_BE item)
         {
             List<Usuarios_BE> data = null;
             using (var model = new sp_store_procedure_DAL())
             {
-                data = model.GetSPUsuario(item);
+                data = model.DAL_sp_usuarios(item);
             }
             return data;
         }

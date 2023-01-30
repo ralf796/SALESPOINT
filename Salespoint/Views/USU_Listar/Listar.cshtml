@@ -1,0 +1,110 @@
+﻿@{
+    List<BE.Usuarios_BE> data = ViewBag.data;
+}
+<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class='input-group-prepend'>
+        <div class='input-group-text'>
+            <i class='fa fa-search'></i>
+        </div>
+        <input type="text" class="form-control text-left" id="txtFiltro" />
+    </div>
+</div>
+<table class="table table-striped display nowrap table table-hover table-sm" style="width:100%" width="100%" id="tableData">
+    @*<table class="table-striped display nowrap " style="width:100%" id="tableData">*@
+    <thead>
+        <tr>
+            <th class="d-none">ID EMPLEADO</th>
+            <th class="d-none">ID TIPO EMPLEADO</th>
+            <th class="d-none">ID_ROL</th>
+            <th class="d-none">ID_USUARIO</th>
+            <th class="headColor text-center pr-2">FOTOGRAFIA</th>
+            <th class="headColor text-center pr-2">ROL</th>
+            <th class="headColor text-center pr-2">USUARIO</th>
+            <th class="headColor text-center pr-2">PRIMER NOMBRE</th>
+            <th class="headColor text-center pr-2">SEGUNDO NOMBRE</th>
+            <th class="headColor text-center pr-2">PRIMER APELLIDO</th>
+            <th class="headColor text-center pr-2">SEGUNDO APELLIDO</th>
+            <th class="headColor text-center pr-2">DIRECCIÓN</th>
+            <th class="headColor text-center pr-2">TELÉFONO</th>
+            <th class="headColor text-center pr-2">CORREO ELECTRÓNICO</th>
+            <th class="headColor text-center pr-2">ESTADO</th>
+            <th class="d-none">CREADO POR</th>
+            <th class="d-none">ESTADO</th>
+            <th class="d-none">FECHA CREACIÓN</th>
+            <th class="d-none">URL_PANTALLA</th>
+            <th class="headColor text-center"></th>
+        </tr>
+    </thead>
+    <tbody id="tBodyData">
+        @foreach (var row in data)
+        {
+            <tr>
+                <td class="d-none">@row.ID_EMPLEADO</td>
+                <td class="d-none">@row.ID_TIPO_EMPLEADO</td>
+                <td class="d-none">@row.ID_ROL</td>
+                <td class="d-none">@row.ID_USUARIO</td>
+                <td>
+                    <img src="@row.URL_FOTOGRAFIA" height="50" width="50" />
+                </td>
+                <td style="vertical-align:middle">@row.NOMBRE_ROL</td>
+                <td style="vertical-align:middle">@row.USUARIO</td>
+                <td style="vertical-align:middle">@row.PRIMER_NOMBRE</td>
+                <td style="vertical-align:middle">@row.SEGUNDO_NOMBRE</td>
+                <td style="vertical-align:middle">@row.PRIMER_APELLIDO</td>
+                <td style="vertical-align:middle">@row.SEGUNDO_APELLIDO</td>
+                <td style="vertical-align:middle">@row.DIRECCION</td>
+                <td style="vertical-align:middle">@row.TELEFONO</td>
+                <td style="vertical-align:middle">@row.EMAIL</td>
+
+                @if (row.ESTADO == 1)
+                {
+                    <td style="vertical-align:middle" class="text-center text-success font-weight-bold">
+                        ACTIVO
+                    </td>
+                }
+                else
+                {
+                    <td style="vertical-align:middle" class="text-center text-danger font-weight-bold">
+                        INACTIVO
+                    </td>
+                }
+
+                <td class="d-none">@row.CREADO_POR</td>
+                <td class="d-none">@row.ESTADO</td>
+                <td class="d-none">@row.FECHA_CREACION</td>
+                <td class="d-none">@row.URL_PANTALLA</td>
+                <td style="vertical-align:middle" class="text-center">
+                    @if (row.ESTADO == 1)
+                    {
+                        <i class="fas fa-edit text-primary hvr-grow btn pr-1" onclick="GetDatosActualizar(@row.ID_EMPLEADO, '@row.PRIMER_NOMBRE', '@row.SEGUNDO_NOMBRE', '@row.PRIMER_APELLIDO', '@row.SEGUNDO_APELLIDO', '@row.DIRECCION', '@row.EMAIL', '@row.TELEFONO', @row.ID_ROL)" title="Actualizar datos"></i>
+                        <i class="fas fa-trash-alt text-danger hvr-grow btn" title="Inactivar Item" onclick="ConfirmDelete(@row.ID_EMPLEADO)"></i>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#tableData").dataTable({
+            scrollY: (window.innerHeight - 300) + 'px',
+            scrollX: true,
+            scrollCollapse: true,
+            fixedHeader: true,
+            ordering: false,
+            info: false,
+            paginate: false,
+            searching: false
+        });
+
+        $("#txtFiltro").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#tBodyData tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

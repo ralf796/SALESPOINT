@@ -37,7 +37,7 @@
             @*<div class="row text-center justify-content-center" style="margin-left:50px">
                 <b>S A L E S P O I N T</b>
             </div>*@
-            <ul class="navbar-nav ml-auto d-none">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     @*<a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
@@ -154,7 +154,7 @@
                 </li>
             </ul>            
         </nav>
-        <aside class="main-sidebar sidebar-dark-primary d-none">
+        <aside class="main-sidebar sidebar-dark-primary">
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
@@ -191,7 +191,7 @@
                                 {
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="~@row2.LINK" class="nav-link" style="margin-left:12px;">
+                                            <a href="@row2.LINK" class="nav-link" style="margin-left:12px;">
                                                 <i class="@row2.ICONO" style="color:white; font-size:10px"></i>
                                                 <p>@row2.NOMBRE</p>
                                             </a>
@@ -210,19 +210,10 @@
             </div>
         </aside>
         <div class="content-wrapper">
-            <div class="col-md-12 p-1">
-                <div class="card card-secondary">
-                    <div class="card-header">
-                        <h3 class="card-title" style="height:10px; margin-top:-10px">@ViewBag.TitleCard</h3>
-                    </div>
-                    <div class="card-body">
-                        @RenderBody()                        
-                    </div>
-                </div>
-            </div>
+            @RenderBody()
         </div>
         <footer class="main-footer d-none">
-            <strong>Ingeniería IOS &copy; @DateTime.Now.Year.</strong>
+            <strong>Ingeniería de Software&copy; @DateTime.Now.Year.</strong>
             <div class="float-right d-sm-inline-block">
                 <b>Version</b> 1.0
             </div>
