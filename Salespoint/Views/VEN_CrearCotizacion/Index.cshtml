@@ -1,0 +1,335 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <style>
+        .headColor {
+            background-color: dimgray;
+            color: white;
+            font-size: 13px;
+        }
+
+        input {
+            margin-top: -10px;
+        }
+
+        #gridContainer span.current-value {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        #gridContainer span.diff {
+            width: 50px;
+            display: inline-block;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .zoom {
+            transition: transform .2s;
+            margin: 0 auto;
+        }
+
+            .zoom:hover {
+                -ms-transform: scale(5); /* IE 9 */
+                -webkit-transform: scale(5); /* Safari 3-8 */
+                transform: scale(2);
+            }
+    </style>
+}
+
+<div class="row" style="margin-top:-30px">
+    <div class="col-md-12">
+        <div class="card card-outline-secondary">
+            <div class="card-header">
+                <h3 class="mb-0 d-none">CREAR NUEVA VENTA</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+                        <label for="divNit">NIT</label>
+                        <div class="input-group mb-3" id="divNit">
+                            <div class="input-group-prepend">
+                                <button id="btnAgregarCliente" style="margin-top:-10px" type="button" class="btn btn-success"><i class="far fa-plus"></i></button>
+                                <button id="btnBuscarClientes" style="margin-top:-10px" type="button" class="btn btn-info"><i class="far fa-search"></i></button>
+                            </div>
+                            <input type="text" class="form-control" id="txtNit">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-5">
+                        <label for="txtNombreCliente">CLIENTE</label>
+                        <input class="form-control" id="txtNombreCliente" name="txtNombreCliente" type="text" disabled>
+                        <input id="hfIdCliente" type="hidden">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-5">
+                        <label for="txtNombreCliente">DIRECCION</label>
+                        <input class="form-control" id="txtDireccion" name="txtDireccion" type="text" disabled>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:-17px">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                        <label for="divCodigo">CATÁLOGO</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button id="btnBuscarProductos" style="margin-top:-10px" type="button" class="btn btn-info"><i class="far fa-search"></i></button>
+                            </div>
+                            <input type="text" class="form-control" id="txtCodigo">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+                        <label for="txtNombreProducto">NOMBRE PRODUCTO</label>
+                        <input class="form-control" id="txtNombreProducto" name="txtNombreProducto" type="text" disabled>
+                        <input id="hfIdProducto" type="hidden">
+                    </div>
+                </div>
+                <div class="row" style="margin-top:-10px">
+                    <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-2">
+                        <label for="txtCantidad">CANTIDAD</label>
+                        <input class="form-control text-center" id="txtCantidad" name="txtCantidad" onkeypress="return valideKey(event);" type="text">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-2">
+                        <label for="txtPrecio">PRECIO</label>
+                        <input class="form-control text-center" id="txtPrecio" name="txtPrecio" type="number" disabled>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                        <button style="margin-top:25px" class="btn btn-success btn-sm" id="btnAgregarDetalle"><i class="far fa-plus"></i> AGREGAR</button>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm" id="tblVenta" width="100%" style="font-size:14.5px">
+                                <thead class="headColor">
+                                    <tr>
+                                        <th class="border text-center pl-2 pr-2">#</th>
+                                        <th class="border text-center pl-2 pr-2 d-none">ID</th>
+                                        <th class="border text-center pl-2 pr-2">PRODUCTO</th>
+                                        <th class="border text-center pl-2 pr-2">CANTIDAD</th>
+                                        <th class="border text-center pl-2 pr-2">PRECIO</th>
+                                        <th class="border text-center pl-2 pr-2">DESCUENTO</th>
+                                        <th class="border text-center pl-2 pr-2">SUBTOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyDetalleVenta">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button class="btn btn-secondary btn-sm" type="reset" id="btnCancelarVenta">CANCELAR</button>
+                <button class="btn btn-danger btn-sm" id="btnCrearCotizacion"><i class="fad fa-file-pdf"></i> CREAR COTIZACION</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalProductos">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header d-none">
+                <h5 class="modal-title">BUSQUEDA DE REPUESTOS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span style="color:red" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card" style="margin-top:-10px">
+                    <span class="badge badge-pill badge-secondary">LISTADO DE PRODUCTOS</span>
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">INGRESE SU BUSQUEDA</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="txtFiltro" style="margin-top:1px">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">INGRESE MODELO</div>
+                                    </div>
+                                    <input type="text" class="form-control text-center" id="anioI" maxlength="4" onkeypress="return valideKey(event);" style="margin-top:1px">
+                                    <input type="text" class="form-control text-center d-none" id="anioF" maxlength="4" onkeypress="return valideKey(event);" style="margin-top:1px">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="demo-container">
+                                    <div id="exportButton"></div>
+                                    <div id="gridContainer"></div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="demo-container">
+                                    <div id="exportButton"></div>
+                                    <div id="gridContainer"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="row">
+                        <div class="col-12 col-md-12 col-xl-12" style="margin-top:1px">
+                            <div class="demo-container">
+                                <div id="gridProductos"></div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalClientes">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">BUSQUEDA DE CLIENTES</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span style="color:red" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-xl-12">
+                        <div class="demo-container">
+                            <div id="exportButton"></div>
+                            <div id="gridClientes"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCrearCliente">
+    <div class="modal-dialog">
+        <div class="modal-content  bg-secondary">
+            <div class="modal-header">
+                <h5 class="modal-title">CREAR CLIENTE</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="inputCity">NOMBRE</label>
+                            <input type="text" class="form-control" id="txtNombreCrear" maxlength="150" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputCity">DIRECCION</label>
+                            <input type="text" class="form-control" id="txtDireccionCrear" maxlength="150">
+                        </div>
+                        <div class="form-group col-md-12 d-none">
+                            <label for="inputCity">EMAIL</label>
+                            <input type="email" class="form-control" id="txtEmailCrear" maxlength="100">
+                        </div>
+                        <div class="form-group col-md-6 d-none">
+                            <label for="inputCity">TELEFONO</label>
+                            <input type="text" class="form-control text-center" id="txtTelefonoCrear" onkeypress="return valideKey(event);">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">NIT</label>
+                            <input type="text" class="form-control text-center" id="txtNitCrear" maxlength="50">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+                <button type="button" class="btn btn-success" id="btnGuardarCliente">GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalValidarAutorizacion">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content  bg-secondary">
+            <div class="modal-header">
+                <h5 class="modal-title">VALIDAR AUTORIZACIÓN</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="txtUser">USUARIO</label>
+                            <input type="text" class="form-control" id="txtUser" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="txtPassword">CLAVE</label>
+                            <input type="password" class="form-control" id="txtPassword" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+                <button type="button" class="btn btn-success" id="btnValidarUsuario">AUTORIZAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAutProd">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content  bg-secondary">
+            <div class="modal-header">
+                <h5 class="modal-title">AUTORIZACION MODIFICAR PRODUCTO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="txtUserAutProd">USUARIO</label>
+                            <input type="text" class="form-control" id="txtUserAutProd" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="txtPasswordAutProd">CLAVE</label>
+                            <input type="password" class="form-control" id="txtPasswordAutProd" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="txtNombreAutProd">NOMBRE</label>
+                            <input type="text" class="form-control" id="txtNombreAutProd" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="txtDescripcionAutProd">DESCRIPCION</label>
+                            <input type="text" class="form-control" id="txtDescripcionAutProd" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="txtAutPrecioCosto">PRECIO COSTO</label>
+                            <input type="text" class="form-control text-center" id="txtAutPrecioCosto" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="txtAutPrecioVenta">PRECIO VENTA</label>
+                            <input type="text" class="form-control text-center" id="txtAutPrecioVenta" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+                <button type="button" class="btn btn-success" id="btnAutProd">AUTORIZAR</button>
+            </div>
+        </div>
+    </div>
+</div>
