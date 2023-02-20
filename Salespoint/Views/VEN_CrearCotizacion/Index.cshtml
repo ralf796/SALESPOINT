@@ -2,6 +2,185 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section scripts{
+    <!--SWEET ALERT-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function AbrirModalCatalogo() {            
+            $('#modalCatalogo').modal('show');
+            GetProductos()
+        }
+
+        function ZoomImage(nombre, descripcion, url) {            
+            Swal.fire({
+                title: nombre,
+                text: descripcion,
+                imageUrl: url,
+                imageWidth: 400,
+                imageHeight: 400,
+                imageAlt: 'Custom image',
+                confirmButtonText: 'Cerrar'
+            })
+        }
+
+        function GetPendientes() {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetCatalogo")',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: {  },
+                cache: false,
+                success: function (data) {
+                    var state = data["State"];
+                    var lista = data["data"];
+                    if (state == 1) {
+                        //addCode(lista)
+                        lista.forEach(function (row) {
+                            document.getElementById("divMaster").innerHTML +=
+                                '<div class="col-md-4">' +
+                                '<div class="card card-widget widget-user-2">' +
+                                '<div class="widget-user-header bg-primary">' +
+                                '<div class="widget-user-image">' +
+                                '<img  class="img-circle elevation-2" src="' + row.PATH_IMG + '" alt="User Avatar" style="width:60px; height:60px">' +
+                                '</div>' +
+                                '<h4 class="widget-user-username">' + row.NOMBRE + '</h3>' +
+                                '<h6 class="widget-user-desc">' + row.PRECIO_VENTA + '</h5>' +
+                                '</div>' +
+                                '<div class="card-footer p-0">' +
+                                '<ul class="nav flex-column">' +
+                                '<li class="nav-item">' +
+                                '<a href="#" class="nav-link"> STOCK: <span class="float-right badge bg-primary">'+row.STOCK+'</span> </a>' +
+                                '</li>' +
+                                '</ul>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>';
+                        });
+                    }
+                    else if (state == -1)
+                        alert(data["Message"])
+                },
+                error: function (jqXHR, exception) {
+                    getErrorMessage(jqXHR, exception);
+                }
+            });
+        }
+
+        function GetProductos() {
+            $('#divProductos').load('@Url.Action("Catalogo")', { }, function () {
+            });
+        }
+
+        function PDF() {
+            //CallLoadingFire('Generando comprobante, por favor espere.');
+            var fechai = '';
+            var fechaf = '';
+            var id_venta = 54;
+            $.post('@Url.Action("PDF")', {id_venta}, function (result) {
+                var pom = document.createElement('a');
+                pom.setAttribute('href', 'data:' + result.MimeType + ';base64,' + result.File);
+                pom.setAttribute('download', result.FileName);
+                if (document.createEvent) {
+                    var event = document.createEvent('MouseEvents');
+                    event.initEvent('click', true, true);
+                    pom.dispatchEvent(event);
+                }
+                else {
+                    pom.click();
+                }
+            });
+        }
+
+        function GetCliente(nit) {
+            var tipo = 2;
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetCliente")',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: { nit, tipo },
+                cache: false,
+                success: function (data) {
+                    var state = data["State"];
+                    if (state == 1) {
+                        var CLIENTE = data["data"];
+                        console.log(CLIENTE)
+                        if (CLIENTE == null) {
+                            ShowAlertMessage('warning', 'No existe el cliente con el nit ingresado.');
+                            ClearCustomer();
+                        }
+                        else {
+                            $('#hfIdCliente').val(CLIENTE.ID_CLIENTE);
+                            $('#txtNombreCliente').val(CLIENTE.NOMBRE);
+                            $('#txtDireccion').val(CLIENTE.DIRECCION);
+                        }
+                    }
+                    else if (state == -1) {
+                        ShowAlertMessage('warning', data['Message'])
+                    }
+                }
+            });
+        }
+        function GetClienteId(id) {
+
+            var tipo = 9;
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetClienteID")',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: { id, tipo },
+                cache: false,
+                success: function (data) {
+                    var state = data["State"];
+                    if (state == 1) {
+                        var CLIENTE = data["data"];
+                        console.log(CLIENTE)
+                        if (CLIENTE == null) {
+                            ShowAlertMessage('warning', 'No existe el cliente con el nit ingresado.');
+                            ClearCustomer();
+                        }
+                        else {
+                            $('#txtNit').val(CLIENTE.NIT);
+                            $('#hfIdCliente').val(CLIENTE.ID_CLIENTE);
+                            $('#txtNombreCliente').val(CLIENTE.NOMBRE);
+                            $('#txtNombreCrear').val('');
+                            $('#txtDireccionCrear').val('');
+                            $('#txtEmailCrear').val('');
+                            $('#txtNitCrear').val('');
+                        }
+                    }
+                    else if (state == -1) {
+                        ShowAlertMessage('warning', data['Message'])
+                    }
+                }
+            });
+        }
+
+        function ClearCustomer() {
+            $('#hfIdCliente').val('');
+            $('#txtNombreCliente').val('');
+            $('#txtNit').val('');
+            $('#txtDireccion').val('');
+        }
+
+        $("#txtNit").keypress(function (e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                e.preventDefault();
+                var nit = $(this).val();
+                GetCliente(nit);
+            }
+        });
+        $('#txtNit').on('click', function (e) {
+            e.preventDefault();
+            ClearCustomer();
+        });
+    </script>
+}
+
 @section styles{
     <style>
         .headColor {
@@ -38,6 +217,19 @@
                 -webkit-transform: scale(5); /* Safari 3-8 */
                 transform: scale(2);
             }
+
+        .modal-fullscreen {
+            width: 100%;
+            max-width: none;
+            height: 100%;
+            margin: 0;
+        }
+
+            .modal-fullscreen .modal-content {
+                height: 100%;
+                border: 0;
+                border-radius: 0;
+            }
     </style>
 }
 
@@ -54,7 +246,7 @@
                         <div class="input-group mb-3" id="divNit">
                             <div class="input-group-prepend">
                                 <button id="btnAgregarCliente" style="margin-top:-10px" type="button" class="btn btn-success"><i class="far fa-plus"></i></button>
-                                <button id="btnBuscarClientes" style="margin-top:-10px" type="button" class="btn btn-info"><i class="far fa-search"></i></button>
+                                <button onclick="PDF()" style="margin-top:-10px" type="button" class="btn btn-info"><i class="far fa-search"></i></button>
                             </div>
                             <input type="text" class="form-control" id="txtNit">
                         </div>
@@ -74,7 +266,7 @@
                         <label for="divCodigo">CATÁLOGO</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <button id="btnBuscarProductos" style="margin-top:-10px" type="button" class="btn btn-info"><i class="far fa-search"></i></button>
+                                <button onclick="AbrirModalCatalogo()" style="margin-top:-10px" type="button" class="btn btn-info"><i class="far fa-search"></i></button>
                             </div>
                             <input type="text" class="form-control" id="txtCodigo">
                         </div>
@@ -329,6 +521,48 @@
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
                 <button type="button" class="btn btn-success" id="btnAutProd">AUTORIZAR</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal modal-fullscreen-xl" id="modalCatalogo" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="background-color: #e4e5eb ">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen ">
+        <div class="modal-content">
+            <div class="card-header" style="height:50px">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h3 id="titleModal2">CATALOGO DE PRODUCTOS</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="col-8 offset-2">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-1">
+                            <div class="input-group">
+                                <span class="col-form-label">CATEGORÍA:</span>
+                                <select class="form-control select2bs4" id="selCategoria" required>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block;overflow-y: auto;max-height: calc(100vh - 250px);">
+
+                <div class="row" id="divProductos"></div>
+                </div>
+            </div>
+            <div class="card-footer text-center text-md-center">
+                <button class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fad fa-times me-1"></i> Cerrar</button>
+                @*<button class="btn btn-success btn-sm" id="btnGuardarCambiosRegistro"><i class="fad fa-save me-1"></i> Modificar</button>*@
             </div>
         </div>
     </div>

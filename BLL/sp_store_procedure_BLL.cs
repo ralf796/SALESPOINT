@@ -19,6 +19,44 @@ namespace BLL
             }
             return data;
         }
+        public static List<Cotizaciones_BE> BLL_sp_cotizaciones(Cotizaciones_BE item)
+        {
+            List<Cotizaciones_BE> data = null;
+            using (var model = new sp_store_procedure_DAL())
+            {
+                data = model.DAL_sp_cotizaciones(item);
+            }
+            return data;
+        }
+        public static List<Ventas_BE> BLL_sp_ventas(Ventas_BE item)
+        {
+            List<Ventas_BE> data = null;
+            using (var model = new sp_store_procedure_DAL())
+            {
+                data = model.DAL_sp_ventas(item);
+            }
+            return data;
+        }
+        public static List<Clientes_BE> BLL_sp_clientes(Clientes_BE item)
+        {
+            List<Clientes_BE> data = null;
+            using (var model = new sp_store_procedure_DAL())
+            {
+                data = model.DAL_sp_clientes(item);
+            }
+            return data;
+        }
+        public static List<Catalogo_BE> BLL_sp_catalogo(Catalogo_BE item)
+        {
+            List<Catalogo_BE> data = null;
+            using (var model = new sp_store_procedure_DAL())
+            {
+                data = model.DAL_sp_catalogo(item);
+            }
+            return data;
+        }
+
+
         public static List<Usuarios_BE> GetSPLogin(Usuarios_BE item)
         {
             List<Usuarios_BE> data = null;

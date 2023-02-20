@@ -15,5 +15,29 @@ namespace Salespoint.Class
             lista = sp_store_procedure_BLL.BLL_sp_usuarios(item);
             return lista;
         }
+        public static List<Cotizaciones_BE> Connect_Cotizacion(Cotizaciones_BE item)
+        {
+            List<Cotizaciones_BE> lista = new List<Cotizaciones_BE>();
+            lista = sp_store_procedure_BLL.BLL_sp_cotizaciones(item);
+            return lista;
+        }
+        public static List<Ventas_BE> Connect_Ventas(Ventas_BE item)
+        {
+            List<Ventas_BE> lista = new List<Ventas_BE>();
+            lista = sp_store_procedure_BLL.BLL_sp_ventas(item);
+            return lista;
+        }
+        public static List<Clientes_BE> Connect_Clientes(Clientes_BE item)
+        {
+            List<Clientes_BE> lista = new List<Clientes_BE>();
+            lista = sp_store_procedure_BLL.BLL_sp_clientes(item);
+            return lista;
+        }
+        public static List<Catalogo_BE> Connect_Catalogo(Catalogo_BE item)
+        {
+            List<Catalogo_BE> lista = new List<Catalogo_BE>();
+            lista = sp_store_procedure_BLL.BLL_sp_catalogo(item);
+            return lista;
+        }
     }
 }

@@ -1,0 +1,15 @@
+﻿@font-face {
+    font-family: "Oriflame";
+    src: url('../fonts/OriflameSansPrint-Regular.ttf');
+}
+
+@font-face {
+    font-family: "Oriflame-Bold";
+    src: url('../fonts/OriflameSansPrint-Bold.ttf');
+}
+
+body
+{
+    font-family: Oriflame;
+}
+

@@ -1,0 +1,33 @@
+﻿@using BE
+@{
+    List<Catalogo_BE> lista = ViewBag.data;
+    Catalogo_BE item = ViewBag.item;
+}
+@foreach (var row in lista)
+{
+    <div class="col-md-3 mt-3 bg-light border-success border-3 border">
+        <div class="card card-widget widget-user-2">
+            <div class="widget-user-header">
+                <div class="widget-user-image">
+                    <img onclick="ZoomImage('@row.NOMBRE','@row.NOMBRE','@row.PATH_IMG')" class="img-circle elevation-2" src="@row.PATH_IMG" alt="User Avatar" style="width:60px; height:60px">
+                </div>
+                <h3 class="widget-user-username">
+                    @row.NOMBRE
+                </h3>
+                <h6 class="widget-user-desc">Q @row.PRECIO_VENTA</h6>
+            </div>
+            <div class="card-footer p-0">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link"> STOCK: <span class="float-right badge bg-primary">@row.STOCK</span> </a>
+                    </li>
+                </ul>
+                <ul class="nav flex-column text-center">
+                    <li class="nav-item">
+                        <button class="btn btn-success btn-sm" style="width:100%"><i class="fad fa-save text-white me-1"></i> Agregar</button>
+                    </li>
+                </ul>
+            </div>
+        </div>        
+    </div>
+}
