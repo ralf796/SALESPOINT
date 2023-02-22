@@ -5,14 +5,15 @@
 @section scripts{
     <!--SWEET ALERT-->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
     <script>
-        function AbrirModalCatalogo() {            
+        function AbrirModalCatalogo() {
             $('#modalCatalogo').modal('show');
             GetProductos()
         }
 
-        function ZoomImage(nombre, descripcion, url) {            
+        function ZoomImage(nombre, descripcion, url) {
             Swal.fire({
                 title: nombre,
                 text: descripcion,
@@ -78,7 +79,8 @@
             var fechai = '';
             var fechaf = '';
             var id_venta = 54;
-            $.post('@Url.Action("PDF")', {id_venta}, function (result) {
+            @*$.post('@Url.Action("PDF")', {id_venta}, function (result) {*@
+            $.post('@Url.Action("PDF2")', {fechai, fechaf}, function (result) {
                 var pom = document.createElement('a');
                 pom.setAttribute('href', 'data:' + result.MimeType + ';base64,' + result.File);
                 pom.setAttribute('download', result.FileName);
@@ -557,7 +559,7 @@
                 </div>
                 <div style="display: block;overflow-y: auto;max-height: calc(100vh - 250px);">
 
-                <div class="row" id="divProductos"></div>
+                    <div class="row" id="divProductos"></div>
                 </div>
             </div>
             <div class="card-footer text-center text-md-center">

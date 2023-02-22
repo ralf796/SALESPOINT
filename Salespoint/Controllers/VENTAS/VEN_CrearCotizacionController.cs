@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using BE;
+using GenesysOracleSV.Clases;
 
 namespace Salespoint.Controllers.VENTAS
 {
@@ -84,46 +85,69 @@ namespace Salespoint.Controllers.VENTAS
                 header.AppendLine("<div class='col-12'>");
                 header.AppendLine($"<table class='table table-sm table-borderless'>");
                 header.AppendLine(" <tbody>");
-
                 header.AppendLine("<tr>");
                 header.AppendLine("<td colspan='6'>");
-
                 header.AppendLine("<div class='row'>");
-                header.AppendLine("<div class=' d-flex justify-content-center'><img src='https://oriconsultas.com/oriflame/css_menu/images/oriflame-icon-sm.png' height='100' class='img-responsive' /></div>");
+                header.AppendLine("<div class=' d-flex justify-content-center'><img src='' height='100' class='img-responsive' /></div>");
                 header.AppendLine("<div class='col-12 mb-3'>");
-                header.AppendLine($"<h1 class='m-0 p-0 d-flex justify-content-center'>{123}  </h1>");
-                header.AppendLine($"<h4 class='m-0 p-0 d-flex justify-content-center'>CORTES DE CAJA</h3>");
-                header.AppendLine($"<h4 class='m-0 p-0 d-flex d-flex justify-content-center'>Periodo: {beginDate}  Al {endDate}  </h4>");
+                header.AppendLine($"<h1 class='m-0 p-0 d-flex justify-content-center'></h1>");
+                header.AppendLine($"<h4 class='m-0 p-0 d-flex justify-content-center'></h3>");
+                header.AppendLine($"<h4 class='m-0 p-0 d-flex d-flex justify-content-center'></h4>");
                 header.AppendLine("</div>");
                 header.AppendLine("</div>");
 
                 header.AppendLine("</td>");
                 header.AppendLine("</tr>");
-                header.AppendLine(" </tbody>");
+                header.AppendLine("</tbody>");
                 header.AppendLine("</table>");
                 header.AppendLine("</div>");
                 header.AppendLine("</div>");
 
-                html.AppendLine("<div class='row justify-content-center'>");
-                html.AppendLine("<div class='col-12 col-sm-12 col-md-8 col-lg-8 col-xl-6 col-xxl-5'>");
-                html.AppendLine($"<table class='table table-sm table-borderless'>");
-                html.AppendLine(" <tbody>");
-                int count = 0;
-
-                html.AppendLine("<tr>");
-                html.AppendLine($"<th width='75' class='text-white text-end  border rounded border border-2 pe-1'>asdasd:</th>");
-                html.AppendLine($"<td width='25' class='text-end pe-1  border rounded border border-2 bg-light text-dark'>23432/td>");
-                html.AppendLine(" </tr>");
-
-                html.AppendLine("<td colspan='2' height='20' class='border-0 bg-light text-dark'></td>");
-                html.AppendLine("<tr>");
-                html.AppendLine($"<th width='75' class='text-white text-end  border rounded border border-2 pe-1'>Total Depósito:</th>");
-                html.AppendLine($"<td width='25' class='text-end pe-1  border rounded border border-2 bg-light text-dark'>{324}</td>");
-                html.AppendLine(" </tr>");
-                html.AppendLine(" </tbody>");
-                html.AppendLine($"</table>");
-                html.AppendLine("</div>");
-                html.AppendLine("</div>");
+                html.AppendLine($@"
+                     <div class='row text-center justify-content-center' style='margin-top:-33px'>
+                        <div class='col-12 col-sm-12 col-md-12'>
+                            <table class='table table-sm' style='width:100%'>
+                                <tbody>
+                                    <tr>
+                                        <td class='text-end border-0 pe-1'>{Utils.Fecha_Larga_Letras(DateTime.Now)}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class='col-12 col-sm-12 col-md-12' style='margin-top:50px'>
+                            <table class='table table-sm' style='width:100%; border:none'>
+                                <tbody>
+                                    <tr>
+                                        <td class='border-0'>Señor(a)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class='ps-5 border-0'>Perla Blanco</td>
+                                    </tr>
+                                    <tr>
+                                        <td class='border-0'>Oriflame</td>
+                                    </tr>
+                                    <tr>
+                                        <td class='border-0'>Presente.-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class='col-12 col-sm-11 col-md-11'>
+                            <table class='table' style='width:100%'>
+                                <tbody>
+                                    <tr>
+                                        <td style='text-align:justify' class='border-0'>
+                                            Espero que al momento de recibir la presente cotización sus actividades se estén desarrollando
+                                            con éxito, a continuación les detallo el trabajo solicitado esperando que nuestros costos se
+                                            ajusten a su presupuesto. Cualquier duda o comentario estoy a sus órdenes.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    ");
+                
 
                 var doc = new PDFMaker(headerSize: 130).CreateBase64(html, header, footer);
                 var file = new FileResult { File = doc, MimeType = "application/pdf", FileName = "Cortes Caja.pdf" };

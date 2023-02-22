@@ -62,9 +62,30 @@ namespace Salespoint.Class
             html.AppendLine("<head>");
             html.AppendLine("<meta charset='utf-8' />");
             html.AppendLine("<meta name='viewport' content='width=device-width, initial-scale=1.0' />");
-            html.AppendLine($"<link rel='stylesheet' href='lib/bootstrap/dist/css/bootstrap.css' />");
-            html.AppendLine($"<link rel='stylesheet' href='css/site.fonts.css' />");
-            html.AppendLine($"<link rel='stylesheet' href='css/site.reportes.css' />");
+            html.AppendLine("<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'>");
+            //html.AppendLine($"<link rel='stylesheet' href='Content/lib/bootstrap/dist/css/bootstrap.css' />");
+            //html.AppendLine($"<link rel='stylesheet' href='Content/lib/site.fonts.css' />");
+            //html.AppendLine($"<link rel='stylesheet' href='Content/lib/css/site.reportes.css' />");
+            //html.AppendLine($"<link rel='stylesheet' href='~/Content/lib/css/site.reportes.css'/>");
+            html.AppendLine("<style>");
+            html.AppendLine(@"
+                @@font-face {
+                    font-family: 'iossansprint-regular';
+                    src: url('Content/fonts/iossansprint-regular.ttf') format('truetype');
+                }
+                @@font-face {
+                    font-family: 'iossansprint-bold';
+                    src: url('Content/fonts/iossansprint-bold.ttf') format('truetype');
+                }
+
+                body{
+                    font-family: Arial;
+                    margin:25px;
+                    /*background-image: url('https://distribuidorarepuestoseleden.com/Varios/hoja-membretada-hilos-y-estilos-.png');*/
+                }
+                table{font-size:23px;}
+            ");
+            html.AppendLine("</style>");
             html.AppendLine("</head>");
             html.AppendLine("<body>");
             html.AppendLine($"<div class='container-fluid'>{bodyInject}</div>");
