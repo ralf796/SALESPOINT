@@ -16,5 +16,10 @@ namespace BE
         public decimal PRECIO_VENTA { get; set; }
         public int STOCK { get; set; }
         public string PATH_IMG { get; set; }
+        public int ID_CATEGORIA { get; set; }
+        public string DESCRIPCION { get; set; }
+        public DateTime FECHA_CREACION { get; set; }
+        public string CREADO_POR { get; set; }
+        public int ESTADO { get; set; }
     }
 }

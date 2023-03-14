@@ -203,9 +203,17 @@
             <h3 class="card-title" style="height:10px; margin-top:-3px">USUARIOS</h3>
         </div>
         <div class="card-body">
-            <div class="col-12 text-center">
-                <button class="btn btn-secondary" onclick="OpenModalCreate()"><i class="fad fa-file-plus"></i> NUEVO REGISTRO</button>
-            </div>
+            @*
+                <div class="row">
+                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 align-content-center" id="buttons">
+                        <button onclick="GetData()" type="button" class="btn btn-secondary" title="Generar Búsqueda"><i class="fas fa-sync"></i></button>
+                        <button onclick="OpenModalCreate()" type="button" class="btn btn-success" title="Generar Búsqueda"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <button class="btn btn-secondary" onclick="OpenModalCreate()"><i class="fad fa-file-plus"></i> NUEVO REGISTRO</button>
+                </div>
+            *@
             <div class="col-12 mt-1" id="divData"></div>
         </div>
     </div>
@@ -289,7 +297,7 @@
     </div>
 </div>
 
-<input id="hfIdEmpleado" type="hidden"/>
+<input id="hfIdEmpleado" type="hidden" />
 <div class="modal" id="modalUpdate" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">

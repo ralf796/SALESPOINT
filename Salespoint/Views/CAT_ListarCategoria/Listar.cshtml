@@ -1,0 +1,84 @@
+﻿@{
+    List<BE.Catalogo_BE> data = ViewBag.data;
+}
+<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class='input-group-prepend'>
+        <button onclick="OpenModalCreate()" type="button" class="btn btn-success mr-1" title="Generar Búsqueda"><i class="fas fa-plus"></i></button>
+        <div class='input-group-text bg-secondary'>
+            <i class='fa fa-search'></i>
+        </div>
+        <input type="text" class="form-control text-left" id="txtFiltro" />
+    </div>
+</div>
+<table class="table table-hover table-sm table-striped display nowrap" style="width:100%" width="100%" id="tableData">
+    @*<table class="table table-striped display nowrap table table-hover table-sm" style="width:100%" width="100%" id="tableData">*@
+    @*<table class="table-striped display nowrap " style="width:100%" id="tableData">*@
+    <thead>
+        <tr>
+            <th class="headColor text-center pr-2">NOMBRE</th>
+            <th class="headColor text-center pr-2">DESCRIPCIÓN</th>
+            <th class="headColor text-center pr-2">USUARIO CREÓ</th>
+            <th class="headColor text-center pr-2">FECHA CREÓ</th>
+            <th class="headColor text-center pr-2">STATUS</th>
+            <th class="headColor text-center"></th>
+        </tr>
+    </thead>
+    <tbody id="tBodyData">
+        @foreach (var row in data)
+        {
+            <tr>
+                <td style="vertical-align:middle">@row.NOMBRE</td>
+                <td style="vertical-align:middle">@row.DESCRIPCION</td>
+                <td style="vertical-align:middle">@row.CREADO_POR</td>
+                <td style="vertical-align:middle">@row.FECHA_CREACION </td>
+                @if (row.ESTADO == 1)
+                {
+                    <td style="vertical-align:middle" class="text-center text-success font-weight-bold">
+                        ACTIVO
+                    </td>
+                }
+                else
+                {
+                    <td style="vertical-align:middle" class="text-center text-danger font-weight-bold">
+                        INACTIVO
+                    </td>
+                }
+                <td style="vertical-align:middle" class="text-center">
+                    @if (row.ESTADO == 1)
+                    {
+                        <button onclick="GetDatosActualizar(@row.ID_CATEGORIA, '@row.NOMBRE', '@row.DESCRIPCION')" class="btn btn-success btn-sm border-0 mr-1" title="Actualizar datos">
+                            <i class="fad fa-edit hvr-grow"></i>
+                        </button>
+                        <button onclick="ConfirmDelete(@row.ID_CATEGORIA)" class="btn btn-danger btn-sm border-0 " title="Inactivar">
+                            <i class="fad fa-trash-alt hvr-grow"></i>
+                        </button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#tableData").dataTable({
+            scrollY: (window.innerHeight - 300) + 'px',
+            scrollX: true,
+            scrollCollapse: true,
+            fixedHeader: true,
+            ordering: false,
+            info: false,
+            paginate: false,
+            searching: false
+        });
+
+        $("#txtFiltro").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#tBodyData tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+
+    <script>
+        function Listar() {
+            $('#divData').load('@Url.Action("Listar")', function () {
+                //TableNoSearch('#tableData');
+            });
+        }
+    </script>
+}
+
+<div class="col-md-12">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title" style="height:10px; margin-top:-3px">CATEGORÍAS DE CATALOGO</h3>
+        </div>
+        <div class="card-body">
+            <div class="col-12 mt-1" id="divData"></div>
+        </div>
+    </div>
+</div>

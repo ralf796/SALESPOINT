@@ -2635,8 +2635,10 @@
     <Compile Include="Class\PDFMaker.cs" />
     <Compile Include="Class\SessionExpireFilterAttribute.cs" />
     <Compile Include="Class\Utils.cs" />
+    <Compile Include="Controllers\CATALOGO\CAT_ListarCategoriaController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\CATALOGO\CAT_ListarController.cs" />
     <Compile Include="Controllers\USUARIOS\USU_ListarController.cs" />
     <Compile Include="Controllers\VENTAS\VEN_CrearCotizacionController.cs" />
     <Compile Include="Controllers\VENTAS\VEN_CrearVentaController.cs" />
@@ -3268,6 +3270,10 @@
     <Content Include="Views\VEN_CrearVenta\Index.cshtml" />
     <Content Include="Views\VEN_CrearCotizacion\Index.cshtml" />
     <Content Include="Views\VEN_CrearCotizacion\Catalogo.cshtml" />
+    <Content Include="Views\CAT_Listar\Listar.cshtml" />
+    <Content Include="Views\CAT_Listar\Index.cshtml" />
+    <Content Include="Views\CAT_ListarCategoria\Index.cshtml" />
+    <Content Include="Views\CAT_ListarCategoria\Listar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3280,6 +3286,7 @@
     <Folder Include="Content\css\" />
     <Folder Include="Content\Images\Varios\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\INV_Listar\" />
     <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
