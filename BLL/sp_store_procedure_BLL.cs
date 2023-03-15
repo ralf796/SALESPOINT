@@ -55,7 +55,15 @@ namespace BLL
             }
             return data;
         }
-
+        public static List<Catalogo_BE> BLL_sp_producto(Catalogo_BE item)
+        {
+            List<Catalogo_BE> data = null;
+            using (var model = new sp_store_procedure_DAL())
+            {
+                data = model.DAL_sp_producto(item);
+            }
+            return data;
+        }
 
         public static List<Usuarios_BE> GetSPLogin(Usuarios_BE item)
         {

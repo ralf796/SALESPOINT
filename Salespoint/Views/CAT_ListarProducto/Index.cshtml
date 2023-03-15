@@ -1,0 +1,469 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+
+    <script>
+        function Listar() {
+            $('#divData').load('@Url.Action("Listar")', function () {
+                TableNoSearch('#tableData',400);
+            });
+        }
+
+        function ListarCategorias() {
+            $('#selCategoria').load('@Url.Action("ListarCategorias")', function () {
+            });
+            $('#selCategoriaActualizar').load('@Url.Action("ListarCategorias")', function () {
+            });
+        }
+
+        function Guardar() {
+            var NOMBRE = $('#txtNombre').val();
+            var DESCRIPCION = $('#txtDescripcion').val();
+            var ID_CATEGORIA = $('#selCategoria').val();
+            var PRECIO_COSTO = $('#txtPrecioCosto').val();
+            var PRECIO_VENTA = $('#txtPrecioVenta').val();
+            var STOCK = $('#txtStock').val();
+            var MARGEN = $('#txtMargen').val();
+            var TAMANIO = $('#txtTamanio').val();
+            var PROFUNDIDAD = $('#txtProfundidad').val();
+
+
+            var formData = new FormData();
+            formData.append('NOMBRE', NOMBRE);
+            formData.append('DESCRIPCION', DESCRIPCION);
+            formData.append('ID_CATEGORIA', ID_CATEGORIA);
+            formData.append('PRECIO_COSTO', PRECIO_COSTO);
+            formData.append('PRECIO_VENTA', PRECIO_VENTA);
+            formData.append('STOCK', STOCK);
+            formData.append('MARGEN', MARGEN);
+            formData.append('TAMANIO', TAMANIO);
+            formData.append('PROFUNDIDAD', PROFUNDIDAD);
+            if ($('#idFotografiaCreate')[0].files != undefined) {
+                let files = $('#idFotografiaCreate')[0].files;
+                formData.append('PATH_IMG', files[0]);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Guardar")',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.Codigo == '1') {
+                        Notify(response.Descripcion, NotifyIcon.success);
+                        Listar();
+                        $('#modalGuardar').modal('hide');
+                        ClearModal();
+                    }
+                    else {
+                        Alert(response.Descripcion, NotifyIcon.warning);
+                    }
+                }
+            });
+        }
+
+        function Actualizar() {
+            var ID_PRODUCTO = $('#hfIdProducto').val();
+            var NOMBRE = $('#txtNombreActualizar').val();
+            var DESCRIPCION = $('#txtDescripcionActualizar').val();
+            var ID_CATEGORIA = $('#selCategoriaActualizar').val();
+            var PRECIO_COSTO = $('#txtPrecioCostoActualizar').val();
+            var PRECIO_VENTA = $('#txtPrecioVentaActualizar').val();
+            var STOCK = $('#txtStockActualizar').val();
+            var MARGEN = $('#txtMargenActualizar').val();
+            var TAMANIO = $('#txtTamanioActualizar').val();
+            var PROFUNDIDAD = $('#txtProfundidadActualizar').val();
+
+            var formData = new FormData();
+            formData.append('ID_PRODUCTO', ID_PRODUCTO);
+            formData.append('NOMBRE', NOMBRE);
+            formData.append('DESCRIPCION', DESCRIPCION);
+            formData.append('ID_CATEGORIA', ID_CATEGORIA);
+            formData.append('PRECIO_COSTO', PRECIO_COSTO);
+            formData.append('PRECIO_VENTA', PRECIO_VENTA);
+            formData.append('STOCK', STOCK);
+            formData.append('MARGEN', MARGEN);
+            formData.append('TAMANIO', TAMANIO);
+            formData.append('PROFUNDIDAD', PROFUNDIDAD);
+            if ($('#idFotografiaActualizar')[0].files != undefined) {
+                let files = $('#idFotografiaActualizar')[0].files;
+                formData.append('PATH_IMG', files[0]);
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Actualizar")',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.Codigo == '1') {
+                        Notify(response.Descripcion, NotifyIcon.success);
+                        Listar();
+                        $('#modalActualizar').modal('hide');
+                        ClearModal();
+                    }
+                    else {
+                        Alert(response.Descripcion, NotifyIcon.warning);
+                    }
+                }
+            });
+    }
+
+        function Eliminar(id_producto) {
+            Confirm('Se inactivará el item seleccionado. ¿Quieres continuar?', function () {
+                $.post('@Url.Action("Eliminar")', { id_producto }, function (response) {
+                    if (response.Codigo == '1') {
+                        Notify(response.Descripcion, NotifyIcon.success);
+                        Listar();
+                    }
+                    else {
+                        Alert(response.Descripcion, NotifyIcon.warning);
+                    }
+                });
+            });
+        }
+
+        function GetDatosActualizar(id, id_categoria, nombre, descripcion, precio_costo, precio_venta, stock, margen, tamanio, profundidad) {
+            $('#modalActualizar').modal('show');
+            $('#hfIdProducto').val(id);
+            $('#txtNombreActualizar').val(nombre);
+            $('#txtDescripcionActualizar').val(descripcion);
+            $('#selCategoriaActualizar').val(id_categoria);
+            $('#txtPrecioCostoActualizar').val(precio_costo);
+            $('#txtPrecioVentaActualizar').val(precio_venta);
+            $('#txtStockActualizar').val(stock);
+            $('#txtMargenActualizar').val(margen);
+            $('#txtTamanioActualizar').val(tamanio);
+            $('#txtProfundidadActualizar').val(profundidad);
+        }
+
+        function ClearModal() {
+            $('#txtNombre').val('');
+            $('#txtDescripcion').val('');
+            $('#selCategoria').val('');
+            $('#txtPrecioCosto').val('');
+            $('#txtPrecioVenta').val('');
+            $('#txtStock').val('');
+            $('#txtMargen').val('');
+            $('#txtTamanio').val('');
+            $('#txtProfundidad').val('');
+            $('#idFotografiaCreate').val('');
+            $('#lblFotografiaCreate').val('');
+            $('#txtNombreActualizar').val('');
+            $('#txtDescripcionActualizar').val('');
+            $('#selCategoriaActualizar').val('');
+            $('#txtPrecioCostoActualizar').val('');
+            $('#txtPrecioVentaActualizar').val('');
+            $('#txtStockActualizar').val('');
+            $('#txtMargenActualizar').val('');
+            $('#txtTamanioActualizar').val('');
+            $('#txtProfundidadActualizar').val('');
+            $('#idFotografiaCreateActualizar').val('');
+            $('#lblFotografiaCreateActualizar').val('');
+            $('#txtUploadExcel').val('');
+            $('#info').html('');
+        }
+
+        function ShowModalGuardar() {
+            ClearModal();
+            ListarCategorias();
+            $('#modalGuardar').modal('show');
+        }
+
+        function ShowModalCargaMasiva() {
+            $('#selCategoriaCargaMasiva').load('@Url.Action("ListarCategorias")', function () {
+            });
+            $('#modalCargaMasiva').modal('show');
+        }
+
+        $("#txtUploadExcel").change(function () {
+            Swal.fire({
+                title: 'Carga masiva de productos',
+                text: "Se cargaran todos los productos adjuntos en el archivo. ¿Quiere continuar con la carga?",
+                type: 'info',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.value) {
+
+                    var ID_CATEGORIA = $('#selCategoriaCargaMasiva').val();
+                    var file = $("#txtUploadExcel").val();
+                    var formData = new FormData();
+
+                    formData.append('ID_CATEGORIA', ID_CATEGORIA);
+                    var totalFiles = document.getElementById("txtUploadExcel").files.length;
+                    for (var i = 0; i < totalFiles; i++) {
+                        var file = document.getElementById("txtUploadExcel").files[i];
+                        formData.append("FileUpload", file);
+                    }
+                    if (file != null && file != "") {
+                        CallLoadingFire('Cargando subida de datos, por favor espere.')
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("CargaMasiva")',
+                            data: formData,
+                            dataType: 'json',
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                var state = data['State'];
+                                var lista = data['data'];
+                                if (state == 1) {
+                                    $("#txtUploadExcel").val('');
+                                    Notify('¡Se crearon ' + lista.length + ' productos correctamente.!<br/>')
+                                    Listar();
+                                    $('#modalCargaMasiva').modal('hide');
+                                    ClearModal();
+                                }
+                                else if (state == -1) {
+                                    ShowAlertMessage('warning', data['Message']);
+                                }
+                            },
+                            error: function (jqXHR, ex) {
+                                console.log(jqXHR);
+                                console.log(ex);
+                            }
+                        });
+                    }
+                }
+            })
+        });
+
+        $(document).ready(function () {
+            Listar();
+            ListarCategorias();
+        });
+    </script>
+}
+
+<input type="hidden" id="hfIdProducto" />
+
+<div class="col-md-12">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title" style="height:12px; padding-top:-15px">CATALOGO DE PRODUCTOS</h3>
+        </div>
+        <div class="card-body">
+            <div class="col-12 mt-1" id="divData"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalGuardar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="card-header">
+                <div class="row justify-content-center">
+                    <h4 id="modalTitle" class="modal-title text-secondary font-weight-bold">CREAR PRODUCTO</h4>
+                </div>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtNombre" class="bmd-label-floating">NOMBRE</label>
+                                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8">
+                                <div class="form-group">
+                                    <label for="txtDescripcion" class="bmd-label-floating">DESCRIPCIÓN</label>
+                                    <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <form class="form-group">
+                                    <label class="selCategoria" form="selCategoria">CATEGORIA</label>
+                                    <select class="form-control" id="selCategoria">
+                                    </select>
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtPrecioCosto" class="bmd-label-floating">PRECIO COSTO</label>
+                                    <input type="text" class="form-control" id="txtPrecioCosto" name="txtPrecioCosto" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtPrecioVenta" class="bmd-label-floating">PRECIO VENTA</label>
+                                    <input type="text" class="form-control" id="txtPrecioVenta" name="txtPrecioVenta" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtStock" class="bmd-label-floating">STOCK</label>
+                                    <input type="text" class="form-control" id="txtStock" name="txtStock" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtMargen" class="bmd-label-floating">MARGEN</label>
+                                    <input type="text" class="form-control" id="txtMargen" name="txtMargen" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtTamanio" class="bmd-label-floating">TAMAÑO</label>
+                                    <input type="text" class="form-control" id="txtTamanio" name="txtTamanio" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtProfundidad" class="bmd-label-floating">PROFUNDIDAD</label>
+                                    <input type="text" class="form-control" id="txtProfundidad" name="txtProfundidad" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4" style="margin-top:30px">
+                                <label for="idFotografiaCreate" class="subir btn btn-secondary"><i class="fas fa-images"></i> Seleccionar fotografía</label>
+                                <input id="idFotografiaCreate" onchange="ChangeUpload('#idFotografiaCreate','#lblFotografiaCreate')" type="file" style="display:none;" />
+                                <div id="lblFotografiaCreate"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center text-md-center">
+                        <button type="button" class="btn btn-success" onclick="Guardar()"><i class="fad fa-check"></i> GUARDAR</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fad fa-times me-1"></i> CERRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalActualizar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="card-header">
+                <div class="row justify-content-center">
+                    <h4 id="modalTitle" class="modal-title text-secondary font-weight-bold">ACTUALIZAR PRODUCTO</h4>
+                </div>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtNombreActualizar" class="bmd-label-floating">NOMBRE</label>
+                                    <input type="text" class="form-control" id="txtNombreActualizar" name="txtNombreActualizar" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8">
+                                <div class="form-group">
+                                    <label for="txtDescripcionActualizar" class="bmd-label-floating">DESCRIPCIÓN</label>
+                                    <input type="text" class="form-control" id="txtDescripcionActualizar" name="txtDescripcionActualizar" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <form class="form-group">
+                                    <label class="selCategoriaActualizar" form="selCategoria">CATEGORIA</label>
+                                    <select class="form-control" id="selCategoriaActualizar"></select>
+                                </form>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtPrecioCostoActualizar" class="bmd-label-floating">PRECIO COSTO</label>
+                                    <input type="text" class="form-control" id="txtPrecioCostoActualizar" name="txtPrecioCostoActualizar" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtPrecioVentaActualizar" class="bmd-label-floating">PRECIO VENTA</label>
+                                    <input type="text" class="form-control" id="txtPrecioVentaActualizar" name="txtPrecioVentaActualizar" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtStockActualizar" class="bmd-label-floating">STOCK</label>
+                                    <input type="text" class="form-control" id="txtStockActualizar" name="txtStockActualizar" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtMargenActualizar" class="bmd-label-floating">MARGEN</label>
+                                    <input type="text" class="form-control" id="txtMargenActualizar" name="txtMargenActualizar" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtTamanioActualizar" class="bmd-label-floating">TAMAÑO</label>
+                                    <input type="text" class="form-control" id="txtTamanioActualizar" name="txtTamanioActualizar" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                                <div class="form-group">
+                                    <label for="txtProfundidadActualizar" class="bmd-label-floating">PROFUNDIDAD</label>
+                                    <input type="text" class="form-control" id="txtProfundidadActualizar" name="txtProfundidadActualizar" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4" style="margin-top:30px">
+                                <label for="idFotografiaActualizar" class="subir btn btn-secondary"><i class="fas fa-images"></i> Seleccionar fotografía</label>
+                                <input id="idFotografiaActualizar" onchange="ChangeUpload('#idFotografiaActualizar','#lblFotografiaActualizar')" type="file" style="display:none;" />
+                                <div id="lblFotografiaActualizar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center text-md-center">
+                        <button type="button" class="btn btn-success" onclick="Actualizar()"><i class="fad fa-check"></i> GUARDAR</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fad fa-times me-1"></i> CERRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalCargaMasiva" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="card-header">
+                <div class="row justify-content-center">
+                    <h4 id="modalTitle" class="modal-title text-secondary font-weight-bold">SELECCIONAR ARCHIVO</h4>
+                </div>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-12 justify-content-center">
+                                <form class="form-group">
+                                    <label class="selCategoriaCargaMasiva" form="selCategoriaCargaMasiva">CATEGORIA</label>
+                                    <select class="form-control" id="selCategoriaCargaMasiva"></select>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-12 justify-content-center">
+                                <div class="btn-group text-center">
+                                    <div class="form-group text-center" style="margin-top:-5px">
+                                        <div class="input-group">
+                                            <label for="txtUploadExcel" class="subir btn btn-success"><i class="far fa-file-upload"></i> CARGAR ARCHIVO</label>
+                                            <input id="txtUploadExcel" type="file" style="display:none;" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                            <div id="info"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="card-footer text-center text-md-center">
+                            <button type="button" class="btn btn-success" onclick="Actualizar()"><i class="fad fa-check"></i> GUARDAR</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fad fa-times me-1"></i> CERRAR</button>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -106,11 +106,6 @@
             searching: false
         });
 
-        $("#txtFiltro").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#tBodyData tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
+        
     });
 </script>

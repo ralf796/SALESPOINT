@@ -1,0 +1,77 @@
+﻿@{
+    List<BE.Catalogo_BE> data = ViewBag.data;
+}
+<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class='input-group-prepend'>
+        <button onclick="ShowModalGuardar()" type="button" class="btn btn-success mr-1" title="Crear Nuevo Registro"><i class="fas fa-plus"></i></button>
+        <button onclick="ShowModalCargaMasiva()" type="button" class="btn btn-success mr-1" title="Registro por Carga Masiva"><i class="fas fa-layer-plus"></i></button>
+        <div class='input-group-text bg-secondary'>
+            <i class='fa fa-search'></i>
+        </div>
+        <input type="text" class="form-control text-left" id="txtFiltro" />
+    </div>
+</div>
+<table class="table table-hover table-sm table-striped display nowrap table-bordered" style="width:100%" width="100%" id="tableData">
+    <thead>
+        <tr>
+            <th class="headColor text-center pr-2">IMG</th>
+            <th class="headColor text-center pr-2">NOMBRE</th>
+            <th class="headColor text-center pr-2">DESCRIPCIÓN</th>
+            <th class="headColor text-center pr-2">CATEGORÍA</th>
+            <th class="headColor text-center pr-2">PRECIO COSTO</th>
+            <th class="headColor text-center pr-2">PRECIO VENTA</th>
+            <th class="headColor text-center pr-2">STOCK</th>
+            <th class="headColor text-center pr-2">MARGÉN</th>
+            <th class="headColor text-center pr-2">TAMAÑO</th>
+            <th class="headColor text-center pr-2">PROFUNDIDAD</th>
+            <th class="headColor text-center pr-2">USUARIO CREÓ</th>
+            <th class="headColor text-center pr-2">FECHA CREÓ</th>
+            <th class="headColor text-center pr-2">STATUS</th>
+            <th class="headColor text-center"></th>
+        </tr>
+    </thead>
+    <tbody id="tBodyData">
+        @foreach (var row in data)
+        {
+            <tr>
+                <td>
+                    <img onclick="ZoomImage('@row.NOMBRE','@row.DESCRIPCION','@row.PATH_IMG')" class="btn hvr-grow m-0 p-0" src="@row.PATH_IMG" height="50" width="50" />
+                </td>
+                <td>@row.NOMBRE</td>
+                <td>@row.DESCRIPCION</td>
+                <td>@row.NOMBRE_CATEGORIA</td>
+                <td class="text-right">@row.PRECIO_COSTO</td>
+                <td class="text-right">@row.PRECIO_VENTA</td>
+                <td class="text-center">@row.STOCK</td>
+                <td class="text-center">@row.MARGEN</td>
+                <td class="text-center">@row.TAMANIO</td>
+                <td class="text-center">@row.PROFUNDIDAD</td>
+                <td width="150px">@row.CREADO_POR</td>
+                <td width="150px" class="text-center">@row.FECHA_CREACION.ToString("dd/MM/yyyy hh:mm tt") </td>
+                @if (row.ESTADO == 1)
+                {
+                    <td width="150px" class="text-center text-success font-weight-bold">
+                        ACTIVO
+                    </td>
+                }
+                else
+                {
+                    <td width="150px" class="text-center text-danger font-weight-bold">
+                        INACTIVO
+                    </td>
+                }
+                <td width="150px" class="text-center">
+                    @if (row.ESTADO == 1)
+                    {
+                        <button onclick="GetDatosActualizar(@row.ID_PRODUCTO, '@row.ID_CATEGORIA', '@row.NOMBRE', '@row.DESCRIPCION', '@row.PRECIO_COSTO', '@row.PRECIO_VENTA', '@row.STOCK', '@row.MARGEN', '@row.TAMANIO', '@row.PROFUNDIDAD')" class="btn btn-success btn-sm border-0 mr-1" title="Actualizar datos">
+                            <i class="fad fa-edit hvr-grow"></i>
+                        </button>
+                        <button onclick="Eliminar(@row.ID_PRODUCTO)" class="btn btn-danger btn-sm border-0 " title="Inactivar">
+                            <i class="fad fa-trash-alt hvr-grow"></i>
+                        </button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

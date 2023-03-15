@@ -21,6 +21,7 @@
 <link href="~/Content/Admin LTE 3.2/plugins/dropzone/min/dropzone.min.css" rel="stylesheet" />
 <!--FONTS-->
 <link href="~/Content/site.fonts.css" rel="stylesheet" />
+<link href="~/Content/site.datatable.css" rel="stylesheet" />
 
 <!--FONTAWESOME-->
 <link href="~/Content/fontawesome/css/all.css" rel="stylesheet" />  @*https://fontawesome.com/v5/icons/save?s=solid&f=classic*@
@@ -50,13 +51,12 @@
         font-family: iossansprint-regular;
     }
 
-    .headColor {
+    table th {
         background-color: dimgray;
         color: white;
         font-size: 13px;
     }
-
-    table {
+    table td {
         font-size: 11px;
     }
 
@@ -89,10 +89,8 @@
         white-space: nowrap;
     }
 
-    .headColor {
-        background-color: dimgray;
-        color: white;
-        font-size: 13px;
+    .dataTables_scrollBody{
+        margin-top:-15px;
     }
 </style>
 

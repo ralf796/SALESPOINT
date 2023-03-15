@@ -21,5 +21,9 @@ namespace BE
         public DateTime FECHA_CREACION { get; set; }
         public string CREADO_POR { get; set; }
         public int ESTADO { get; set; }
+        public decimal PRECIO_COSTO { get; set; }
+        public decimal MARGEN { get; set; }
+        public decimal PROFUNDIDAD { get; set; }
+        public decimal TAMANIO { get; set; }
     }
 }

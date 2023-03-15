@@ -146,7 +146,7 @@ namespace Salespoint.Controllers.VENTAS
         //                </div>
         //            </div>
         //            ");
-                
+
 
         //        var doc = new PDFMaker(headerSize: 130).CreateBase64(html, header, footer);
         //        var file = new FileResult { File = doc, MimeType = "application/pdf", FileName = "Cortes Caja.pdf" };
@@ -239,7 +239,7 @@ namespace Salespoint.Controllers.VENTAS
         //    </div>
         //    <div class='row pt-5'>
         //        <div class='col-md-12 text-center border-dark border-top'>
-                   
+
         //        </div>
         //    </div>");
         //    html.AppendLine("</body>");
@@ -337,7 +337,7 @@ namespace Salespoint.Controllers.VENTAS
                 var item = new Catalogo_BE();
                 List<Catalogo_BE> lista = new List<Catalogo_BE>();
                 item.MTIPO = 1;
-                lista= Connect.Connect_Catalogo(item);
+                lista = Connect.Connect_Catalogo(item);
 
                 return Json(new { State = 1, data = lista }, JsonRequestBehavior.AllowGet);
             }
@@ -418,41 +418,56 @@ namespace Salespoint.Controllers.VENTAS
         }
         public void SaveOrder(string encabezado = "", string detalles = "", int fel = 0, int esCredito = 0)
         {
-                var item = JsonConvert.DeserializeObject<Ventas_BE>(encabezado);
-                List<Ventas_BE> listaDetalles = JsonConvert.DeserializeObject<List<Ventas_BE>>(detalles);
-                string usuario = Session["usuario"].ToString();
-                item.CREADO_POR = usuario;                
-                bool banderaDetail = false;
+            var item = JsonConvert.DeserializeObject<Ventas_BE>(encabezado);
+            List<Ventas_BE> listaDetalles = JsonConvert.DeserializeObject<List<Ventas_BE>>(detalles);
+            string usuario = Session["usuario"].ToString();
+            item.CREADO_POR = usuario;
+            bool banderaDetail = false;
 
-                var itemID = new Ventas_BE();
-                itemID.MTIPO = 6;
-                item.ID_VENTA = Connect.Connect_Ventas(item).FirstOrDefault().ID_VENTA;
+            var itemID = new Ventas_BE();
+            itemID.MTIPO = 6;
+            item.ID_VENTA = Connect.Connect_Ventas(item).FirstOrDefault().ID_VENTA;
 
-                if (SaveHeader(Convert.ToInt32(item.ID_VENTA), "", 1, item.ID_CLIENTE, item.TOTAL, item.TOTAL_DESCUENTO, item.SUBTOTAL, usuario, fel, esCredito) == true)
+            if (SaveHeader(Convert.ToInt32(item.ID_VENTA), "", 1, item.ID_CLIENTE, item.TOTAL, item.TOTAL_DESCUENTO, item.SUBTOTAL, usuario, fel, esCredito) == true)
+            {
+                foreach (var row in listaDetalles)
                 {
-                    foreach (var row in listaDetalles)
+                    if (banderaDetail == false)
                     {
-                        if (banderaDetail == false)
+                        if (SaveDetail(Convert.ToInt32(item.ID_VENTA), row.ID_PRODUCTO, row.CANTIDAD, row.PRECIO_VENTA, row.TOTAL, row.TOTAL_DESCUENTO, row.SUBTOTAL) == false)
                         {
-                            if (SaveDetail(Convert.ToInt32(item.ID_VENTA), row.ID_PRODUCTO, row.CANTIDAD, row.PRECIO_VENTA, row.TOTAL, row.TOTAL_DESCUENTO, row.SUBTOTAL) == false)
-                            {
-                                DeleteOrder(Convert.ToInt32(item.ID_VENTA));
-                                banderaDetail = true;
-                            }
+                            DeleteOrder(Convert.ToInt32(item.ID_VENTA));
+                            banderaDetail = true;
                         }
                     }
                 }
+            }
         }
-    
-     public PartialViewResult Catalogo()
+
+        public PartialViewResult Catalogo(int id_categoria=0)
         {
             var item = new Catalogo_BE();
-            List<Catalogo_BE> lista = new List<Catalogo_BE>();
+            List<Catalogo_BE> lista;
             item.MTIPO = 1;
+            item.ID_CATEGORIA = id_categoria;
             lista = Connect.Connect_Catalogo(item);
 
             ViewBag.data = lista;
             ViewBag.item = lista.FirstOrDefault();
+            return PartialView();
+        }
+
+
+
+
+
+        public PartialViewResult ListarCategorias()
+        {
+            var item = new Catalogo_BE();
+            item.MTIPO = 5;
+            List<Catalogo_BE> lista;
+            lista = Connect.Connect_Producto(item);
+            ViewBag.lista = lista;
             return PartialView();
         }
     }

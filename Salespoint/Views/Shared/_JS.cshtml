@@ -220,7 +220,28 @@
         console.log(air)
         return air;
     }
+
+    function ChangeUpload(input, label) {
+        var pathArray = $(input).prop('type', 'file')[0].value.split('\\');
+        console.log(pathArray)
+        var pdrs = pathArray[pathArray.length - 1];
+        $(label).text(pdrs);
+    }
+
+    function ZoomImage(nombre, descripcion, url) {
+        Swal.fire({
+            title: nombre,
+            text: descripcion,
+            imageUrl: url,
+            imageWidth: 400,
+            imageHeight: 400,
+            imageAlt: 'Custom image',
+            confirmButtonText: 'Cerrar'
+        })
+    }
+
 </script>
+
 
 
 <script src="~/Content/js/site.alerts.js"></script>

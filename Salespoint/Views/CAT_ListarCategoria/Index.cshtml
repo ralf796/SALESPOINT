@@ -7,11 +7,99 @@
     <script>
         function Listar() {
             $('#divData').load('@Url.Action("Listar")', function () {
-                //TableNoSearch('#tableData');
+                TableNoSearch('#tableData',400);
             });
         }
+
+        function Guardar() {
+            var nombre = $('#txtNombre').val();
+            var descripcion = $('#txtDescripcion').val();
+
+            if (nombre == '' || nombre == null) {
+                Notify('Debes ingresar un nombre de Categoría.', NotifyIcon.warning);
+                return;
+            }
+
+            if (descripcion == '' || descripcion == null)
+                descripcion = nombre;
+
+            $.post('@Url.Action("Guardar")', { nombre, descripcion }, function (response) {
+                if (response.Codigo == '1') {
+                    $('#modalGuardar').modal('hide');
+                    Notify(response.Descripcion, NotifyIcon.success);
+                    Listar();
+                    ClearModal();
+                }
+                else {
+                    Alert(response.Descripcion, NotifyIcon.warning);
+                }
+            });
+        }
+
+        function Actualizar() {
+            var id_categoria = $('#hfIdCategoria').val();
+            var nombre = $('#txtNombreActualizar').val();
+            var descripcion = $('#txtDescripcionActualizar').val();
+
+            if (id_categoria == '' || id_categoria == null) {
+                Notify('Debes seleccionar una Categoría.', NotifyIcon.warning);
+                return;
+            }
+
+            $.post('@Url.Action("Actualizar")', { id_categoria, nombre, descripcion }, function (response) {
+                if (response.Codigo == '1') {
+                    $('#modalActualizar').modal('hide');
+                    Notify(response.Descripcion, NotifyIcon.success);
+                    Listar();
+                    ClearModal();
+                }
+                else {
+                    Alert(response.Descripcion, NotifyIcon.warning);
+                }
+            });
+        }
+
+        function Eliminar(id_categoria) {
+            Confirm('Se inactivará el item seleccionado. ¿Quieres continuar?', function () {
+                $.post('@Url.Action("Eliminar")', { id_categoria }, function (response) {
+                    if (response.Codigo == '1') {
+                        Notify(response.Descripcion, NotifyIcon.success);
+                        Listar();
+                    }
+                    else {
+                        Alert(response.Descripcion, NotifyIcon.warning);
+                    }
+                });
+            });
+        }
+
+        function GetDatosActualizar(id, nombre, descripcion) {
+            $('#modalActualizar').modal('show');
+            $('#hfIdCategoria').val(id);
+            $('#txtNombreActualizar').val(nombre);
+            $('#txtDescripcionActualizar').val(descripcion);
+        }
+
+        function ClearModal() {
+            $('#hfIdCategoria').val('');
+            $('#txtNombre').val('');
+            $('#txtDescripcion').val('');
+            $('#txtNombreActualizar').val('');
+            $('#txtDescripcionActualizar').val('');
+        }
+
+        function ShowModalGuardar() {
+            ClearModal();
+            $('#modalGuardar').modal('show');
+        }
+
+        $(document).ready(function () {
+            Listar();
+        });
     </script>
 }
+
+<input id="hfIdCategoria" type="hidden" />
 
 <div class="col-md-12">
     <div class="card card-secondary">
@@ -23,3 +111,76 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="modalGuardar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="card-header">
+                <div class="row justify-content-center">
+                    <h4 id="modalTitle" class="modal-title text-secondary font-weight-bold">CREAR CATEGORÍA</h4>
+                </div>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-8">
+                                <div class="form-group">
+                                    <label for="txtNombre" class="bmd-label-floating">NOMBRE</label>
+                                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-8">
+                                <div class="form-group">
+                                    <label for="txtDescripcion" class="bmd-label-floating">DESCRIPCIÓN</label>
+                                    <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center text-md-center">
+                        <button type="button" class="btn btn-success" onclick="Guardar()"><i class="fad fa-check"></i> GUARDAR</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fad fa-times me-1"></i> CERRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalActualizar" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="card-header">
+                <div class="row justify-content-center">
+                    <h4 id="modalTitle" class="modal-title text-secondary font-weight-bold">ACTUALIZAR CATEGORÍA</h4>
+                </div>
+            </div>
+            <div class="modal-body p-0">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-8">
+                                <div class="form-group">
+                                    <label for="txtNombreActualizar" class="bmd-label-floating">NOMBRE</label>
+                                    <input type="text" class="form-control" id="txtNombreActualizar" name="txtNombreActualizar" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-8">
+                                <div class="form-group">
+                                    <label for="txtDescripcionActualizar" class="bmd-label-floating">DESCRIPCIÓN</label>
+                                    <input type="text" class="form-control" id="txtDescripcionActualizar" name="txtDescripcionActualizar" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center text-md-center">
+                        <button type="button" class="btn btn-success" onclick="Actualizar()"><i class="fad fa-check"></i> ACTUALIZAR</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fad fa-times me-1"></i> CERRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

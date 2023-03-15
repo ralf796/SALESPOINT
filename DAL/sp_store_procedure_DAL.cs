@@ -11,9 +11,11 @@ namespace DAL
     {
         public void Dispose() { }
 
+        DateTime FECHA_CREACION_DAL = DateTime.Now;
+
         public List<Usuarios_BE> DAL_sp_usuarios(Usuarios_BE item)
         {
-            List<Usuarios_BE> result = new List<Usuarios_BE>();
+            List<Usuarios_BE> result;
             using (var model = new Base_SQL("sp_usuario"))
             {
                 model.Command.Parameters.AddWithValue("@MTIPO", item.MTIPO);
@@ -38,11 +40,11 @@ namespace DAL
         }
         public List<Cotizaciones_BE> DAL_sp_cotizaciones(Cotizaciones_BE item)
         {
-            List<Cotizaciones_BE> result = new List<Cotizaciones_BE>();
+            List<Cotizaciones_BE> result;
             using (var model = new Base_SQL("sp_cotizaciones"))
             {
                 model.Command.Parameters.AddWithValue("@MTIPO", item.MTIPO);
-                model.Command.Parameters.AddWithValue("@ID_VENTA", item.ID_VENTA);                
+                model.Command.Parameters.AddWithValue("@ID_VENTA", item.ID_VENTA);
                 model.Command.Parameters.AddWithValue("@CREADO_POR", item.CREADO_POR);
                 result = model.GetData<Cotizaciones_BE>();
             }
@@ -50,7 +52,7 @@ namespace DAL
         }
         public List<Ventas_BE> DAL_sp_ventas(Ventas_BE item)
         {
-            List<Ventas_BE> result = new List<Ventas_BE>();
+            List<Ventas_BE> result;
             using (var model = new Base_SQL("sp_ventas"))
             {
                 model.Command.Parameters.AddWithValue("@MTIPO", item.MTIPO);
@@ -80,7 +82,7 @@ namespace DAL
         }
         public List<Clientes_BE> DAL_sp_clientes(Clientes_BE item)
         {
-            List<Clientes_BE> result = new List<Clientes_BE>();
+            List<Clientes_BE> result;
             using (var model = new Base_SQL("sp_clientes"))
             {
                 model.Command.Parameters.AddWithValue("@ID_CLIENTE", item.ID_CLIENTE);
@@ -97,11 +99,38 @@ namespace DAL
         }
         public List<Catalogo_BE> DAL_sp_catalogo(Catalogo_BE item)
         {
-            List<Catalogo_BE> result = new List<Catalogo_BE>();
+            List<Catalogo_BE> result;
             using (var model = new Base_SQL("sp_catalogo"))
             {
                 model.Command.Parameters.AddWithValue("@MTIPO", item.MTIPO);
+                model.Command.Parameters.AddWithValue("@ID_CATEGORIA", item.ID_CATEGORIA);
                 model.Command.Parameters.AddWithValue("@NOMBRE_CATEGORIA", item.NOMBRE_CATEGORIA);
+                model.Command.Parameters.AddWithValue("@DESCRIPCION", item.DESCRIPCION);
+                model.Command.Parameters.AddWithValue("@CREADO_POR", item.CREADO_POR);
+                model.Command.Parameters.AddWithValue("@FECHA_CREACION", FECHA_CREACION_DAL);
+                result = model.GetData<Catalogo_BE>();
+            }
+            return result;
+        }
+        public List<Catalogo_BE> DAL_sp_producto(Catalogo_BE item)
+        {
+            List<Catalogo_BE> result;
+            using (var model = new Base_SQL("sp_producto"))
+            {
+                model.Command.Parameters.AddWithValue("@MTIPO", item.MTIPO);
+                model.Command.Parameters.AddWithValue("@ID_PRODUCTO", item.ID_PRODUCTO);
+                model.Command.Parameters.AddWithValue("@NOMBRE", item.NOMBRE);
+                model.Command.Parameters.AddWithValue("@DESCRIPCION", item.DESCRIPCION);
+                model.Command.Parameters.AddWithValue("@ID_CATEGORIA", item.ID_CATEGORIA);
+                model.Command.Parameters.AddWithValue("@PRECIO_COSTO", item.PRECIO_COSTO);
+                model.Command.Parameters.AddWithValue("@PRECIO_VENTA", item.PRECIO_VENTA);
+                model.Command.Parameters.AddWithValue("@STOCK", item.STOCK);
+                model.Command.Parameters.AddWithValue("@PATH_IMG", item.PATH_IMG);
+                model.Command.Parameters.AddWithValue("@MARGEN", item.MARGEN);
+                model.Command.Parameters.AddWithValue("@TAMANIO", item.TAMANIO);
+                model.Command.Parameters.AddWithValue("@PROFUNDIDAD", item.PROFUNDIDAD);
+                model.Command.Parameters.AddWithValue("@CREADO_POR", item.CREADO_POR);
+                model.Command.Parameters.AddWithValue("@FECHA_CREACION", FECHA_CREACION_DAL);
                 result = model.GetData<Catalogo_BE>();
             }
             return result;
@@ -109,7 +138,7 @@ namespace DAL
 
         public List<Usuarios_BE> GetSPLogin(Usuarios_BE item)
         {
-            List<Usuarios_BE> result = new List<Usuarios_BE>();
+            List<Usuarios_BE> result ;
             using (var model = new Base_SQL("sp_login"))
             {
                 model.Command.Parameters.AddWithValue("@USUARIO", item.USUARIO);
@@ -122,7 +151,7 @@ namespace DAL
         }
         public List<Accesos_BE> GetAccesos(Accesos_BE item)
         {
-            List<Accesos_BE> result = new List<Accesos_BE>();
+            List<Accesos_BE> result;
             using (var model = new Base_SQL("sp_login"))
             {
                 model.Command.Parameters.AddWithValue("@USUARIO", item.USUARIO);
@@ -133,6 +162,6 @@ namespace DAL
             }
             return result;
         }
-    
+
     }
 }

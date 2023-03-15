@@ -8,24 +8,15 @@
     
 
     <script>
-        function AbrirModalCatalogo() {
-            $('#modalCatalogo').modal('show');
-            GetProductos()
-        }
 
-        function ZoomImage(nombre, descripcion, url) {
-            Swal.fire({
-                title: nombre,
-                text: descripcion,
-                imageUrl: url,
-                imageWidth: 400,
-                imageHeight: 400,
-                imageAlt: 'Custom image',
-                confirmButtonText: 'Cerrar'
-            })
+        function AbrirModalCatalogo() {
+            $('#selCategoria').load('@Url.Action("ListarCategorias")', function () {
+            });
+            $('#modalCatalogo').modal('show');            
         }
 
         function GetPendientes() {
+            alert(1);
             $.ajax({
                 type: 'GET',
                 url: '@Url.Action("GetCatalogo")',
@@ -70,7 +61,8 @@
         }
 
         function GetProductos() {
-            $('#divProductos').load('@Url.Action("Catalogo")', { }, function () {
+            var id_categoria = $('#selCategoria').val();
+            $('#divProductos').load('@Url.Action("Catalogo")', { id_categoria }, function () {
             });
         }
 
@@ -193,20 +185,6 @@
 
         input {
             margin-top: -10px;
-        }
-
-        #gridContainer span.current-value {
-            display: inline-block;
-            margin-right: 5px;
-        }
-
-        #gridContainer span.diff {
-            width: 50px;
-            display: inline-block;
-        }
-
-        * {
-            box-sizing: border-box;
         }
 
         .zoom {
@@ -551,7 +529,7 @@
                         <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mt-1">
                             <div class="input-group">
                                 <span class="col-form-label">CATEGORÍA:</span>
-                                <select class="form-control select2bs4" id="selCategoria" required>
+                                <select class="form-control select2bs4" id="selCategoria" onchange="GetProductos()" required>
                                 </select>
                             </div>
                         </div>

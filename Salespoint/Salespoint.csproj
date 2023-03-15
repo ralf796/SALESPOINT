@@ -45,14 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EPPlus">
+    <Reference Include="EPPlus, Version=5.8.12.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>Dll\EPPlus.5.8.12\lib\net35\EPPlus.dll</HintPath>
-    </Reference>
-    <Reference Include="EPPlus.Interfaces">
-      <HintPath>Dll\EPPlus.Interfaces.6.0.0\lib\net6.0\EPPlus.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="EPPlus.System.Drawing">
-      <HintPath>Dll\EPPlus.System.Drawing.6.0.0\lib\net35\EPPlus.System.Drawing.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -63,9 +58,6 @@
     </Reference>
     <Reference Include="RestSharp, Version=108.0.3.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.108.0.3\lib\netstandard2.0\RestSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Select.HtmlToPdf">
-      <HintPath>..\..\Ventas\packages\Select.HtmlToPdf.NetCore.22.1.0\lib\net472\Select.HtmlToPdf.dll</HintPath>
     </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -2632,13 +2624,12 @@
     <Compile Include="Class\Connect.cs" />
     <Compile Include="Class\Encryption.cs" />
     <Compile Include="Class\NumeroLetra.cs" />
-    <Compile Include="Class\PDFMaker.cs" />
     <Compile Include="Class\SessionExpireFilterAttribute.cs" />
     <Compile Include="Class\Utils.cs" />
     <Compile Include="Controllers\CATALOGO\CAT_ListarCategoriaController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\CATALOGO\CAT_ListarController.cs" />
+    <Compile Include="Controllers\CATALOGO\CAT_ListarProductoController.cs" />
     <Compile Include="Controllers\USUARIOS\USU_ListarController.cs" />
     <Compile Include="Controllers\VENTAS\VEN_CrearCotizacionController.cs" />
     <Compile Include="Controllers\VENTAS\VEN_CrearVentaController.cs" />
@@ -3256,6 +3247,7 @@
     <Content Include="Content\lib\bootstrap\dist\js\bootstrap.js.map" />
     <Content Include="Content\lib\bootstrap\dist\js\bootstrap.min.js.map" />
     <Content Include="Content\lib\bootstrap\LICENSE" />
+    <Content Include="Content\site.datatable" />
     <None Include="packages.config" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -3270,10 +3262,12 @@
     <Content Include="Views\VEN_CrearVenta\Index.cshtml" />
     <Content Include="Views\VEN_CrearCotizacion\Index.cshtml" />
     <Content Include="Views\VEN_CrearCotizacion\Catalogo.cshtml" />
-    <Content Include="Views\CAT_Listar\Listar.cshtml" />
-    <Content Include="Views\CAT_Listar\Index.cshtml" />
+    <Content Include="Views\CAT_ListarProducto\Listar.cshtml" />
+    <Content Include="Views\CAT_ListarProducto\Index.cshtml" />
     <Content Include="Views\CAT_ListarCategoria\Index.cshtml" />
     <Content Include="Views\CAT_ListarCategoria\Listar.cshtml" />
+    <Content Include="Views\CAT_ListarProducto\ListarCategorias.cshtml" />
+    <Content Include="Views\VEN_CrearCotizacion\ListarCategorias.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

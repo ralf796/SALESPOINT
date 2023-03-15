@@ -1,0 +1,9 @@
+﻿@{
+    List<BE.Catalogo_BE> LISTA = ViewBag.lista;
+}
+
+<option disabled selected>SELECCIONE CATEGORÍA</option>
+@foreach (var row in LISTA)
+{
+    <option value="@row.ID_CATEGORIA"> @row.NOMBRE </option>
+}

@@ -5,19 +5,21 @@
 }
 @foreach (var row in lista)
 {
-    <div class="col-md-3 mt-3 bg-light border-success border-3 border">
-        <div class="card card-widget widget-user-2">
-            <div class="widget-user-header">
-                <div class="widget-user-image">
-                    <img onclick="ZoomImage('@row.NOMBRE','@row.NOMBRE','@row.PATH_IMG')" class="img-circle elevation-2" src="@row.PATH_IMG" alt="User Avatar" style="width:60px; height:60px">
+    <div class="col-md-2 mt-3 bg-light border-success border-3 border text-center justify-content-center align-content-center">
+        <div class="card card-widget widget-user-2 text-center justify-content-center">
+            <div class="widget-user-header text-center justify-content-center" >
+                <div class="widget-user-image text-center justify-content-center">
+                    <img onclick="ZoomImage('@row.NOMBRE','@row.NOMBRE','@row.PATH_IMG')" class="img-circle elevation-2" src="@row.PATH_IMG" alt="User Avatar" style="width:100px; height:100px">
                 </div>
-                <h3 class="widget-user-username">
-                    @row.NOMBRE
-                </h3>
-                <h6 class="widget-user-desc">Q @row.PRECIO_VENTA</h6>
             </div>
             <div class="card-footer p-0">
                 <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <h6>@row.NOMBRE</h6>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Q @row.PRECIO_VENTA</a>
+                    </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link"> STOCK: <span class="float-right badge bg-primary">@row.STOCK</span> </a>
                     </li>
