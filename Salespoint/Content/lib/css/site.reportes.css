@@ -1,38 +1,36 @@
-﻿.page-break {
+﻿body, div {
+    font-family: 'iossansprint-regular';    
+}
+
+.page-break {
     page-break-after: always;
 }
 
 html, body, * {
     font-size: 12px;
-    color: red;
 }
 
 h1, .h1 {
     font-size: 1.75rem;
-    color: red;
 }
 
 h2, .h2 {
     font-size: 1.6rem;
-    color: red;
+    
 }
 
 h3, .h3 {
-    font-size: 1.45rem;
-    color: red;
+    font-size: 1.45rem;    
 }
 
 h4, .h4 {
     font-size: 1.30rem;
-    color:red;
 }
 
 h5, .h5 {
-    font-size: 1.15rem;
-    color: red;
+    font-size: 1.15rem;    
 }
 
 h6, .h6 {
-    font-size: 1rem;
-    color: red;
+    font-size: 1rem;    
 }

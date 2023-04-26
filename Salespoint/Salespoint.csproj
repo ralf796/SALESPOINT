@@ -59,6 +59,9 @@
     <Reference Include="RestSharp, Version=108.0.3.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.108.0.3\lib\netstandard2.0\RestSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Select.HtmlToPdf, Version=22.2.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <HintPath>..\packages\Select.HtmlToPdf.22.2.0\lib\net40\Select.HtmlToPdf.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
@@ -2624,6 +2627,7 @@
     <Compile Include="Class\Connect.cs" />
     <Compile Include="Class\Encryption.cs" />
     <Compile Include="Class\NumeroLetra.cs" />
+    <Compile Include="Class\PDFMaker.cs" />
     <Compile Include="Class\SessionExpireFilterAttribute.cs" />
     <Compile Include="Class\Utils.cs" />
     <Compile Include="Controllers\CATALOGO\CAT_ListarCategoriaController.cs" />
