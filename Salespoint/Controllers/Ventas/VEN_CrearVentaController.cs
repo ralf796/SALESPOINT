@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BE;
+using Salespoint.Class;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;

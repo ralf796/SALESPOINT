@@ -3,4 +3,3 @@ C:\Development\Salespoint\BE\bin\Debug\BE.pdb
 C:\Development\Salespoint\BE\obj\Debug\BE.csproj.CoreCompileInputs.cache
 C:\Development\Salespoint\BE\obj\Debug\BE.dll
 C:\Development\Salespoint\BE\obj\Debug\BE.pdb
-C:\Development\Salespoint\BE\obj\Debug\BE.csproj.AssemblyReference.cache

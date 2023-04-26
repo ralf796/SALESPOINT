@@ -53,8 +53,6 @@ C:\Development\Salespoint\Salespoint\bin\roslyn\VBCSCompiler.exe.config
 C:\Development\Salespoint\Salespoint\bin\BE.dll
 C:\Development\Salespoint\Salespoint\bin\BLL.dll
 C:\Development\Salespoint\Salespoint\bin\EPPlus.dll
-C:\Development\Salespoint\Salespoint\bin\EPPlus.Interfaces.dll
-C:\Development\Salespoint\Salespoint\bin\EPPlus.System.Drawing.dll
 C:\Development\Salespoint\Salespoint\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Development\Salespoint\Salespoint\bin\Microsoft.Web.Infrastructure.dll
 C:\Development\Salespoint\Salespoint\bin\Newtonsoft.Json.dll
@@ -83,18 +81,15 @@ C:\Development\Salespoint\Salespoint\bin\es\System.Web.Webpages.Deployment.resou
 C:\Development\Salespoint\Salespoint\bin\es\System.Web.Webpages.Razor.resources.dll
 C:\Development\Salespoint\Salespoint\bin\es\System.Web.Helpers.resources.dll
 C:\Development\Salespoint\Salespoint\bin\es\System.Web.Mvc.resources.dll
-C:\Development\Salespoint\Salespoint\bin\Select.Html.dep
 C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.csproj.AssemblyReference.cache
 C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.csproj.CoreCompileInputs.cache
 C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.csproj.CopyComplete
 C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.dll
 C:\Development\Salespoint\Salespoint\obj\Debug\Salespoint.pdb
-C:\Development\Salespoint\Salespoint\bin\Select.HtmlToPdf.dll
 C:\Development\Salespoint\Salespoint\bin\System.Buffers.dll
 C:\Development\Salespoint\Salespoint\bin\System.Numerics.Vectors.dll
 C:\Development\Salespoint\Salespoint\bin\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Development\Salespoint\Salespoint\bin\System.Threading.Tasks.Extensions.dll
-C:\Development\Salespoint\Salespoint\bin\Select.HtmlToPdf.xml
 C:\Development\Salespoint\Salespoint\bin\RestSharp.dll
 C:\Development\Salespoint\Salespoint\bin\System.Memory.dll
 C:\Development\Salespoint\Salespoint\bin\System.Runtime.CompilerServices.Unsafe.dll
