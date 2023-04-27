@@ -45,5 +45,11 @@ namespace Salespoint.Class
             lista = sp_store_procedure_BLL.BLL_sp_producto(item);
             return lista;
         }
+        public static List<Pedido_BE> Connect_Pedido(Pedido_BE item)
+        {
+            List<Pedido_BE> lista ;
+            lista = sp_store_procedure_BLL.BLL_sp_pedido(item);
+            return lista;
+        }
     }
 }

@@ -1,0 +1,31 @@
+﻿@{
+    List<BE.Pedido_BE> data = ViewBag.data;
+}
+<table class="table table-hover table-sm table-striped display nowrap table-bordered" style="width:100%" width="100%" id="tableDetalles">
+    <thead>
+        <tr>
+            <th class="headColor text-center">#</th>
+            <th class="headColor text-center pr-2">MENU</th>
+            <th class="headColor text-center pr-2">CANTIDAD</th>
+            <th class="headColor text-center pr-2">OBSERVACIONES</th>
+        </tr>
+    </thead>
+    <tbody id="tBodyData">
+        @foreach (var row in data)
+        {
+            <tr>
+                <td class="text-center">
+                    <button onclick="ShowModalIngObservaciones(@row.ID_MESA_MENU)" class="btn btn-success btn-sm border-0 mr-1" title="Actualizar observación">
+                        <i class="fad fa-edit hvr-grow"></i>
+                    </button>
+                    <button onclick="Delete_DetalleMesa(@row.ID_MESA_MENU)" class="btn btn-danger btn-sm border-0 " title="Eliminar">
+                        <i class="fad fa-trash-alt hvr-grow"></i>
+                    </button>
+                </td>
+                <td>@row.NOMBRE</td>
+                <td class="text-center font-weight-bold">@row.CANTIDAD</td>
+                <td>@row.OBSERVACIONES</td>
+            </tr>
+        }
+    </tbody>
+</table>

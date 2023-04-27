@@ -83,6 +83,15 @@ namespace BLL
             }
             return data;
         }
+        public static List<Pedido_BE> BLL_sp_pedido(Pedido_BE item)
+        {
+            List<Pedido_BE> data = null;
+            using (var model = new sp_store_procedure_DAL())
+            {
+                data = model.DAL_sp_pedido(item);
+            }
+            return data;
+        }
 
         #endregion
     }

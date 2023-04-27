@@ -1,0 +1,37 @@
+﻿@using BE
+@{
+    List<Pedido_BE> lista = ViewBag.data;
+}
+
+<div class="card-header" style="height:50px">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3 id="titleModal2">SELECCIONE MESA</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row justify-content-center">
+        @foreach (var row in lista)
+        {
+            <div class="col-md-2 m-3 btn hvr-grow" onclick="DeshabilitarMesa(@row.ID_MESA)">
+                <div class="text-center justify-content-center @row.BG_COLOR" style="border-radius:30px">
+                    <img class="elevation-2" src="https://i.pinimg.com/736x/b9/c5/3e/b9c53eef6eeb90147ea72af5922d1f1e--cafe-tables-dinning-table.jpg" style="width:100px; height:100px">
+                    <div class="card-footer p-0 bg-light" style="border-radius:20px">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <h6 class="font-weight-bold pt-2">@row.NOMBRE @row.NUMERO</h6>
+                                <h5 class="font-weight-bold text-success">@row.DESCRIPCION</h5>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

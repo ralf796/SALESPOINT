@@ -162,6 +162,24 @@ namespace DAL
             }
             return result;
         }
+        public List<Pedido_BE> DAL_sp_pedido(Pedido_BE item)
+        {
+            List<Pedido_BE> result;
+            using (var model = new Base_SQL("sp_pedido"))
+            {
+                model.Command.Parameters.AddWithValue("@MTIPO", item.MTIPO);
+                model.Command.Parameters.AddWithValue("@ID_MESA_MENU", item.ID_MESA_MENU);
+                model.Command.Parameters.AddWithValue("@ID_MESA", item.ID_MESA);
+                model.Command.Parameters.AddWithValue("@ID_PRODUCTO", item.ID_PRODUCTO);
+                model.Command.Parameters.AddWithValue("@CANTIDAD", item.CANTIDAD);
+                model.Command.Parameters.AddWithValue("@ID_CATEGORIA", item.ID_CATEGORIA);
+                model.Command.Parameters.AddWithValue("@ID_PEDIDO", item.ID_PEDIDO_ENCABEZADO);
+                model.Command.Parameters.AddWithValue("@OBSERVACIONES", item.OBSERVACIONES);
+                model.Command.Parameters.AddWithValue("@CREADO_POR", item.CREADO_POR);
+                result = model.GetData<Pedido_BE>();
+            }
+            return result;
+        }
 
     }
 }

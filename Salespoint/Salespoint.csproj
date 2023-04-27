@@ -3272,6 +3272,10 @@
     <Content Include="Views\CAT_ListarCategoria\Listar.cshtml" />
     <Content Include="Views\CAT_ListarProducto\ListarCategorias.cshtml" />
     <Content Include="Views\VEN_CrearCotizacion\ListarCategorias.cshtml" />
+    <Content Include="Views\VEN_CrearVenta\Get_DetallesMesa.cshtml" />
+    <Content Include="Views\VEN_CrearVenta\Get_Mesas.cshtml" />
+    <Content Include="Views\VEN_CrearVenta\Get_Categorias.cshtml" />
+    <Content Include="Views\VEN_CrearVenta\Get_Productos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
