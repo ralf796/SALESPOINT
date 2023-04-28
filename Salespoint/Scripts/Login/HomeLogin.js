@@ -26,7 +26,7 @@
             showConfirmButton: false,
         })
     }
-    ValidarLogin('admin', 'admin')
+    //ValidarLogin('admin', 'admin')
     function ValidarLogin(usuario, password) {
         $.ajax({
             type: 'GET',

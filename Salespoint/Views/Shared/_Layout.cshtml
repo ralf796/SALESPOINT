@@ -35,9 +35,9 @@
                         <a href="#" class="nav-link">Contact</a>
                     </li>*@
             </ul>
-            @*<div class="row text-center justify-content-center" style="margin-left:50px">
-                    <b>S A L E S P O I N T</b>
-                </div>*@
+            <div class="row text-center justify-content-center">
+                    <b>RESTAURANTE MAXIMA</b>
+                </div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     @*<a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -163,7 +163,7 @@
                         <img src="@Session["url_fotografia"]" class="img-circle elevation-2" alt="User Image" style="width:60px; height:60px">
                     </div>
                     <div class="info">
-                        <p class="text-white" style="margin-top:14px">@*Session["usuario"].ToString().ToUpper()*@</p>
+                        <p class="text-white" style="margin-top:14px">@Session["usuario"].ToString().ToUpper()</p>
                     </div>
                 </div>
                 <div class="form-inline">
@@ -213,7 +213,7 @@
         <div class="content-wrapper">
             @RenderBody()
         </div>
-        <footer class="main-footer d-none">
+        <footer class="main-footer">
             <strong>Ingeniería de Software&copy; @DateTime.Now.Year.</strong>
             <div class="float-right d-sm-inline-block">
                 <b>Version</b> 1.0

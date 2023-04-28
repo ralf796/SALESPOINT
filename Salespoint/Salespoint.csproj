@@ -2563,6 +2563,12 @@
     <Content Include="Content\Fotografias\Agosto39.png" />
     <Content Include="Content\hover.css" />
     <Content Include="Content\Icons\spinner.svg" />
+    <Content Include="Content\Images\background1.png" />
+    <Content Include="Content\Images\login1.jpg" />
+    <Content Include="Content\Images\login2.jpg" />
+    <Content Include="Content\Images\login3.jpg" />
+    <Content Include="Content\Images\sopa_1.jpg" />
+    <Content Include="Content\Images\sopa_2.jpg" />
     <Content Include="Content\js\site.alerts.js" />
     <Content Include="Content\js\site.datatable.js" />
     <Content Include="Content\js\site.datetime.js" />

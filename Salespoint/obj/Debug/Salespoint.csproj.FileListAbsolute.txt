@@ -106,3 +106,6 @@ C:\Development\Salespoint\Salespoint\bin\System.Text.Encodings.Web.xml
 C:\Development\Salespoint\Salespoint\bin\System.Text.Json.xml
 C:\Development\Salespoint\Salespoint\bin\System.Threading.Tasks.Extensions.xml
 C:\Development\Salespoint\Salespoint\bin\System.ValueTuple.xml
+C:\Development\Salespoint\Salespoint\bin\Select.HtmlToPdf.dll
+C:\Development\Salespoint\Salespoint\bin\Select.HtmlToPdf.xml
+C:\Development\Salespoint\Salespoint\bin\Select.Html.dep

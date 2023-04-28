@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -10,6 +9,11 @@
             $('#divMesas').load('@Url.Action("Get_Mesas")', function () {
                 $('#modalMesas').modal('show');
             });
+        }
+
+        function CerrarModals() {
+            $('#modalMesas').modal('hide');
+            $('.ocultar').addClass('d-none');
         }
 
         function ShowModalProductos() {
@@ -179,7 +183,7 @@
 <input type="hidden" id="hfIdMenu" />
 <input type="hidden" id="hfIdDetalle" />
 
-<div class="row m-2">
+<div class="row m-2 ocultar">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center pt-1">
         <h4 class="font-weight-bold text-success" id="hfTextoMesa"></h4>
     </div>
