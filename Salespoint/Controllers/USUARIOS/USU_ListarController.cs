@@ -1,6 +1,6 @@
-﻿using BE;
+﻿using RESTAURANTE;
 using GenesysOracleSV.Clases;
-using Salespoint.Class;
+using HELPERS;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,6 +14,7 @@ namespace Salespoint.Controllers.USUARIOS
     public class USU_ListarController : Controller
     {
         #region VIEWS
+        [SessionExpireFilter]
         public ActionResult Index()
         {
             return View();
@@ -66,6 +67,7 @@ namespace Salespoint.Controllers.USUARIOS
         #endregion
 
         #region JSON RESULTS
+        [SessionExpireFilter]
         public JsonResult Create(FormCollection formCollection)
         {
             var respuesta = new Respuesta();

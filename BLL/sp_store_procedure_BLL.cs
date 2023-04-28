@@ -1,9 +1,6 @@
-﻿using BE;
-using DAL;
-using System;
+﻿using System;
 using System.Collections.Generic;
-
-namespace BLL
+namespace RESTAURANTE
 {
     public class sp_store_procedure_BLL : IDisposable
     {

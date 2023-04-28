@@ -1,5 +1,6 @@
-﻿@{
-    List<BE.Catalogo_BE> data = ViewBag.data;
+﻿@using RESTAURANTE 
+@{
+    List<Catalogo_BE> data = ViewBag.data;
 }
 <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <div class='input-group-prepend'>
@@ -16,14 +17,9 @@
         <tr>
             <th class="headColor text-center pr-2">IMG</th>
             <th class="headColor text-center pr-2">NOMBRE</th>
-            <th class="headColor text-center pr-2">DESCRIPCIÓN</th>
             <th class="headColor text-center pr-2">CATEGORÍA</th>
             <th class="headColor text-center pr-2">PRECIO COSTO</th>
             <th class="headColor text-center pr-2">PRECIO VENTA</th>
-            <th class="headColor text-center pr-2">STOCK</th>
-            <th class="headColor text-center pr-2">MARGÉN</th>
-            <th class="headColor text-center pr-2">TAMAÑO</th>
-            <th class="headColor text-center pr-2">PROFUNDIDAD</th>
             <th class="headColor text-center pr-2">USUARIO CREÓ</th>
             <th class="headColor text-center pr-2">FECHA CREÓ</th>
             <th class="headColor text-center pr-2">STATUS</th>
@@ -38,14 +34,9 @@
                     <img onclick="ZoomImage('@row.NOMBRE','@row.DESCRIPCION','@row.PATH_IMG')" class="btn hvr-grow m-0 p-0" src="@row.PATH_IMG" height="50" width="50" />
                 </td>
                 <td>@row.NOMBRE</td>
-                <td>@row.DESCRIPCION</td>
                 <td>@row.NOMBRE_CATEGORIA</td>
-                <td class="text-right">@row.PRECIO_COSTO</td>
-                <td class="text-right">@row.PRECIO_VENTA</td>
-                <td class="text-center">@row.STOCK</td>
-                <td class="text-center">@row.MARGEN</td>
-                <td class="text-center">@row.TAMANIO</td>
-                <td class="text-center">@row.PROFUNDIDAD</td>
+                <td class="text-right pr-3">@row.PRECIO_COSTO.ToString("N2")</td>
+                <td class="text-right pr-3">@row.PRECIO_VENTA.ToString("N2")</td>
                 <td width="150px">@row.CREADO_POR</td>
                 <td width="150px" class="text-center">@row.FECHA_CREACION.ToString("dd/MM/yyyy hh:mm tt") </td>
                 @if (row.ESTADO == 1)

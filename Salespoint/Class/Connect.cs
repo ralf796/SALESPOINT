@@ -1,11 +1,6 @@
-﻿using BE;
-using BLL;
-using System;
+﻿using RESTAURANTE;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Salespoint.Class
+namespace HELPERS
 {
     public class Connect
     {

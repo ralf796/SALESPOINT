@@ -1,22 +1,15 @@
-﻿using BE;
+﻿using RESTAURANTE;
 using GenesysOracleSV.Clases;
-using Salespoint.Class;
+using HELPERS;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Printing;
-using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Razor.Parser.SyntaxTree;
 
 namespace Salespoint.Controllers.CATALOGO
 {
     public class CAT_ListarCategoriaController : Controller
     {
-        // GET: CAT_ListarCategoria
+        [SessionExpireFilter]
         public ActionResult Index()
         {
             return View();
@@ -32,6 +25,7 @@ namespace Salespoint.Controllers.CATALOGO
             return PartialView();
         }
 
+        [SessionExpireFilter]
         public JsonResult Guardar(string nombre = "", string descripcion = "")
         {
             var respuesta = new Respuesta();

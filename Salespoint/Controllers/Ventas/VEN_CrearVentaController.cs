@@ -1,18 +1,14 @@
-﻿using BE;
+﻿using RESTAURANTE;
 using GenesysOracleSV.Clases;
-using Newtonsoft.Json;
-using Salespoint.Class;
+using HELPERS;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Salespoint.Controllers.VENTAS
 {
     public class VEN_CrearVentaController : Controller
     {
-        // GET: VEN_CrearVenta
         [SessionExpireFilter]
         public ActionResult Index()
         {
@@ -228,8 +224,6 @@ namespace Salespoint.Controllers.VENTAS
             try
             {
                 List<Pedido_BE> RESULT_SP;
-                //List<Pedido_BE> lista = JsonConvert.DeserializeObject<List<Pedido_BE>>(detalles);
-
                 string usuario = Session["usuario"].ToString();
                 var item_Encabezado = new Pedido_BE();
                 item_Encabezado.MTIPO = 12;
@@ -265,7 +259,43 @@ namespace Salespoint.Controllers.VENTAS
                     RESULT_SP = Connect.Connect_Pedido(item_Encabezado);
 
                     respuesta.Codigo = 1;
-                    respuesta.Descripcion = "Pedidio creado correctamente.";
+                    respuesta.Descripcion = "Pedido creado correctamente.";
+                }
+            }
+            catch (Exception ex)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Descripcion = $"Mensaje: {ex.Message}";
+            }
+            return Json(respuesta);
+        }
+
+        [SessionExpireFilter]
+        public JsonResult Update_Pedido(int id_mesa = 0)
+        {
+            var respuesta = new Respuesta();
+            try
+            {
+                List<Pedido_BE> RESULT_SP;
+                string usuario = Session["usuario"].ToString();
+                var item_Encabezado = new Pedido_BE();
+                item_Encabezado.MTIPO = 14;
+                item_Encabezado.ID_MESA = id_mesa;
+                item_Encabezado.CREADO_POR = usuario;
+                RESULT_SP = Connect.Connect_Pedido(item_Encabezado);
+
+                if (RESULT_SP.Count == 0)
+                {
+                    respuesta.Codigo = 2;
+                    respuesta.Descripcion = "No se ha podido actualizar el pedido.";
+                }
+                else
+                {
+                    item_Encabezado.MTIPO = 13;
+                    RESULT_SP = Connect.Connect_Pedido(item_Encabezado);
+
+                    respuesta.Codigo = 1;
+                    respuesta.Descripcion = "Pedido actualizado correctamente.";
                 }
             }
             catch (Exception ex)

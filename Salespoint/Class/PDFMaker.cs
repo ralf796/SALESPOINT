@@ -1,17 +1,8 @@
 ﻿using SelectPdf;
 using System.Drawing;
 using System.Text;
-using System.IO;
-using System.Reflection;
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Web;
-using System.Web.UI.WebControls;
-
-namespace Tools
+namespace HELPERS
 {
     //public class PDF : IDisposable
     //{

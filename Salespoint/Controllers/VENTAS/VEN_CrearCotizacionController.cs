@@ -1,24 +1,22 @@
-﻿using System;
+﻿using RESTAURANTE;
+using System;
 using System.IO;
 using System.Web.Mvc;
 using System.Net.Mail;
 using System.Net;
 using System.Text;
-using Salespoint.Class;
 using SelectPdf;
-using Ventas.Class;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using BE;
 using GenesysOracleSV.Clases;
-using Tools;
+using HELPERS;
 
 namespace Salespoint.Controllers.VENTAS
 {
     public class VEN_CrearCotizacionController : Controller
     {
-        // GET: VEN_CrearCotizacion
+        [SessionExpireFilter]
         public ActionResult Index()
         {
             return View();
@@ -27,7 +25,7 @@ namespace Salespoint.Controllers.VENTAS
         public void SendMail()
         {
             string fromMail = "test@gmail.com";
-            string fromPassword = "xqauughsgossssppmrm";
+            string fromPassword = "asdasdasd";
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
@@ -238,7 +236,7 @@ namespace Salespoint.Controllers.VENTAS
                     <b>TOTAL SIN DESCUENTO :</b> <span class='font-weight-bold pl-2' style='font-size:22px'> Q{654}</span><br>
                     <b>DESCUENTO:</b> <span class='font-weight-bold pl-2' style='font-size:22px'> Q{654}</span><br>
                     <b>TOTAL A PAGAR:</b><span class='font-weight-bold pl-2'  style='font-size:22px'> Q{654}</span><br>
-                    <b>TOTAL EN LETRAS: </b> {new NumeroLetra().Convertir("2164", true)}<br>
+                    <b>TOTAL EN LETRAS: </b> {Utils.Convertir("2164", true)}<br>
                 </div>
             </div>
             <div class='row pt-5'>

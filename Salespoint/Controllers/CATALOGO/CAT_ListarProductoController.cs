@@ -1,22 +1,20 @@
-﻿using BE;
+﻿using RESTAURANTE;
 using GenesysOracleSV.Clases;
 using OfficeOpenXml;
-using Salespoint.Class;
+using HELPERS;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Salespoint.Controllers.INVENTARIO
+namespace Salespoint.Controllers.CATALOGO
 {
     public class CAT_ListarProductoController : Controller
     {
-        // GET: INV_Listar
+        [SessionExpireFilter]
         public ActionResult Index()
         {
             return View();
@@ -49,14 +47,10 @@ namespace Salespoint.Controllers.INVENTARIO
             try
             {
                 string NOMBRE = Request.Form["NOMBRE"].ToString();
-                string DESCRIPCION = Request.Form["DESCRIPCION"].ToString();
                 int ID_CATEGORIA = Convert.ToInt32(Request.Form["ID_CATEGORIA"].ToString());
                 decimal PRECIO_COSTO = Convert.ToDecimal(Request.Form["PRECIO_COSTO"].ToString());
                 decimal PRECIO_VENTA = Convert.ToDecimal(Request.Form["PRECIO_VENTA"].ToString());
                 int STOCK = Convert.ToInt32(Request.Form["STOCK"].ToString());
-                decimal MARGEN = Convert.ToDecimal(Request.Form["MARGEN"].ToString());
-                decimal TAMANIO = Convert.ToDecimal(Request.Form["TAMANIO"].ToString());
-                decimal PROFUNDIDAD = Convert.ToDecimal(Request.Form["PROFUNDIDAD"].ToString());
 
                 var randomNumber = new Random().Next(0, 100);
                 string path = "", PATH_IMG = "";
@@ -82,17 +76,13 @@ namespace Salespoint.Controllers.INVENTARIO
                 List<Catalogo_BE> RESULT_SP;
                 Catalogo_BE item = new Catalogo_BE
                 {
-                    MTIPO = 2,
+                    MTIPO =6,
                     NOMBRE = NOMBRE,
-                    DESCRIPCION = DESCRIPCION,
                     ID_CATEGORIA = ID_CATEGORIA,
                     PRECIO_COSTO = PRECIO_COSTO,
                     PRECIO_VENTA = PRECIO_VENTA,
                     STOCK = STOCK,
                     PATH_IMG = PATH_IMG,
-                    MARGEN = MARGEN,
-                    TAMANIO = TAMANIO,
-                    PROFUNDIDAD = PROFUNDIDAD,
                     CREADO_POR = Session["usuario"].ToString()
                 };
                 RESULT_SP = Connect.Connect_Producto(item);
@@ -124,14 +114,10 @@ namespace Salespoint.Controllers.INVENTARIO
             {
                 int ID_PRODUCTO = Convert.ToInt32(Request.Form["ID_PRODUCTO"].ToString());
                 string NOMBRE = Request.Form["NOMBRE"].ToString();
-                string DESCRIPCION = Request.Form["DESCRIPCION"].ToString();
                 int ID_CATEGORIA = Convert.ToInt32(Request.Form["ID_CATEGORIA"].ToString());
                 decimal PRECIO_COSTO = Convert.ToDecimal(Request.Form["PRECIO_COSTO"].ToString());
                 decimal PRECIO_VENTA = Convert.ToDecimal(Request.Form["PRECIO_VENTA"].ToString());
                 int STOCK = Convert.ToInt32(Request.Form["STOCK"].ToString());
-                decimal MARGEN = Convert.ToDecimal(Request.Form["MARGEN"].ToString());
-                decimal TAMANIO = Convert.ToDecimal(Request.Form["TAMANIO"].ToString());
-                decimal PROFUNDIDAD = Convert.ToDecimal(Request.Form["PROFUNDIDAD"].ToString());
 
                 var randomNumber = new Random().Next(0, 100);
                 string path = "", PATH_IMG = "";
@@ -161,17 +147,13 @@ namespace Salespoint.Controllers.INVENTARIO
                 Catalogo_BE item = new Catalogo_BE
                 {
                     ID_PRODUCTO = ID_PRODUCTO,
-                    MTIPO = 3,
+                    MTIPO = 7,
                     NOMBRE = NOMBRE,
-                    DESCRIPCION = DESCRIPCION,
                     ID_CATEGORIA = ID_CATEGORIA,
                     PRECIO_COSTO = PRECIO_COSTO,
                     PRECIO_VENTA = PRECIO_VENTA,
                     STOCK = STOCK,
                     PATH_IMG = PATH_IMG,
-                    MARGEN = MARGEN,
-                    TAMANIO = TAMANIO,
-                    PROFUNDIDAD = PROFUNDIDAD,
                     CREADO_POR = Session["usuario"].ToString()
                 };
                 RESULT_SP = Connect.Connect_Producto(item);
@@ -204,7 +186,7 @@ namespace Salespoint.Controllers.INVENTARIO
                 List<Catalogo_BE> RESULT_SP;
                 Catalogo_BE item = new Catalogo_BE
                 {
-                    MTIPO = 4,
+                    MTIPO = 8,
                     ID_PRODUCTO = id_producto,
                     CREADO_POR = Session["usuario"].ToString()
                 };
@@ -229,6 +211,7 @@ namespace Salespoint.Controllers.INVENTARIO
             return Json(respuesta);
         }
 
+        [SessionExpireFilter]
         public JsonResult CargaMasiva(FormCollection formCollection)
         {
             try
@@ -257,26 +240,22 @@ namespace Salespoint.Controllers.INVENTARIO
                         {
                             if (workSheet.Cells[rowIterator, 3].Value != null)
                             {
-                                for (int i = 1; i <= 10; i++)
+                                for (int i = 1; i <= 4; i++)
                                 {
                                     if (workSheet.Cells[rowIterator, i].Value == null)
                                         workSheet.Cells[rowIterator, i].Value = "";
                                 }
 
                                 var row = new Catalogo_BE();
-                                row.MTIPO = 2;
+                                row.MTIPO = 6;
                                 row.ID_CATEGORIA = ID_CATEGORIA;
                                 row.CREADO_POR = Session["usuario"].ToString();
 
-                                row.NOMBRE = NullString(workSheet.Cells[rowIterator, 1].Value.ToString());
-                                row.DESCRIPCION = NullString(workSheet.Cells[rowIterator, 2].Value.ToString());
-                                row.STOCK = NullInt(workSheet.Cells[rowIterator, 3].Value.ToString());
-                                row.PRECIO_COSTO = NullDecimal(workSheet.Cells[rowIterator, 4].Value.ToString());
-                                row.PRECIO_VENTA = NullDecimal(workSheet.Cells[rowIterator, 5].Value.ToString());
-                                row.MARGEN = NullDecimal(workSheet.Cells[rowIterator, 6].Value.ToString());
-                                row.TAMANIO = NullDecimal(workSheet.Cells[rowIterator, 7].Value.ToString());
-                                row.PROFUNDIDAD = NullDecimal(workSheet.Cells[rowIterator, 8].Value.ToString());
-                                row.PATH_IMG = NullString(workSheet.Cells[rowIterator, 9].Value.ToString());
+                                row.NOMBRE = Utils.NullString(workSheet.Cells[rowIterator, 1].Value.ToString());                                
+                                row.PRECIO_COSTO =Utils.NullDecimal(workSheet.Cells[rowIterator, 2].Value.ToString());
+                                row.PRECIO_VENTA =Utils.NullDecimal(workSheet.Cells[rowIterator, 3].Value.ToString());
+                                row.PATH_IMG = Utils.NullString(workSheet.Cells[rowIterator,4].Value.ToString());
+                                row.CREADO_POR = Session["usuario"].ToString();
                                 list.Add(row);
                             }
                         }
@@ -284,7 +263,7 @@ namespace Salespoint.Controllers.INVENTARIO
                 }
                 foreach (var row in list)
                 {
-                    row.MTIPO = 2;
+                    row.MTIPO = 6;
                     List<Catalogo_BE> RESULT_SP;
                     RESULT_SP = Connect.Connect_Producto(row);
                 }
@@ -294,61 +273,6 @@ namespace Salespoint.Controllers.INVENTARIO
             {
                 return Json(new { State = -1, Message = ex.Message.ToString() }, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        private string NullString(string cadena)
-        {
-            string respuesta = "";
-            try
-            {
-                if (cadena == null)
-                    respuesta = "";
-                else if (cadena == "")
-                    respuesta = "";
-                else
-                    respuesta = cadena;
-            }
-            catch
-            {
-                respuesta = "";
-            }
-            return respuesta;
-        }
-        private decimal NullDecimal(string cadena)
-        {
-            decimal respuesta = 0;
-            try
-            {
-                if (cadena == null)
-                    respuesta = 0;
-                else if (cadena == "")
-                    respuesta = 0;
-                else
-                    respuesta = Convert.ToDecimal(cadena);
-            }
-            catch
-            {
-                respuesta = 0;
-            }
-            return respuesta;
-        }
-        private int NullInt(string cadena)
-        {
-            int respuesta = 0;
-            try
-            {
-                if (cadena == null)
-                    respuesta = 0;
-                else if (cadena == "")
-                    respuesta = 0;
-                else
-                    respuesta = Convert.ToInt16(cadena);
-            }
-            catch
-            {
-                respuesta = 0;
-            }
-            return respuesta;
         }
     }
 }

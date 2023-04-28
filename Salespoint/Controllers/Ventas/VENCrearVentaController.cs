@@ -1,4 +1,5 @@
-﻿using GenesysOracle.Clases;
+﻿using RESTAURANTE;
+using GenesysOracle.Clases;
 using GenesysOracleSV.Clases;
 using System;
 using System.Collections.Generic;
@@ -7,8 +8,6 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using BE;
-using BLL;
 using Newtonsoft.Json;
 using SelectPdf;
 

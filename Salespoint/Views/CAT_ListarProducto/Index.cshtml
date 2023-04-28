@@ -21,26 +21,26 @@
 
         function Guardar() {
             var NOMBRE = $('#txtNombre').val();
-            var DESCRIPCION = $('#txtDescripcion').val();
+            //var DESCRIPCION = $('#txtDescripcion').val();
             var ID_CATEGORIA = $('#selCategoria').val();
             var PRECIO_COSTO = $('#txtPrecioCosto').val();
             var PRECIO_VENTA = $('#txtPrecioVenta').val();
             var STOCK = $('#txtStock').val();
-            var MARGEN = $('#txtMargen').val();
-            var TAMANIO = $('#txtTamanio').val();
-            var PROFUNDIDAD = $('#txtProfundidad').val();
+            //var MARGEN = $('#txtMargen').val();
+            //var TAMANIO = $('#txtTamanio').val();
+            //var PROFUNDIDAD = $('#txtProfundidad').val();
 
 
             var formData = new FormData();
             formData.append('NOMBRE', NOMBRE);
-            formData.append('DESCRIPCION', DESCRIPCION);
+            //formData.append('DESCRIPCION', DESCRIPCION);
             formData.append('ID_CATEGORIA', ID_CATEGORIA);
             formData.append('PRECIO_COSTO', PRECIO_COSTO);
             formData.append('PRECIO_VENTA', PRECIO_VENTA);
             formData.append('STOCK', STOCK);
-            formData.append('MARGEN', MARGEN);
-            formData.append('TAMANIO', TAMANIO);
-            formData.append('PROFUNDIDAD', PROFUNDIDAD);
+            //formData.append('MARGEN', MARGEN);
+            //formData.append('TAMANIO', TAMANIO);
+            //formData.append('PROFUNDIDAD', PROFUNDIDAD);
             if ($('#idFotografiaCreate')[0].files != undefined) {
                 let files = $('#idFotografiaCreate')[0].files;
                 formData.append('PATH_IMG', files[0]);
@@ -69,26 +69,26 @@
         function Actualizar() {
             var ID_PRODUCTO = $('#hfIdProducto').val();
             var NOMBRE = $('#txtNombreActualizar').val();
-            var DESCRIPCION = $('#txtDescripcionActualizar').val();
+            //var DESCRIPCION = $('#txtDescripcionActualizar').val();
             var ID_CATEGORIA = $('#selCategoriaActualizar').val();
             var PRECIO_COSTO = $('#txtPrecioCostoActualizar').val();
             var PRECIO_VENTA = $('#txtPrecioVentaActualizar').val();
             var STOCK = $('#txtStockActualizar').val();
-            var MARGEN = $('#txtMargenActualizar').val();
-            var TAMANIO = $('#txtTamanioActualizar').val();
-            var PROFUNDIDAD = $('#txtProfundidadActualizar').val();
+            //var MARGEN = $('#txtMargenActualizar').val();
+            //var TAMANIO = $('#txtTamanioActualizar').val();
+            //var PROFUNDIDAD = $('#txtProfundidadActualizar').val();
 
             var formData = new FormData();
             formData.append('ID_PRODUCTO', ID_PRODUCTO);
             formData.append('NOMBRE', NOMBRE);
-            formData.append('DESCRIPCION', DESCRIPCION);
+            //formData.append('DESCRIPCION', DESCRIPCION);
             formData.append('ID_CATEGORIA', ID_CATEGORIA);
             formData.append('PRECIO_COSTO', PRECIO_COSTO);
             formData.append('PRECIO_VENTA', PRECIO_VENTA);
             formData.append('STOCK', STOCK);
-            formData.append('MARGEN', MARGEN);
-            formData.append('TAMANIO', TAMANIO);
-            formData.append('PROFUNDIDAD', PROFUNDIDAD);
+            //formData.append('MARGEN', MARGEN);
+            //formData.append('TAMANIO', TAMANIO);
+            //formData.append('PROFUNDIDAD', PROFUNDIDAD);
             if ($('#idFotografiaActualizar')[0].files != undefined) {
                 let files = $('#idFotografiaActualizar')[0].files;
                 formData.append('PATH_IMG', files[0]);
@@ -128,23 +128,23 @@
             });
         }
 
-        function GetDatosActualizar(id, id_categoria, nombre, descripcion, precio_costo, precio_venta, stock, margen, tamanio, profundidad) {
+        function GetDatosActualizar(id, id_categoria, nombre, descripcion, precio_costo, precio_venta, stock/*, margen, tamanio, profundidad*/) {
             $('#modalActualizar').modal('show');
             $('#hfIdProducto').val(id);
             $('#txtNombreActualizar').val(nombre);
-            $('#txtDescripcionActualizar').val(descripcion);
+            //$('#txtDescripcionActualizar').val(descripcion);
             $('#selCategoriaActualizar').val(id_categoria);
             $('#txtPrecioCostoActualizar').val(precio_costo);
             $('#txtPrecioVentaActualizar').val(precio_venta);
             $('#txtStockActualizar').val(stock);
-            $('#txtMargenActualizar').val(margen);
-            $('#txtTamanioActualizar').val(tamanio);
-            $('#txtProfundidadActualizar').val(profundidad);
+            //$('#txtMargenActualizar').val(margen);
+            //$('#txtTamanioActualizar').val(tamanio);
+            //$('#txtProfundidadActualizar').val(profundidad);
         }
 
         function ClearModal() {
             $('#txtNombre').val('');
-            $('#txtDescripcion').val('');
+            //$('#txtDescripcion').val('');
             $('#selCategoria').val('');
             $('#txtPrecioCosto').val('');
             $('#txtPrecioVenta').val('');
@@ -155,14 +155,14 @@
             $('#idFotografiaCreate').val('');
             $('#lblFotografiaCreate').val('');
             $('#txtNombreActualizar').val('');
-            $('#txtDescripcionActualizar').val('');
+            //$('#txtDescripcionActualizar').val('');
             $('#selCategoriaActualizar').val('');
             $('#txtPrecioCostoActualizar').val('');
             $('#txtPrecioVentaActualizar').val('');
             $('#txtStockActualizar').val('');
-            $('#txtMargenActualizar').val('');
-            $('#txtTamanioActualizar').val('');
-            $('#txtProfundidadActualizar').val('');
+            //$('#txtMargenActualizar').val('');
+            //$('#txtTamanioActualizar').val('');
+            //$('#txtProfundidadActualizar').val('');
             $('#idFotografiaCreateActualizar').val('');
             $('#lblFotografiaCreateActualizar').val('');
             $('#txtUploadExcel').val('');
@@ -176,8 +176,7 @@
         }
 
         function ShowModalCargaMasiva() {
-            $('#selCategoriaCargaMasiva').load('@Url.Action("ListarCategorias")', function () {
-            });
+            $('#selCategoriaCargaMasiva').load('@Url.Action("ListarCategorias")');
             $('#modalCargaMasiva').modal('show');
         }
 
@@ -270,19 +269,19 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row justify-content-center">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-4">
                                 <div class="form-group">
                                     <label for="txtNombre" class="bmd-label-floating">NOMBRE</label>
                                     <input type="text" class="form-control" id="txtNombre" name="txtNombre" required>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8">
+                            @*<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8">
                                 <div class="form-group">
                                     <label for="txtDescripcion" class="bmd-label-floating">DESCRIPCIÓN</label>
                                     <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required>
                                 </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                            </div>*@
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4">
                                 <form class="form-group">
                                     <label class="selCategoria" form="selCategoria">CATEGORIA</label>
                                     <select class="form-control" id="selCategoria">
@@ -307,7 +306,7 @@
                                     <input type="text" class="form-control" id="txtStock" name="txtStock" required>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                            @*<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
                                 <div class="form-group">
                                     <label for="txtMargen" class="bmd-label-floating">MARGEN</label>
                                     <input type="text" class="form-control" id="txtMargen" name="txtMargen" required>
@@ -324,7 +323,7 @@
                                     <label for="txtProfundidad" class="bmd-label-floating">PROFUNDIDAD</label>
                                     <input type="text" class="form-control" id="txtProfundidad" name="txtProfundidad" required>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4" style="margin-top:30px">
                                 <label for="idFotografiaCreate" class="subir btn btn-secondary"><i class="fas fa-images"></i> Seleccionar fotografía</label>
                                 <input id="idFotografiaCreate" onchange="ChangeUpload('#idFotografiaCreate','#lblFotografiaCreate')" type="file" style="display:none;" />
@@ -354,19 +353,19 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row justify-content-center">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8">
                                 <div class="form-group">
                                     <label for="txtNombreActualizar" class="bmd-label-floating">NOMBRE</label>
                                     <input type="text" class="form-control" id="txtNombreActualizar" name="txtNombreActualizar" required>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8">
+                            @*<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8">
                                 <div class="form-group">
                                     <label for="txtDescripcionActualizar" class="bmd-label-floating">DESCRIPCIÓN</label>
                                     <input type="text" class="form-control" id="txtDescripcionActualizar" name="txtDescripcionActualizar" required>
                                 </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                            </div>*@
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4">
                                 <form class="form-group">
                                     <label class="selCategoriaActualizar" form="selCategoria">CATEGORIA</label>
                                     <select class="form-control" id="selCategoriaActualizar"></select>
@@ -390,7 +389,7 @@
                                     <input type="text" class="form-control" id="txtStockActualizar" name="txtStockActualizar" required>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
+                            @*<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4">
                                 <div class="form-group">
                                     <label for="txtMargenActualizar" class="bmd-label-floating">MARGEN</label>
                                     <input type="text" class="form-control" id="txtMargenActualizar" name="txtMargenActualizar" required>
@@ -407,7 +406,7 @@
                                     <label for="txtProfundidadActualizar" class="bmd-label-floating">PROFUNDIDAD</label>
                                     <input type="text" class="form-control" id="txtProfundidadActualizar" name="txtProfundidadActualizar" required>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 col-xxl-4" style="margin-top:30px">
                                 <label for="idFotografiaActualizar" class="subir btn btn-secondary"><i class="fas fa-images"></i> Seleccionar fotografía</label>
                                 <input id="idFotografiaActualizar" onchange="ChangeUpload('#idFotografiaActualizar','#lblFotografiaActualizar')" type="file" style="display:none;" />

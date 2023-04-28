@@ -2626,7 +2626,6 @@
     <Compile Include="Class\Certificador_FEL.cs" />
     <Compile Include="Class\Connect.cs" />
     <Compile Include="Class\Encryption.cs" />
-    <Compile Include="Class\NumeroLetra.cs" />
     <Compile Include="Class\PDFMaker.cs" />
     <Compile Include="Class\SessionExpireFilterAttribute.cs" />
     <Compile Include="Class\Utils.cs" />

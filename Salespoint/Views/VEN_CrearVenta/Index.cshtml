@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Index";
 }
 
@@ -22,7 +23,6 @@
             $('#hfIdDetalle').val(id_mesa_menu);
             $('#modalObservaciones').modal('show');
         }
-
 
         function Create_DetalleMesa(id_producto, objectCantidad) {
             var id_mesa = $('#hfIdMesa').val();
@@ -78,16 +78,28 @@
                 });
             });
         }
-        function DeshabilitarMesa(id_mesa) {
-            $.post('@Url.Action("DeshabilitarMesa")', { id_mesa }, function (response) {
+        function DeshabilitarMesa(id_mesa, estado) {
+                $.post('@Url.Action("DeshabilitarMesa")', { id_mesa }, function (response) {
                     if (response.Codigo == '1') {
-                        Notify(response.Descripcion, NotifyIcon.success);
-                        $('#divDataDetalles').load('@Url.Action("Get_DetallesMesa")', {id_mesa}, function () {
+                        //Notify(response.Descripcion, NotifyIcon.success);
+                        $('#divDataDetallesCreate').load('@Url.Action("Get_DetallesMesa")', { id_mesa }, function () {
                             TableNoSearch('#tableDetalles', 400);
                             $('#modalMesas').modal('hide');
-                            $('#hfTextoMesa').html('MESA '+id_mesa);
                             $('#hfIdMesa').val(id_mesa);
+                            $('#showCreatePedido').removeClass('d-none');
+                            $('#showUpdatePedido').addClass('d-none');
                         });
+
+                        if (estado == 1) {
+                            $('#hfTextoMesa').html('MODIFICAR PEDIDO DE LA MESA ' + id_mesa);
+                            $('#divButtonsCreate').addClass('d-none');
+                            $('#divButtonsUpdate').removeClass('d-none');
+                        }
+                        else {
+                            $('#hfTextoMesa').html('MESA ' + id_mesa);
+                            $('#divButtonsCreate').removeClass('d-none');
+                            $('#divButtonsUpdate').addClass('d-none');
+                        }
                     }
                     else {
                         Alert(response.Descripcion, NotifyIcon.warning);
@@ -99,7 +111,7 @@
 
             $.post('@Url.Action("HabilitarMesa")', { id_mesa }, function (response) {
                     if (response.Codigo == '1') {
-                        Notify(response.Descripcion, NotifyIcon.success);
+                        //Notify(response.Descripcion, NotifyIcon.success);
                         Get_Mesas();
                     }
                     else {
@@ -127,7 +139,6 @@
             }
         }
 
-
         function Create_Pedido() {
             var id_mesa = $('#hfIdMesa').val();
             $.post('@Url.Action("Create_Pedido")', { id_mesa }, function (response) {
@@ -135,13 +146,27 @@
                     $('#modalProductos').modal('hide');
                     Notify(response.Descripcion, NotifyIcon.success);
                     DeshabilitarMesa(id_mesa);
+                    Get_Mesas();
                 }
                 else {
                     Alert(response.Descripcion, NotifyIcon.warning);
                 }
             });
         }
-
+        function Update_Pedido() {
+            var id_mesa = $('#hfIdMesa').val();
+            $.post('@Url.Action("Update_Pedido")', { id_mesa }, function (response) {
+                if (response.Codigo == '1') {
+                    $('#modalProductos').modal('hide');
+                    Notify(response.Descripcion, NotifyIcon.success);
+                    DeshabilitarMesa(id_mesa);
+                    Get_Mesas();
+                }
+                else {
+                    Alert(response.Descripcion, NotifyIcon.warning);
+                }
+            });
+        }
 
         $(document).ready(function () {
             Get_Mesas();
@@ -150,9 +175,9 @@
     </script>
 }
 
-<input type="hidden" id="hfIdMesa"/>
-<input type="hidden" id="hfIdMenu"/>
-<input type="hidden" id="hfIdDetalle"/>
+<input type="hidden" id="hfIdMesa" />
+<input type="hidden" id="hfIdMenu" />
+<input type="hidden" id="hfIdDetalle" />
 
 <div class="row m-2">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center pt-1">
@@ -161,11 +186,15 @@
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left">
         <button onclick="ShowModalProductos()" style="margin-top:8px" class="btn btn-secondary"><i class="far fa-plus"></i> AGREGAR</button>
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="divDataDetalles"></div>
-    <div class="col-12 col-md-12 col-xl-12 justify-content-center text-center">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="divDataDetallesCreate"></div>
+    <div class="col-12 col-md-12 col-xl-12 justify-content-center text-center" id="divButtonsCreate">
         <span class="badge badge-pill badge-success" id="txtTotal" style="font-size:18px"></span>
-        <button onclick="HabilitarMesa()" class="btn btn-secondary" type="reset" ><i class="fad fa-window-close"></i> CANCELAR</button>
+        <button onclick="HabilitarMesa()" class="btn btn-secondary" type="reset"><i class="fad fa-window-close"></i> CANCELAR</button>
         <button onclick="Create_Pedido()" class="btn btn-success"><i class="fad fa-check"></i> CREAR PEDIDO</button>
+    </div>
+    <div class="col-12 col-md-12 col-xl-12 justify-content-center text-center" id="divButtonsUpdate">
+        <button onclick="Get_Mesas()" class="btn btn-secondary" type="reset"><i class="fad fa-window-close"></i> CANCELAR</button>
+        <button onclick="Update_Pedido()" class="btn btn-success"><i class="fad fa-check"></i> MODIFICAR PEDIDO</button>
     </div>
 </div>
 
@@ -195,9 +224,7 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div class="row" id="divProductos"></div>
-                </div>
+                <div class="row" id="divProductos"></div>
             </div>
             <div class="card-footer text-center text-md-center">
                 <button class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fad fa-times me-1"></i> Cerrar</button>
@@ -205,9 +232,10 @@
         </div>
     </div>
 </div>
+
 <div class="modal" id="modalObservaciones" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="background-color: #e4e5eb ">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">            
+        <div class="modal-content">
             <div class="modal-body">
                 <div class="row justify-content-center">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-1">
@@ -216,7 +244,7 @@
                 </div>
             </div>
             <div class="card-footer text-center text-md-center">
-                <button onclick="Update_DetalleMesa_Observaciones()" class="btn btn-success btn-sm" ><i class="fad fa-check me-1"></i> Agregar</button>
+                <button onclick="Update_DetalleMesa_Observaciones()" class="btn btn-success btn-sm"><i class="fad fa-check me-1"></i> Agregar</button>
                 <button class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fad fa-times me-1"></i> Cerrar</button>
             </div>
         </div>
