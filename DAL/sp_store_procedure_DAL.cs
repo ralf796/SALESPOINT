@@ -130,7 +130,6 @@ namespace RESTAURANTE
             }
             return result;
         }
-
         public List<Usuarios_BE> GetSPLogin(Usuarios_BE item)
         {
             List<Usuarios_BE> result ;
@@ -169,9 +168,25 @@ namespace RESTAURANTE
                 model.Command.Parameters.AddWithValue("@CANTIDAD", item.CANTIDAD);
                 model.Command.Parameters.AddWithValue("@ID_CATEGORIA", item.ID_CATEGORIA);
                 model.Command.Parameters.AddWithValue("@ID_PEDIDO", item.ID_PEDIDO_ENCABEZADO);
+                model.Command.Parameters.AddWithValue("@ID_PEDIDO_DETALLE", item.ID_DETALLE_PEDIDO);
                 model.Command.Parameters.AddWithValue("@OBSERVACIONES", item.OBSERVACIONES);
                 model.Command.Parameters.AddWithValue("@CREADO_POR", item.CREADO_POR);
                 result = model.GetData<Pedido_BE>();
+            }
+            return result;
+        }
+        public List<Caja_BE> DAL_sp_caja(Caja_BE item)
+        {
+            List<Caja_BE> result;
+            using (var model = new Base_SQL("sp_caja"))
+            {
+                model.Command.Parameters.AddWithValue("@MTIPO", item.MTIPO);
+                model.Command.Parameters.AddWithValue("@ID_CORTE", item.ID_CORTE);
+                model.Command.Parameters.AddWithValue("@ID_COBRO", item.ID_COBRO);
+                model.Command.Parameters.AddWithValue("@ID_PEDIDO", item.ID_PEDIDO);
+                model.Command.Parameters.AddWithValue("@FECHA_CREACION", FECHA_CREACION_DAL);
+                model.Command.Parameters.AddWithValue("@CREADO_POR", item.CREADO_POR);
+                result = model.GetData<Caja_BE>();
             }
             return result;
         }

@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>MAXIMA</title>
     @Html.Partial("_Head")
     @RenderSection("styles", required: false)
 </head>
@@ -60,7 +60,7 @@
                     </div>
                 </li>
                 <!-- Messages Dropdown Menu -->
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown d-none">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-comments"></i>
                         <span class="badge badge-danger navbar-badge">3</span>
@@ -112,7 +112,7 @@
                     </div>
                 </li>
                 @*Notifications Dropdown Menu*@
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown d-none">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
                         <span class="badge badge-warning navbar-badge">15</span>
@@ -138,12 +138,12 @@
                         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-none">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-none">
                     <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
                         <i class="fas fa-th-large"></i>
                     </a>
@@ -169,11 +169,11 @@
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
                         <input class="form-control form-control-sidebar" type="search" placeholder="Filtro" aria-label="Search">
-                        <div class="input-group-append">
+                        @*<div class="input-group-append">
                             <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
                             </button>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
                 <nav class="mt-2">

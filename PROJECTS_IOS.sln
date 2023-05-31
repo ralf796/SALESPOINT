@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32802.440
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salespoint", "Salespoint\Salespoint.csproj", "{6B4D32B6-11B4-4EB8-85FE-37CBB1AA107B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTAURANTE_MAXIMA", "Salespoint\RESTAURANTE_MAXIMA.csproj", "{6B4D32B6-11B4-4EB8-85FE-37CBB1AA107B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BE", "BE\BE.csproj", "{3303D419-DD12-4512-A1F9-2DF0185F1250}"
 EndProject

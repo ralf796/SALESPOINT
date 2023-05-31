@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.TitleCard = "CAJA";
+}
+@section scripts{
+
+    <script>
+
+        function Listar() {
+            $('#divData').load('@Url.Action("Listar")', function () {
+                //TableNoSearch('#tableData');
+            });
+        }
+
+        function RealizarCobro() {
+            $.post('@Url.Action("RealizarCorte")', function (response) {
+                if (response.Resultado) {
+                    Notify(response.Descripcion, NotifyIcon.success);
+                    Listar();
+                }
+                else {
+                    Alert(response.Descripcion, NotifyIcon.warning);
+                }
+            });
+        }
+        function ConfirmRealizarCorte() {
+            Confirm('Se realizará el Corte de Caja. ¿Quieres continuar?', function () { RealizarCobro() });
+        }
+
+        $(document).ready(function () {
+            Listar();
+        });
+    </script>
+}
+
+
+<div class="col-md-12">
+    <div class="card card-secondary">
+        <div class="card-header">
+            <h3 class="card-title" style="height:10px; margin-top:-3px">PENDIENTES DE COBRAR</h3>
+        </div>
+        <div class="card-body">
+            <div class="col-12 mt-1" id="divData"></div>
+        </div>
+    </div>
+</div>

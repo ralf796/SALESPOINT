@@ -1,5 +1,4 @@
 ﻿using RESTAURANTE;
-using GenesysOracleSV.Clases;
 using OfficeOpenXml;
 using HELPERS;
 using System;
@@ -236,7 +235,7 @@ namespace Salespoint.Controllers.CATALOGO
                         var noOfCol = workSheet.Dimension.End.Column;
                         var noOfRow = workSheet.Dimension.End.Row;
 
-                        for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                        for (int rowIterator = 3; rowIterator <= noOfRow; rowIterator++)
                         {
                             if (workSheet.Cells[rowIterator, 3].Value != null)
                             {

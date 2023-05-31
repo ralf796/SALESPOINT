@@ -17,6 +17,8 @@ namespace RESTAURANTE
         public string DESCRIPCION { get; set; } = string.Empty;
         public string BG_COLOR { get; set; } = string.Empty;
         public string PATH_IMAGEN { get; set; } = string.Empty;
+        public string NOMBRE_MENU{ get; set; } = string.Empty;
+        public string NOMBRE_CATEGORIA  { get; set; } = string.Empty;
         public string CODIGO_RESPUESTA { get; set; } = string.Empty;
         public int CANTIDAD { get; set; }
         public decimal PRECIO { get; set; }
@@ -26,5 +28,6 @@ namespace RESTAURANTE
         public int NUMERO { get; set; }
         public int ESTADO { get; set; }
         public int ID_PEDIDO_ENCABEZADO { get; set; }
+        public DateTime FECHA_CREACION { get; set; }
     }
 }

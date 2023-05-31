@@ -1,0 +1,28 @@
+﻿@using RESTAURANTE;
+@using System.Collections.Generic;
+
+
+@{
+    List<Pedido_BE> lista_encabezado = ViewBag.data_encabezado;
+    List<Pedido_BE> lista_detalle = ViewBag.data_detalle;
+}
+
+
+@foreach (var row in lista_encabezado)
+{
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 btn" onclick="ShowModalPedidosPorMenu(@row.ID_MENU_RESTAURANTE, '@row.NOMBRE_CATEGORIA - @row.NOMBRE')">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="info-box">
+                    <img class="elevation-2" src="@row.PATH_IMAGEN" style="width:100px; height:100px">
+                    <div class="info-box-content">
+                        <span class="info-box-text text-danger font-weight-bold">@row.NOMBRE_CATEGORIA</span>
+                        <span class="info-box-text">@row.NOMBRE</span>
+                        <span class="info-box-number">@row.CANTIDAD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

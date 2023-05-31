@@ -32,11 +32,17 @@
             var id_mesa = $('#hfIdMesa').val();
             var cantidad = $(objectCantidad).val();
 
+            if (cantidad == 0 || cantidad == '') {
+                Alert('Debes ingresar una cantidad.', NotifyIcon.warning);
+                return;
+            }
+
             $.post('@Url.Action("Create_DetalleMesa")', { id_mesa, id_producto, cantidad }, function (response) {
                 if (response.Codigo == '1') {
                     $('#modalProductos').modal('hide');
                     Notify(response.Descripcion, NotifyIcon.success);
                     DeshabilitarMesa(id_mesa);
+                    $(objectCantidad).val(0)
                 }
                 else {
                     Alert(response.Descripcion, NotifyIcon.warning);
@@ -58,8 +64,7 @@
                 if (response.Codigo == '1') {
                     $('#modalObservaciones').modal('hide');
                     Notify(response.Descripcion, NotifyIcon.success);
-                    DeshabilitarMesa(id_mesa);
-                    ClearModal();
+                    DeshabilitarMesa(id_mesa);                    
                 }
                 else {
                     Alert(response.Descripcion, NotifyIcon.warning);
@@ -142,15 +147,28 @@
                 $(object).val(cantidad)
             }
         }
+        function AddCantidad2(object) {
+            var cantidad = $(object).val();
+            cantidad = parseFloat(cantidad)+1;
+            $(object).val(cantidad)
+        }
+        function RemoveCantidad2(object) {
+            var cantidad = $(object).val();
+            if (parseFloat(cantidad) > 0) {
+                cantidad = parseFloat(cantidad) - 1;
+                $(object).val(cantidad)
+            }
+        }
 
         function Create_Pedido() {
             var id_mesa = $('#hfIdMesa').val();
             $.post('@Url.Action("Create_Pedido")', { id_mesa }, function (response) {
-                if (response.Codigo == '1') {
+                if (response.Resultado) {
                     $('#modalProductos').modal('hide');
                     Notify(response.Descripcion, NotifyIcon.success);
                     DeshabilitarMesa(id_mesa);
                     Get_Mesas();
+                    window.open('@Url.Action("Ticket")?idPedido=' + response.Codigo, '_blank');
                 }
                 else {
                     Alert(response.Descripcion, NotifyIcon.warning);
@@ -170,6 +188,10 @@
                     Alert(response.Descripcion, NotifyIcon.warning);
                 }
             });
+        }
+
+        function ShowModalPay() {
+
         }
 
         $(document).ready(function () {
@@ -202,22 +224,22 @@
     </div>
 </div>
 
-<div class="modal modal-fullscreen-xl" id="modalMesas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="background-color: #e4e5eb ">
+<div class="modal modal-fullscreen-xl" id="modalMesas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-fullscreen">
         <div class="modal-content" id="divMesas"></div>
     </div>
 </div>
 
-<div class="modal modal-fullscreen-xl" id="modalProductos" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="background-color: #e4e5eb ">
+<div class="modal modal-fullscreen-xl" id="modalProductos" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-fullscreen ">
-        <div class="modal-content">
+        <div class="modal-content" style="border: 3px solid; border-color:blue">
             <div class="card-header" style="height:50px">
                 <div class="row justify-content-center">
-                    <h3 id="titleModal2">CATALOGO DE MENUS</h3>
+                    <h3>CATALOGO DE MENUS</h3>
                 </div>
             </div>
-            <div class="modal-body">
-                <div class="col-8 offset-2">
+            <div class="modal-body bg-white">
+                <div class="col-12">
                     <div class="row justify-content-center">
                         <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-6 mt-1">
                             <div class="input-group">
@@ -230,7 +252,7 @@
                 </div>
                 <div class="row" id="divProductos"></div>
             </div>
-            <div class="card-footer text-center text-md-center">
+            <div class="card-footer text-center text-md-center bg-white">
                 <button class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fad fa-times me-1"></i> Cerrar</button>
             </div>
         </div>
@@ -250,6 +272,28 @@
             <div class="card-footer text-center text-md-center">
                 <button onclick="Update_DetalleMesa_Observaciones()" class="btn btn-success btn-sm"><i class="fad fa-check me-1"></i> Agregar</button>
                 <button class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fad fa-times me-1"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalPayMesa" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="background-color: #e4e5eb ">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-1">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button type="button" class="btn btn-secondary btn-sm font-weight-bold" style="width:50px" onclick="RemoveCantidad()">-</button>
+                                <input type="text" class="form-control text-center font-weight-bold" readonly min="0" value="0" id="txtCantidadMenu">
+                                <button type="button" class="btn btn-secondary btn-sm font-weight-bold" style="width:50px" onclick="AddCantidad()">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-1">
+                        @*<button class="btn btn-success mt-1" style="width:100%" onclick="Create_DetalleMesa(@row.ID_MENU_RESTAURANTE, '@(".cantidad_"+@row.ID_MENU_RESTAURANTE.ToString())')"><i class="fad fa-save text-white me-1"></i> AGREGAR</button>*@
+                    </div>
+                </div>
             </div>
         </div>
     </div>

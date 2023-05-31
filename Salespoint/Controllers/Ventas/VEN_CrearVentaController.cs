@@ -1,9 +1,12 @@
 ﻿using RESTAURANTE;
-using GenesysOracleSV.Clases;
 using HELPERS;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.IO;
+using System.Linq;
 
 namespace Salespoint.Controllers.VENTAS
 {
@@ -233,39 +236,25 @@ namespace Salespoint.Controllers.VENTAS
 
                 if (RESULT_SP.Count == 0)
                 {
-                    respuesta.Codigo = 2;
+                    respuesta.Resultado = false;
+                    respuesta.Codigo = 0;
                     respuesta.Descripcion = "No se ha podido crear el encabezado del pedido.";
                 }
                 else
                 {
-                    /*
-                    int id_pedido_encabezado = RESULT_SP.FirstOrDefault().ID_PEDIDO_ENCABEZADO;
+                    //item_Encabezado.MTIPO = 13;
+                    //RESULT_SP = Connect.Connect_Pedido(item_Encabezado);
 
-                    foreach(var row in lista)
-                    {
-                        List<Pedido_BE> RESULT_SP_DETALLE;
-                        var item_Detalle = new Pedido_BE();
-                        item_Detalle.MTIPO = 11;
-                        item_Detalle.ID_PEDIDO= id_pedido_encabezado;
-                        item_Detalle.ID_MENU_RESTAURANTE = row.ID_MENU_RESTAURANTE;
-                        item_Detalle.CANTIDAD = row.CANTIDAD;
-                        item_Detalle.OBSERVACIONES = row.OBSERVACIONES;
-                        item_Detalle.CREADO_POR = usuario;
-                        RESULT_SP_DETALLE = Connect.Connect_Pedido(item_Detalle);
-                    }
-                    */
-
-                    item_Encabezado.MTIPO = 13;
-                    RESULT_SP = Connect.Connect_Pedido(item_Encabezado);
-
-                    respuesta.Codigo = 1;
+                    respuesta.Codigo = RESULT_SP.FirstOrDefault().ID_PEDIDO_ENCABEZADO;
                     respuesta.Descripcion = "Pedido creado correctamente.";
+                    respuesta.Resultado = true;
                 }
             }
             catch (Exception ex)
             {
                 respuesta.Codigo = -1;
                 respuesta.Descripcion = $"Mensaje: {ex.Message}";
+                respuesta.Resultado = false;
             }
             return Json(respuesta);
         }
@@ -305,5 +294,87 @@ namespace Salespoint.Controllers.VENTAS
             }
             return Json(respuesta);
         }
+
+        public ActionResult Ticket(int idPedido)
+        {
+            var pgSize = new iTextSharp.text.Rectangle(210, 1000);
+            //Document document = new Document(pgSize, 5f, 5f, 20f, 20f);
+            Document document = new Document(pgSize, 5f, 5f, 0, 0);
+            MemoryStream stream = new MemoryStream();
+
+            try
+            {
+                List<Pedido_BE> lista;
+                Pedido_BE HeaderPedido;
+                string usuario = Session["usuario"].ToString();
+                var item = new Pedido_BE();
+                item.MTIPO = 18;
+                item.ID_PEDIDO_ENCABEZADO = idPedido;
+                item.CREADO_POR = usuario;
+                lista = Connect.Connect_Pedido(item);
+
+                PdfWriter pdfWriter = PdfWriter.GetInstance(document, stream);
+                pdfWriter.CloseStream = false;
+
+                Font fontTitle = new Font(family: Font.FontFamily.HELVETICA, size: 14, style: Font.BOLD);
+                Font fontCantidad = new Font(family: Font.FontFamily.HELVETICA, size: 12);
+                Font fontMenu = new Font(family: Font.FontFamily.HELVETICA, size: 12);
+                Font fontObservacion = new Font(family: Font.FontFamily.HELVETICA, size: 10);
+                Font fontHeader = new Font(family: Font.FontFamily.HELVETICA, size: 9, style: Font.BOLD);
+                Font fontFooter = new Font(family: Font.FontFamily.HELVETICA, size: 9, style: Font.BOLD);
+
+                string textPedido = $"Pedido # {idPedido}                       ";
+                int cont = textPedido.Length;
+
+                var redListTextFont = FontFactory.GetFont("Helvetica", 15, BaseColor.WHITE);
+
+                var chunkPedido = new Chunk(textPedido, redListTextFont);
+                chunkPedido.SetBackground(new BaseColor(0, 0, 0));
+
+                document.Open();
+                document.Add(new Paragraph(chunk: chunkPedido));
+                document.Add(new Paragraph("_____________________________"));
+                document.Add(new Paragraph("       CANTIDAD   -   MENU", fontTitle));
+                foreach(var row in lista)
+                {
+                    document.Add(new Paragraph("- - - - - - - - - - - - - - - - - - - - - - - - - - -"));
+                    document.Add(new Paragraph($" {row.CANTIDAD} - {row.DESCRIPCION} {row.OBSERVACIONES}", fontMenu));
+                }
+                document.Add(new Paragraph("_____________________________"));
+                if (lista.Count > 0)
+                {
+                    HeaderPedido = lista.FirstOrDefault();                    
+                    document.Add(new Paragraph($"Mesero: {HeaderPedido.CREADO_POR.ToUpper()}", fontFooter));
+                    document.Add(new Paragraph($"Mesa: {HeaderPedido.ID_MESA}", fontFooter));
+                }               
+                document.Add(new Paragraph($"Hora: {DateTime.Now.ToString("HH:mm:ss")}", fontFooter));
+            }
+            catch (DocumentException de)
+            {
+                Console.Error.WriteLine(de.Message);
+            }
+            catch (IOException ioe)
+            {
+                Console.Error.WriteLine(ioe.Message);
+            }
+
+            document.Close();
+
+            stream.Flush(); //Always catches me out
+            stream.Position = 0; //Not sure if this is required
+
+            return File(stream, "application/pdf", "DownloadName.pdf");
+        }
+
+        public void SetBackgroundItext(Chunk chunk, string text)
+        {
+            var TextFont = FontFactory.GetFont("Arial", 14, BaseColor.WHITE);
+            var fuente = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, iTextSharp.text.Font.UNDERLINE);
+            //chunk = new Chunk("      CANTIDAD   -   MENU         ", redListTextFont);
+            chunk = new Chunk($"{chunk}", fuente);
+            chunk.SetBackground(new BaseColor(0, 0, 0));
+        }
+
+
     }
 }

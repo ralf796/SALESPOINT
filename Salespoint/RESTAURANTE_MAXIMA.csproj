@@ -45,9 +45,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus, Version=5.8.12.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dll\EPPlus.5.8.12\lib\net35\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -58,9 +64,6 @@
     </Reference>
     <Reference Include="RestSharp, Version=108.0.3.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.108.0.3\lib\netstandard2.0\RestSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Select.HtmlToPdf, Version=22.2.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
-      <HintPath>..\packages\Select.HtmlToPdf.22.2.0\lib\net40\Select.HtmlToPdf.dll</HintPath>
     </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -2635,11 +2638,14 @@
     <Compile Include="Class\PDFMaker.cs" />
     <Compile Include="Class\SessionExpireFilterAttribute.cs" />
     <Compile Include="Class\Utils.cs" />
+    <Compile Include="Controllers\CAJA\CAJCobroController.cs" />
+    <Compile Include="Controllers\CAJA\CAJCorteController.cs" />
     <Compile Include="Controllers\CATALOGO\CAT_ListarCategoriaController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CATALOGO\CAT_ListarProductoController.cs" />
     <Compile Include="Controllers\USUARIOS\USU_ListarController.cs" />
+    <Compile Include="Controllers\VENTAS\PedidosEnCocinaController.cs" />
     <Compile Include="Controllers\VENTAS\VEN_CrearCotizacionController.cs" />
     <Compile Include="Controllers\VENTAS\VEN_CrearVentaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -3256,7 +3262,7 @@
     <Content Include="Content\lib\bootstrap\dist\js\bootstrap.js.map" />
     <Content Include="Content\lib\bootstrap\dist\js\bootstrap.min.js.map" />
     <Content Include="Content\lib\bootstrap\LICENSE" />
-    <Content Include="Content\site.datatable" />
+    <Content Include="Content\site.datatable.css" />
     <None Include="packages.config" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -3281,6 +3287,13 @@
     <Content Include="Views\VEN_CrearVenta\Get_Mesas.cshtml" />
     <Content Include="Views\VEN_CrearVenta\Get_Categorias.cshtml" />
     <Content Include="Views\VEN_CrearVenta\Get_Productos.cshtml" />
+    <Content Include="Views\PedidosEnCocina\Index.cshtml" />
+    <Content Include="Views\PedidosEnCocina\Get_PedidosPendientes.cshtml" />
+    <Content Include="Views\PedidosEnCocina\Get_PedidosPorMenu.cshtml" />
+    <Content Include="Views\CAJCorte\Index.cshtml" />
+    <Content Include="Views\CAJCobro\Index.cshtml" />
+    <Content Include="Views\CAJCobro\Listar.cshtml" />
+    <Content Include="Views\CAJCorte\Listar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3292,6 +3305,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\css\" />
     <Folder Include="Content\Images\Varios\" />
+    <Folder Include="Files\" />
     <Folder Include="Models\" />
     <Folder Include="Views\INV_Listar\" />
     <Folder Include="Views\Login\" />
@@ -3301,6 +3315,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE\BE.csproj">

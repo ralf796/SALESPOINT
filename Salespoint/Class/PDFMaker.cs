@@ -1,5 +1,4 @@
-﻿using SelectPdf;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Text;
 using System;
 namespace HELPERS
@@ -191,6 +190,7 @@ namespace HELPERS
 
     //}
 
+    /*
     public class PDFMaker
     {
         int? headerSize { get; set; } = 25;
@@ -328,4 +328,5 @@ namespace HELPERS
 
 
     }
+*/
 }

@@ -6,7 +6,6 @@ namespace RESTAURANTE
     {
         public void Dispose() { }
 
-        #region PROCESO ACCESOS
         public static List<Usuarios_BE> BLL_sp_usuarios(Usuarios_BE item)
         {
             List<Usuarios_BE> data = null;
@@ -61,7 +60,6 @@ namespace RESTAURANTE
             }
             return data;
         }
-
         public static List<Usuarios_BE> GetSPLogin(Usuarios_BE item)
         {
             List<Usuarios_BE> data = null;
@@ -89,7 +87,14 @@ namespace RESTAURANTE
             }
             return data;
         }
-
-        #endregion
+        public static List<Caja_BE> BLL_sp_caja(Caja_BE item)
+        {
+            List<Caja_BE> data = null;
+            using (var model = new sp_store_procedure_DAL())
+            {
+                data = model.DAL_sp_caja(item);
+            }
+            return data;
+        }
     }
 }

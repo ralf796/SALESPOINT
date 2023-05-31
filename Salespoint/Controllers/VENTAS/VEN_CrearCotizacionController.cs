@@ -5,11 +5,9 @@ using System.Web.Mvc;
 using System.Net.Mail;
 using System.Net;
 using System.Text;
-using SelectPdf;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using GenesysOracleSV.Clases;
 using HELPERS;
 
 namespace Salespoint.Controllers.VENTAS
@@ -53,6 +51,7 @@ namespace Salespoint.Controllers.VENTAS
 
             return $"{key}{fileRoute}";
         }
+       /*
         public ActionResult PDF2(string fechai = "", string fechaf = "")
         {
             try
@@ -159,6 +158,7 @@ namespace Salespoint.Controllers.VENTAS
                 return null;
             }
         }
+       */
         public class FileResult
         {
             public string File { get; set; }
@@ -166,7 +166,7 @@ namespace Salespoint.Controllers.VENTAS
             public string MimeType { get; set; }
         }
 
-
+        /*
         public ActionResult PDF(int id_venta = 0)
         {
             //Get html
@@ -270,7 +270,7 @@ namespace Salespoint.Controllers.VENTAS
             var file = new { File = file64, MimeType = "application/pdf", FileName = $"Comprobante.pdf" };
             return Json(file);
         }
-
+        */
         public JsonResult GetCliente(int tipo = 0, string nit = "")
         {
             try

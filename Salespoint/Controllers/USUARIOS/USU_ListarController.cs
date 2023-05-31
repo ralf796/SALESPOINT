@@ -1,5 +1,4 @@
 ﻿using RESTAURANTE;
-using GenesysOracleSV.Clases;
 using HELPERS;
 using System;
 using System.Collections.Generic;
@@ -109,7 +108,7 @@ namespace Salespoint.Controllers.USUARIOS
                 }
 
                 string user = GeneratorUser(primerNombre, primerApellido);
-                string password = "SALESPOINT";
+                string password = "MAXIMA";
 
                 var item = new Usuarios_BE();
                 item.MTIPO = 2;
@@ -123,7 +122,8 @@ namespace Salespoint.Controllers.USUARIOS
                 item.PATH = url;
                 item.CREADO_POR = Session["usuario"].ToString();
                 item.USUARIO = user;
-                item.PASSWORD = new Encryption().Encrypt(password.Trim());
+                //item.PASSWORD = new Encryption().Encrypt(password.Trim());
+                item.PASSWORD = password.ToUpper().Trim();
                 item.ID_ROL = idRol;
                 item = Connect.Connect_Usuarios(item).FirstOrDefault();
 

@@ -46,5 +46,11 @@ namespace HELPERS
             lista = sp_store_procedure_BLL.BLL_sp_pedido(item);
             return lista;
         }
+        public static List<Caja_BE> Connect_Caja(Caja_BE item)
+        {
+            List<Caja_BE> lista;
+            lista = sp_store_procedure_BLL.BLL_sp_caja(item);
+            return lista;
+        }
     }
 }

@@ -38,7 +38,8 @@ namespace Ventas.Controllers
                 var item = new Usuarios_BE();
                 item.EMAIL = usuario.ToUpper();
                 item.USUARIO = usuario.ToUpper();
-                item.PASSWORD = new Encryption().Encrypt(password.ToUpper().Trim());
+                //item.PASSWORD = new Encryption().Encrypt(password.ToUpper().Trim());
+                item.PASSWORD =password.ToUpper().Trim();
                 item.MTIPO = 1;
                 item = GetSPLogin_(item).FirstOrDefault();
                 if (item != null)

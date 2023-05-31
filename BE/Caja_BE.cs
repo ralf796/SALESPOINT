@@ -12,7 +12,6 @@ namespace RESTAURANTE
         public int ESTADO { get; set; }
         public int CANTIDAD { get; set; }
         public decimal PRECIO_UNITARIO { get; set; }
-
         public decimal DESCUENTO { get; set; }
         public decimal SUBTOTAL { get; set; }
         public string TIPO_COBRO { get; set; }
@@ -26,6 +25,11 @@ namespace RESTAURANTE
         public decimal MONTO_TARJETA { get; set; }
         public decimal MONTO_EFECTIVO { get; set; }
         public string RESPUESTA { get; set; }
+        public string COBRADO_POR { get; set; }
+        public int ID_CORTE { get; set; }
+        public int ID_COBRO { get; set; }
+        public int ID_PEDIDO { get; set; }
+        public int ID_MESA { get; set; }
 
     }
 }
