@@ -1,0 +1,36 @@
+﻿@using RESTAURANTE
+@{
+    List<Pedido_BE> lista = ViewBag.data;
+}
+
+
+@foreach (var row in lista)
+{
+    <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 mt-3">
+        <div class="text-center justify-content-center">
+            <img onclick="ZoomImage('@row.NOMBRE','@row.NOMBRE','@row.PATH_IMAGEN')" class="img-circle elevation-2" src="@row.PATH_IMAGEN" alt="User Avatar" style="width:100px; height:100px">
+            <div class="card-footer p-0">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <h5 class="text-success font-weight-bold" style="height:55px">@row.NOMBRE</h5>
+                        <h6 class="font-weight-bold">Q @row.PRECIO_VENTA</h6>
+                    </li>
+                </ul>
+                <ul class="nav flex-column text-center">
+                    <li class="nav-item">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button type="button" class="btn btn-secondary btn-sm font-weight-bold" style="width:50px" onclick="RemoveCantidad('@(".cantidad_"+@row.ID_MENU_RESTAURANTE.ToString())')">-</button>
+                                <input type="text" class="form-control text-center font-weight-bold @("cantidad_"+@row.ID_MENU_RESTAURANTE.ToString())" readonly min="0" value="0">
+                                <button type="button" class="btn btn-secondary btn-sm font-weight-bold" style="width:50px" onclick="AddCantidad('@(".cantidad_"+@row.ID_MENU_RESTAURANTE.ToString())')">+</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-success mt-1" style="width:100%" onclick="Create_DetalleMesa(@row.ID_MENU_RESTAURANTE, '@(".cantidad_"+@row.ID_MENU_RESTAURANTE.ToString())')"><i class="fad fa-save text-white me-1"></i> AGREGAR</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}

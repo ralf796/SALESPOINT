@@ -10,6 +10,25 @@
                 $('#modalMesas').modal('show');
             });
         }
+        function ShowModalAddMenu(id_menu, nombre) {
+            $('#txtCantidadMenuAdd').val(0);
+            $('#txtObservacionMenuAdd').val('');
+            $('#hfIdMenuAdd').val(id_menu);
+            $('#hfNombreMenuAdd').val(nombre);
+            $('#modalAddMenu').modal('show');
+        }
+        function CloseModalAddMenu() {            
+            $('#modalProductos').modal('hide');
+
+            var id_mesa = $('#hfIdMesa').val();
+            $('#divDataDetallesCreate').load('@Url.Action("Get_DetallesMesa")', { id_mesa }, function () {
+                TableNoSearch('#tableDetalles', 400);
+                $('#modalMesas').modal('hide');
+                $('#hfIdMesa').val(id_mesa);
+                $('#showCreatePedido').removeClass('d-none');
+                $('#showUpdatePedido').addClass('d-none');
+            });
+        }
 
         function CerrarModals() {
             $('#modalMesas').modal('hide');
@@ -17,6 +36,7 @@
         }
 
         function ShowModalProductos() {
+            $('#divProductos').empty();
             $('#selCategoria').load('@Url.Action("Get_Categorias")', function () {
             });
             $('#modalProductos').modal('show');
@@ -29,6 +49,10 @@
         }
 
         function Create_DetalleMesa(id_producto, objectCantidad) {
+            id_producto = $('#hfIdMenuAdd').val();
+            var observaciones = $('#txtObservacionMenuAdd').val();
+            objectCantidad = '#txtCantidadMenuAdd';
+
             var id_mesa = $('#hfIdMesa').val();
             var cantidad = $(objectCantidad).val();
 
@@ -37,12 +61,13 @@
                 return;
             }
 
-            $.post('@Url.Action("Create_DetalleMesa")', { id_mesa, id_producto, cantidad }, function (response) {
+            $.post('@Url.Action("Create_DetalleMesa")', { id_mesa, id_producto, cantidad, observaciones }, function (response) {
                 if (response.Codigo == '1') {
-                    $('#modalProductos').modal('hide');
-                    Notify(response.Descripcion, NotifyIcon.success);
-                    DeshabilitarMesa(id_mesa);
-                    $(objectCantidad).val(0)
+                    //$('#modalProductos').modal('hide');
+                    //Notify(response.Descripcion, NotifyIcon.success);
+                    //DeshabilitarMesa(id_mesa);
+                    //$(objectCantidad).val(0);
+                    $('#modalAddMenu').modal('hide');
                 }
                 else {
                     Alert(response.Descripcion, NotifyIcon.warning);
@@ -64,7 +89,7 @@
                 if (response.Codigo == '1') {
                     $('#modalObservaciones').modal('hide');
                     Notify(response.Descripcion, NotifyIcon.success);
-                    DeshabilitarMesa(id_mesa);                    
+                    DeshabilitarMesa(id_mesa);
                 }
                 else {
                     Alert(response.Descripcion, NotifyIcon.warning);
@@ -153,6 +178,20 @@
             $(object).val(cantidad)
         }
         function RemoveCantidad2(object) {
+            var cantidad = $(object).val();
+            if (parseFloat(cantidad) > 0) {
+                cantidad = parseFloat(cantidad) - 1;
+                $(object).val(cantidad)
+            }
+        }
+
+
+        function AddCantidad3(object) {
+            var cantidad = $(object).val();
+            cantidad = parseFloat(cantidad) + 1;
+            $(object).val(cantidad)
+        }
+        function RemoveCantidad3(object) {
             var cantidad = $(object).val();
             if (parseFloat(cantidad) > 0) {
                 cantidad = parseFloat(cantidad) - 1;
@@ -250,10 +289,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="divProductos"></div>
+                <div class="row justify-content-center" id="divProductos"></div>
             </div>
             <div class="card-footer text-center text-md-center bg-white">
-                <button class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fad fa-times me-1"></i> Cerrar</button>
+                <button onclick="CloseModalAddMenu()" class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fad fa-times me-1"></i> Cerrar</button>
             </div>
         </div>
     </div>
@@ -276,6 +315,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal" id="modalPayMesa" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="background-color: #e4e5eb ">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -294,6 +334,47 @@
                         @*<button class="btn btn-success mt-1" style="width:100%" onclick="Create_DetalleMesa(@row.ID_MENU_RESTAURANTE, '@(".cantidad_"+@row.ID_MENU_RESTAURANTE.ToString())')"><i class="fad fa-save text-white me-1"></i> AGREGAR</button>*@
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" tabindex="-1" role="dialog" id="modalAddMenu">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title">Nombre Platitllo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm col-md-12 col-lg-12 col-xl-12 justify-content-center">
+                        <ul class="nav flex-column text-center justify-content-center">
+                            <li class="nav-item justify-content-center">
+                                <div class="input-group justify-content-center">
+                                    <div class="input-group-prepend justify-content-center">
+                                        <button onclick="RemoveCantidad3('#txtCantidadMenuAdd')" type="button" class="btn btn-secondary btn-sm font-weight-bold" style="width:50px">-</button>
+                                        <input type="text" class="form-control text-center font-weight-bold" readonly min="0" value="0" id="txtCantidadMenuAdd">
+                                        <button onclick="AddCantidad3('#txtCantidadMenuAdd')" type="button" class="btn btn-secondary btn-sm font-weight-bold" style="width:50px">+</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm col-md-12 col-lg-12 col-xl-12 mt-1">
+                        <input type="hidden" id="hfIdMenuAdd"/>
+                        <input type="hidden" id="hfNombreMenuAdd"/>
+                        <textarea rows="2" placeholder="Observaciones" style="width:100%" id="txtObservacionMenuAdd"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-success" onclick="Create_DetalleMesa()"><i class="fad fa-save text-white me-1"></i> AGREGAR</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
             </div>
         </div>
     </div>

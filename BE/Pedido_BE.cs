@@ -28,6 +28,7 @@ namespace RESTAURANTE
         public int NUMERO { get; set; }
         public int ESTADO { get; set; }
         public int ID_PEDIDO_ENCABEZADO { get; set; }
+        public int ID_TIPO_PEDIDO { get; set; }
         public DateTime FECHA_CREACION { get; set; }
     }
 }

@@ -168,6 +168,7 @@ namespace RESTAURANTE
                 model.Command.Parameters.AddWithValue("@CANTIDAD", item.CANTIDAD);
                 model.Command.Parameters.AddWithValue("@ID_CATEGORIA", item.ID_CATEGORIA);
                 model.Command.Parameters.AddWithValue("@ID_PEDIDO", item.ID_PEDIDO_ENCABEZADO);
+                model.Command.Parameters.AddWithValue("@ID_TIPO_PEDIDO", item.ID_TIPO_PEDIDO);
                 model.Command.Parameters.AddWithValue("@ID_PEDIDO_DETALLE", item.ID_DETALLE_PEDIDO);
                 model.Command.Parameters.AddWithValue("@OBSERVACIONES", item.OBSERVACIONES);
                 model.Command.Parameters.AddWithValue("@CREADO_POR", item.CREADO_POR);

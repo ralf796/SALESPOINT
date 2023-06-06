@@ -91,6 +91,7 @@ namespace Salespoint.Controllers.VENTAS
             }
             return Json(respuesta);
         }
+
         public JsonResult HabilitarMesa(int id_mesa = 0)
         {
             var respuesta = new Respuesta();
@@ -122,7 +123,7 @@ namespace Salespoint.Controllers.VENTAS
         }
 
         [SessionExpireFilter]
-        public JsonResult Create_DetalleMesa(int id_mesa = 0, int id_producto = 0, int cantidad = 0)
+        public JsonResult Create_DetalleMesa(int id_mesa = 0, int id_producto = 0, int cantidad = 0, string observaciones = "")
         {
             var respuesta = new Respuesta();
             try
@@ -133,6 +134,7 @@ namespace Salespoint.Controllers.VENTAS
                 item.ID_MESA = id_mesa;
                 item.ID_PRODUCTO = id_producto;
                 item.CANTIDAD = cantidad;
+                item.OBSERVACIONES = observaciones;
                 item.CREADO_POR = Session["usuario"].ToString();
                 RESULT_SP = Connect.Connect_Pedido(item);
 
@@ -232,6 +234,7 @@ namespace Salespoint.Controllers.VENTAS
                 item_Encabezado.MTIPO = 12;
                 item_Encabezado.ID_MESA = id_mesa;
                 item_Encabezado.CREADO_POR = usuario;
+                item_Encabezado.ID_TIPO_PEDIDO = 1;
                 RESULT_SP = Connect.Connect_Pedido(item_Encabezado);
 
                 if (RESULT_SP.Count == 0)
@@ -335,7 +338,7 @@ namespace Salespoint.Controllers.VENTAS
                 document.Add(new Paragraph(chunk: chunkPedido));
                 document.Add(new Paragraph("_____________________________"));
                 document.Add(new Paragraph("       CANTIDAD   -   MENU", fontTitle));
-                foreach(var row in lista)
+                foreach (var row in lista)
                 {
                     document.Add(new Paragraph("- - - - - - - - - - - - - - - - - - - - - - - - - - -"));
                     document.Add(new Paragraph($" {row.CANTIDAD} - {row.DESCRIPCION} {row.OBSERVACIONES}", fontMenu));
@@ -343,10 +346,10 @@ namespace Salespoint.Controllers.VENTAS
                 document.Add(new Paragraph("_____________________________"));
                 if (lista.Count > 0)
                 {
-                    HeaderPedido = lista.FirstOrDefault();                    
+                    HeaderPedido = lista.FirstOrDefault();
                     document.Add(new Paragraph($"Mesero: {HeaderPedido.CREADO_POR.ToUpper()}", fontFooter));
                     document.Add(new Paragraph($"Mesa: {HeaderPedido.ID_MESA}", fontFooter));
-                }               
+                }
                 document.Add(new Paragraph($"Hora: {DateTime.Now.ToString("HH:mm:ss")}", fontFooter));
             }
             catch (DocumentException de)
@@ -374,7 +377,6 @@ namespace Salespoint.Controllers.VENTAS
             chunk = new Chunk($"{chunk}", fuente);
             chunk.SetBackground(new BaseColor(0, 0, 0));
         }
-
 
     }
 }
