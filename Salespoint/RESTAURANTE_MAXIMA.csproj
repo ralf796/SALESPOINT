@@ -3301,6 +3301,7 @@
     <Content Include="Views\DOM_AsignaPedido\Get_PedidosPendientesDeEntregar.cshtml" />
     <Content Include="Views\PED_PedidoCaja\Index.cshtml" />
     <Content Include="Views\PED_PedidoCaja\Get_Productos.cshtml" />
+    <Content Include="Views\PED_PedidoCaja\Get_Categorias.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

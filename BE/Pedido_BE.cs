@@ -20,6 +20,7 @@ namespace RESTAURANTE
         public string NOMBRE_MENU{ get; set; } = string.Empty;
         public string NOMBRE_CATEGORIA  { get; set; } = string.Empty;
         public string CODIGO_RESPUESTA { get; set; } = string.Empty;
+        public string DETALLES_JSON { get; set; } = string.Empty;
         public int CANTIDAD { get; set; }
         public decimal PRECIO { get; set; }
         public decimal SUBTOTAL { get; set; }

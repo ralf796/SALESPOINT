@@ -1,0 +1,10 @@
+﻿@using RESTAURANTE
+@{
+    List<Pedido_BE> LISTA = ViewBag.data;
+}
+
+<option disabled selected>SELECCIONE CATEGORÍA</option>
+@foreach (var row in LISTA)
+{
+    <option value="@row.ID_CATEGORIA"> @row.NOMBRE </option>
+}

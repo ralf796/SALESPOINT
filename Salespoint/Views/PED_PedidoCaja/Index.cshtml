@@ -2,11 +2,367 @@
     ViewBag.Title = "Index";
 }
 
-@section scripts{
+@section styles{
+    <style>
+        .headColor {
+            background-color: dimgray;
+            color: white;
+            font-size: 13px;
+        }
 
+        input {
+            margin-top: -10px;
+        }
+    </style>
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        var Detalles = $("#tbodyDetalles");
+
+        function ShowModalProductos() {
+            $('#divProductos').empty();
+            $('#selCategoria').load('@Url.Action("Get_Categorias")', function () {
+            });
+            $('#modalProductos').modal('show');
+        }
+
+        function Get_Productos() {
+            var id_categoria = $('#selCategoria').val();
+            $('#divProductos').load('@Url.Action("Get_Productos")', { id_categoria }, function () {
+            });
+        }
+
+        function ShowModalAddMenu(id_menu, nombre, precio) {
+            $('#hfPrecioMenuAdd').val(precio);
+            $('#txtCantidadMenuAdd').val(0);
+            $('#txtObservacionMenuAdd').val('');
+            $('#hfIdMenuAdd').val(id_menu);
+            $('#hfNombreMenuAdd').val(nombre);
+            $('#modalAddMenu').modal('show');
+        }
+
+        function CloseModalAddMenu() {
+            $('#modalProductos').modal('hide');
+
+            var id_mesa = $('#hfIdMesa').val();
+            $('#divDataDetallesCreate').load('@Url.Action("Get_DetallesMesa")', { id_mesa }, function () {
+                TableNoSearch('#tableDetalles', 400);
+                $('#modalMesas').modal('hide');
+                $('#hfIdMesa').val(id_mesa);
+                $('#showCreatePedido').removeClass('d-none');
+                $('#showUpdatePedido').addClass('d-none');
+            });
+        }
+
+        function AddCantidad3(object) {
+            var cantidad = $(object).val();
+            cantidad = parseFloat(cantidad) + 1;
+            $(object).val(cantidad)
+        }
+        function RemoveCantidad3(object) {
+            var cantidad = $(object).val();
+            if (parseFloat(cantidad) > 0) {
+                cantidad = parseFloat(cantidad) - 1;
+                $(object).val(cantidad)
+            }
+        }
+
+        function DETALLE(ID_MENU_RESTAURANTE, CANTIDAD, OBSERVACIONES) {
+            this.ID_MENU_RESTAURANTE = ID_MENU_RESTAURANTE;
+            this.CANTIDAD = CANTIDAD;
+            this.OBSERVACIONES = OBSERVACIONES;
+        }
+        function Create_Pedido() {
+            var tipo_pedido = $('#selTipoPedido').val();
+
+            var listJson = [];
+            $('#tbodyDetalles tr').each(function () {
+                var id = $(this).find("td").eq(1).text();
+                var cantidad = $(this).find("td").eq(3).text();
+                var observaciones = $(this).find("td").eq(6).text();
+                var listado = new DETALLE(id, cantidad, observaciones);
+                listJson.push(listado);
+            });
+
+
+            $.post('@Url.Action("Create_Pedido")', { detalles: JSON.stringify(listJson), tipo_pedido: tipo_pedido }, function (response) {
+                if (response.Resultado) {
+                    Detalles.empty();
+                    CalcularValores();
+                    Notify(response.Descripcion, NotifyIcon.success);
+                    //window.open('@Url.Action("Ticket")?idPedido=' + response.Codigo, '_blank');
+                }
+                else {
+                    Alert(response.Descripcion, NotifyIcon.warning);
+                }
+            });
+        }
+
+        function AddDetail() {
+            var id=$('#hfIdMenuAdd').val();
+            var nombre=$('#hfNombreMenuAdd').val();
+            var cantidad= $('#txtCantidadMenuAdd').val();
+            var precio = $('#hfPrecioMenuAdd').val();
+            var observaciones = $('#txtObservacionMenuAdd').val();
+            var subtotal = 0;
+
+            if (cantidad == 0 || cantidad == '') {
+                Alert('Debes ingresar una cantidad.', NotifyIcon.warning);
+                return;
+            }
+
+            subtotal = parseFloat(cantidad) * parseFloat(precio);
+
+            Detalles.append(
+                '<tr>'+
+                '<td class="text-center">' +
+                '<button onclick="ShowModalIngObservaciones()" class="btn btn-success btn-sm border-0 mr-1" title="Actualizar observación"><i class="fad fa-edit hvr-grow"></i></button>' +
+                '<button class="btn btn-danger btn-sm border-0 removeDetail" title="Eliminar"><i class="fad fa-trash-alt hvr-grow"></i></button>' +
+                '</td>' +
+                '<td class="d-none">'+id+'</td>' +
+                '<td>'+nombre+'</td>' +
+                '<td class="text-center font-weight-bold">'+cantidad+'</td>' +
+                '<td class="text-right font-weight-bold pr-2">' + formatNumber(parseFloat(precio).toFixed(2)) +'</td>' +
+                '<td class="text-right font-weight-bold pr-2">' + formatNumber(parseFloat(subtotal).toFixed(2)) +'</td>' +
+                '<td>'+observaciones+'</td>' +
+                '</tr>'
+            );
+            $('#modalAddMenu').modal('hide');
+            CalcularValores();
+        }
+
+        Detalles.on('click', '.removeDetail', function () {
+            $(this).closest('tr').remove();
+            CalcularValores();
+        });
+
+        function CalcularValores() {
+            var total = 0;
+            $('#tbodyDetalles tr').each(function () {
+                total = total + parseFloat($(this).find("td").eq(5).text().replace(",", "").replace(",", ""));
+            });
+            $('#spanTotalPedido').html(formatNumber(parseFloat(total).toFixed(2)));
+        }
+
+        function formatNumber(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
+
+        function ChangeTipo(tipo) {
+            if (tipo == 2) {
+                $('#divADomicilio').addClass('d-none');
+            }
+            else {
+                $('#divADomicilio').removeClass('d-none');
+            }
+        }
+
+    </script>
 
 }
 
 <div class="row">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="divData"></div>
+    <div class="col-md-12">
+        <div class="card card-outline-secondary">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 text-left">                        
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">TIPO PEDIDO</span>
+                            </div>
+                            <select onchange="ChangeTipo($(this).val())" class="form-control select2bs4" id="selTipoPedido" required>
+                                <option value="2">ENTREGA EN TIENDA</option>
+                                <option value="3">A DOMICILIO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-outline-secondary">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-12 col-xl-12 text-center">
+                        <h4 class="font-weight-bold">DATOS CLIENTE</h4>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+                        <label for="divNit">NIT</label>
+                        <div class="input-group mb-3" id="divNit">
+                            <div class="input-group-prepend">
+                                <button id="btnAgregarCliente" style="margin-top:-10px" type="button" class="btn btn-success"><i class="far fa-plus"></i></button>
+                                <button id="btnBuscarClientes" style="margin-top:-10px" type="button" class="btn btn-info"><i class="far fa-search"></i></button>
+                            </div>
+                            <input type="text" class="form-control" id="txtNit">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-4">
+                        <label for="txtNombreCliente">CLIENTE</label>
+                        <input class="form-control" id="txtNombreCliente" name="txtNombreCliente" type="text">
+                        <input id="hfIdCliente" type="hidden">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-6">
+                        <label for="txtNombreCliente">DIRECCION</label>
+                        <input class="form-control" id="txtDireccion" name="txtDireccion" type="text">
+                    </div>
+                </div>
+                <div class="row d-none" id="divADomicilio">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right">
+                        <button class="btn btn-success mt-2" id="btnAgregarDetalle"><i class="far fa-plus"></i> AGREGAR DIRECCION</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="tblVenta" width="100%" style="font-size:14.5px">
+                                <thead class="headColor">
+                                    <tr>
+                                        <th class="border text-center pl-2 pr-2" width="50px">#</th>
+                                        <th class="border text-center pl-2 pr-2">ID</th>
+                                        <th class="border text-center pl-2 pr-2">DIRECCION</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyDirecciones"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right">
+                        <button class="btn btn-success mt-2" id="btnAgregarDetalle"><i class="far fa-plus"></i> AGREGAR TELÉFONO</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="tblVenta" width="100%" style="font-size:14.5px">
+                                <thead class="headColor">
+                                    <tr>
+                                        <th class="border text-center pl-2 pr-2" width="50px">#</th>
+                                        <th class="border text-center pl-2 pr-2">ID</th>
+                                        <th class="border text-center pl-2 pr-2">TELEFONO</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyTelefonos"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-outline-secondary">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-12 col-xl-12 text-center">
+                        <h4 class="font-weight-bold">MENUS DE PEDIDO</h4>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right">
+                        <button onclick="ShowModalProductos()" class="btn btn-success mt-2" id="btnAgregarDetalle"><i class="far fa-plus"></i> AGREGAR MENU</button>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <table class="table table-hover table-sm table-striped display nowrap table-bordered" style="width:100%" width="100%" id="tableDetalles">
+                            <thead>
+                                <tr>
+                                    <th width="100px" class="headColor text-center">#</th>
+                                    <th class="headColor text-center pr-2 d-none">ID</th>
+                                    <th class="headColor text-center pr-2">MENU</th>
+                                    <th width="100px" class="headColor text-center pr-2">CANTIDAD</th>
+                                    <th width="100px" class="headColor text-center pr-2">PRECIO</th>
+                                    <th width="100px" class="headColor text-center pr-2">SUBTOTAL</th>
+                                    <th class="headColor text-center pr-2">OBSERVACIONES</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyDetalles"></tbody>
+                        </table>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 justify-content-end text-right">
+                        <span class="badge badge-pill badge-success mr-5"><b class="h5">Total a pagar: </b><b class="h5" id="spanTotalPedido">0.00</b></span>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
+                        <button class="btn btn-success" onclick="Create_Pedido()">CREAR PEDIDO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal modal-fullscreen-xl" id="modalProductos" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen ">
+        <div class="modal-content" style="border: 3px solid; border-color:blue">
+            <div class="card-header" style="height:50px">
+                <div class="row justify-content-center">
+                    <h3>CATALOGO DE MENUS</h3>
+                </div>
+            </div>
+            <div class="modal-body bg-white">
+                <div class="col-12">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-6 mt-1">
+                            <div class="input-group">
+                                <span class="col-form-label">CATEGORÍA:</span>
+                                <select onchange="Get_Productos()" class="form-control select2bs4" id="selCategoria" required>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center" id="divProductos"></div>
+            </div>
+            <div class="card-footer text-center text-md-center bg-white">
+                <button onclick="CloseModalAddMenu()" class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fad fa-times me-1"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modalAddMenu">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title">Nombre Platitllo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm col-md-12 col-lg-12 col-xl-12 justify-content-center">
+                        <ul class="nav flex-column text-center justify-content-center">
+                            <li class="nav-item justify-content-center">
+                                <div class="input-group justify-content-center">
+                                    <div class="input-group-prepend justify-content-center">
+                                        <button onclick="RemoveCantidad3('#txtCantidadMenuAdd')" type="button" class="btn btn-secondary btn-sm font-weight-bold" style="width:50px">-</button>
+                                        <input type="text" class="form-control text-center font-weight-bold" readonly min="0" value="0" id="txtCantidadMenuAdd">
+                                        <button onclick="AddCantidad3('#txtCantidadMenuAdd')" type="button" class="btn btn-secondary btn-sm font-weight-bold" style="width:50px">+</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm col-md-12 col-lg-12 col-xl-12 mt-1">
+                        <input type="hidden" id="hfIdMenuAdd" />
+                        <input type="hidden" id="hfPrecioMenuAdd" />
+                        <input type="hidden" id="hfNombreMenuAdd" />
+                        <textarea rows="2" placeholder="Observaciones" style="width:100%" id="txtObservacionMenuAdd"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-success" onclick="AddDetail()"><i class="fad fa-save text-white me-1"></i> AGREGAR</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+            </div>
+        </div>
+    </div>
 </div>
