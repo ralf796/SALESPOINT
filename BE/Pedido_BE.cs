@@ -21,6 +21,11 @@ namespace RESTAURANTE
         public string NOMBRE_CATEGORIA  { get; set; } = string.Empty;
         public string CODIGO_RESPUESTA { get; set; } = string.Empty;
         public string DETALLES_JSON { get; set; } = string.Empty;
+        public string CLIENTE_JSON { get; set; } = string.Empty;
+        public string DIRECCION_PRINCIPAL{ get; set; } = string.Empty;
+        public string DIRECCION{ get; set; } = string.Empty;
+        public string TELEFONO_PRINCIPAL{ get; set; } = string.Empty;
+        public string NIT{ get; set; } = string.Empty;
         public int CANTIDAD { get; set; }
         public decimal PRECIO { get; set; }
         public decimal SUBTOTAL { get; set; }
@@ -31,5 +36,6 @@ namespace RESTAURANTE
         public int ID_PEDIDO_ENCABEZADO { get; set; }
         public int ID_TIPO_PEDIDO { get; set; }
         public DateTime FECHA_CREACION { get; set; }
+        public bool Resultado { get; set; }
     }
 }

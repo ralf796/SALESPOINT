@@ -77,7 +77,7 @@ Confirm = (text, callback) => {
     Swal.fire({
         title: '',
         html: text,
-        type: 'info',
+        icon: 'info',
         showCancelButton: true,
         cancelButtonText: 'No',
         confirmButtonText: 'Si'

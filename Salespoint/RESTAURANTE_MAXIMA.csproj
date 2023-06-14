@@ -2644,6 +2644,7 @@
     <Compile Include="Controllers\CATALOGO\CAT_ListarCategoriaController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\DOMICILIO\DOM_AsignaPedidoController.cs" />
+    <Compile Include="Controllers\DOMICILIO\DOM_MisAsignadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CATALOGO\CAT_ListarProductoController.cs" />
     <Compile Include="Controllers\USUARIOS\USU_ListarController.cs" />
@@ -3302,6 +3303,7 @@
     <Content Include="Views\PED_PedidoCaja\Index.cshtml" />
     <Content Include="Views\PED_PedidoCaja\Get_Productos.cshtml" />
     <Content Include="Views\PED_PedidoCaja\Get_Categorias.cshtml" />
+    <Content Include="Views\DOM_MisAsignados\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

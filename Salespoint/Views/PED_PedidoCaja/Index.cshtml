@@ -24,6 +24,13 @@
 
         var Detalles = $("#tbodyDetalles");
 
+        function ClearCustomer() {
+            $('#txtNombreCliente').val('');
+            $('#txtDireccion').val('');
+            $('#txtNit').val('');
+            $('#txtTelefono').val('');
+        }
+
         function ShowModalProductos() {
             $('#divProductos').empty();
             $('#selCategoria').load('@Url.Action("Get_Categorias")', function () {
@@ -43,6 +50,7 @@
             $('#txtObservacionMenuAdd').val('');
             $('#hfIdMenuAdd').val(id_menu);
             $('#hfNombreMenuAdd').val(nombre);
+            $('#txtNombreMenu').html(nombre);
             $('#modalAddMenu').modal('show');
         }
 
@@ -77,6 +85,12 @@
             this.CANTIDAD = CANTIDAD;
             this.OBSERVACIONES = OBSERVACIONES;
         }
+        function CLIENTE(NOMBRE, DIRECCION_PRINCIPAL, NIT, TELEFONO_PRINCIPAL) {
+            this.NOMBRE = NOMBRE;
+            this.DIRECCION_PRINCIPAL = DIRECCION_PRINCIPAL;
+            this.NIT = NIT;
+            this.TELEFONO_PRINCIPAL = TELEFONO_PRINCIPAL;
+        }
         function Create_Pedido() {
             var tipo_pedido = $('#selTipoPedido').val();
 
@@ -89,9 +103,30 @@
                 listJson.push(listado);
             });
 
+            var nombre = $('#txtNombreCliente').val();
+            var direccion = $('#txtDireccion').val();
+            var nit = $('#txtNit').val();
+            var telefono= $('#txtTelefono').val();
+            var json_cliente = new CLIENTE(nombre, direccion, nit, telefono);
 
-            $.post('@Url.Action("Create_Pedido")', { detalles: JSON.stringify(listJson), tipo_pedido: tipo_pedido }, function (response) {
+            var tipo_pedido = $('#selTipoPedido').val();
+            if (tipo_pedido == 2 && nombre == '') {
+                Alert('Debes ingresar los datos de cliente para la entrega', NotifyIcon.warning);
+                return;
+            }
+            if (tipo_pedido == 3 && nombre == '' && direccion == '' && telefono == ''&& direccion == '') {
+                Alert('Debes ingresar los datos de cliente para el envío', NotifyIcon.warning);
+                return;
+            }
+            if (listJson.length == 0) {
+                Alert('Debes agregar al menos un menu.', NotifyIcon.warning);
+                return;
+            }
+
+
+            $.post('@Url.Action("Create_Pedido")', { detalles: JSON.stringify(listJson), tipo_pedido: tipo_pedido, datos_cliente: JSON.stringify(json_cliente)}, function (response) {
                 if (response.Resultado) {
+                    ClearCustomer();
                     Detalles.empty();
                     CalcularValores();
                     Notify(response.Descripcion, NotifyIcon.success);
@@ -155,12 +190,69 @@
 
         function ChangeTipo(tipo) {
             if (tipo == 2) {
-                $('#divADomicilio').addClass('d-none');
+                $('.ocultar').addClass('d-none');
+                //$('#divADomicilio').addClass('d-none');
             }
             else {
-                $('#divADomicilio').removeClass('d-none');
+                $('.ocultar').removeClass('d-none');
+                //$('#divADomicilio').removeClass('d-none');
             }
         }
+
+        function GetCliente(filtro,tipo) {
+            $.post('@Url.Action("GetCliente")', { filtro, tipo }, function (response) {
+                if (response.Resultado) {
+                    ClearCustomer();
+                    $('#txtNombreCliente').val(response.NOMBRE);
+                    $('#txtDireccion').val(response.DIRECCION_PRINCIPAL);
+                    $('#txtNit').val(response.NIT);
+                    $('#txtTelefono').val(response.TELEFONO_PRINCIPAL);
+                }
+                else {
+                    if (tipo == 2) {
+                        $('#txtNombreCliente').val('');
+                        $('#txtDireccion').val('');
+                        $('#txtNit').val('');
+                    }
+                    else {
+                        $('#txtNombreCliente').val('');
+                        $('#txtDireccion').val('');
+                        $('#txtTelefono').val('');
+                    }
+                    Notify(response.Descripcion, NotifyIcon.warning);
+                }
+            });
+        }
+
+        $("#txtTelefono").keypress(function (e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                e.preventDefault();
+                var valor = $(this).val();
+                GetCliente(valor, 2);
+            }
+        });
+
+        $("#txtNit").keypress(function (e) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                e.preventDefault();
+                var valor = $(this).val();
+                GetCliente(valor, 3);
+            }
+        });
+
+        $('#txtTelefono').on('keyup', function (e) {
+            e.preventDefault();
+            var filtro = $('#txtTelefono').val();
+            if (filtro.length == 8) {
+                GetCliente(filtro, 2);
+            }
+            else {
+                $('#txtNombreCliente').val('');
+                $('#txtDireccion').val('');
+            }
+        });
 
     </script>
 
@@ -171,7 +263,7 @@
         <div class="card card-outline-secondary">
             <div class="card-body">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 text-left">                        
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 text-left">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">TIPO PEDIDO</span>
@@ -193,32 +285,46 @@
         <div class="card card-outline-secondary">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-3 col-lg-12 col-xl-12 text-center">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
                         <h4 class="font-weight-bold">DATOS CLIENTE</h4>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
-                        <label for="divNit">NIT</label>
-                        <div class="input-group mb-3" id="divNit">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                        <label for="divNit">TELEFONO</label>
+                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <button id="btnAgregarCliente" style="margin-top:-10px" type="button" class="btn btn-success"><i class="far fa-plus"></i></button>
+                                <button id="btnAgregarCliente" style="margin-top:-10px" type="button" class="btn btn-success d-none"><i class="far fa-plus"></i></button>
+                                <button id="btnBuscarClientes" style="margin-top:-10px" type="button" class="btn btn-info"><i class="far fa-search"></i></button>
+                            </div>
+                            <input type="text" class="form-control" id="txtTelefono" maxlength="8">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                        <label for="divNit">NIT</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button id="btnAgregarCliente" style="margin-top:-10px" type="button" class="btn btn-success d-none"><i class="far fa-plus"></i></button>
                                 <button id="btnBuscarClientes" style="margin-top:-10px" type="button" class="btn btn-info"><i class="far fa-search"></i></button>
                             </div>
                             <input type="text" class="form-control" id="txtNit">
                         </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-4">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <label for="txtNombreCliente">CLIENTE</label>
                         <input class="form-control" id="txtNombreCliente" name="txtNombreCliente" type="text">
                         <input id="hfIdCliente" type="hidden">
                     </div>
-                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-6">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ocultar d-none">
                         <label for="txtNombreCliente">DIRECCION</label>
                         <input class="form-control" id="txtDireccion" name="txtDireccion" type="text">
                     </div>
+                    @*<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <label for="txtNombreCliente">CORREO</label>
+                            <input class="form-control" id="txtDireccion" name="txtDireccion" type="text">
+                        </div>*@
                 </div>
                 <div class="row d-none" id="divADomicilio">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right">
-                        <button class="btn btn-success mt-2" id="btnAgregarDetalle"><i class="far fa-plus"></i> AGREGAR DIRECCION</button>
+                        <button class="btn btn-success mt-2"><i class="far fa-plus"></i> AGREGAR DIRECCION</button>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="table-responsive">
@@ -235,7 +341,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right">
-                        <button class="btn btn-success mt-2" id="btnAgregarDetalle"><i class="far fa-plus"></i> AGREGAR TELÉFONO</button>
+                        <button class="btn btn-success mt-2"><i class="far fa-plus"></i> AGREGAR TELÉFONO</button>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="table-responsive">
@@ -266,7 +372,7 @@
                         <h4 class="font-weight-bold">MENUS DE PEDIDO</h4>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right">
-                        <button onclick="ShowModalProductos()" class="btn btn-success mt-2" id="btnAgregarDetalle"><i class="far fa-plus"></i> AGREGAR MENU</button>
+                        <button onclick="ShowModalProductos()" class="btn btn-success mt-2"><i class="far fa-plus"></i> AGREGAR MENU</button>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <table class="table table-hover table-sm table-striped display nowrap table-bordered" style="width:100%" width="100%" id="tableDetalles">
@@ -285,7 +391,7 @@
                         </table>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 justify-content-end text-right">
-                        <span class="badge badge-pill badge-success mr-5"><b class="h5">Total a pagar: </b><b class="h5" id="spanTotalPedido">0.00</b></span>
+                        <span class="badge badge-pill badge-secondary mr-5"><b class="h5">Total a pagar: </b><b class="h5" id="spanTotalPedido">0.00</b></span>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
                         <button class="btn btn-success" onclick="Create_Pedido()">CREAR PEDIDO</button>
@@ -331,27 +437,27 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h5 class="modal-title">Nombre Platitllo</h5>
+                <h5 class="modal-title" id="txtNombreMenu"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-sm col-md-12 col-lg-12 col-xl-12 justify-content-center">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 justify-content-center">
                         <ul class="nav flex-column text-center justify-content-center">
                             <li class="nav-item justify-content-center">
                                 <div class="input-group justify-content-center">
                                     <div class="input-group-prepend justify-content-center">
                                         <button onclick="RemoveCantidad3('#txtCantidadMenuAdd')" type="button" class="btn btn-secondary btn-sm font-weight-bold" style="width:50px">-</button>
-                                        <input type="text" class="form-control text-center font-weight-bold" readonly min="0" value="0" id="txtCantidadMenuAdd">
+                                        <input type="text" class="form-control text-center font-weight-bold" readonly min="0" value="0" id="txtCantidadMenuAdd" style="margin-top:0px">
                                         <button onclick="AddCantidad3('#txtCantidadMenuAdd')" type="button" class="btn btn-secondary btn-sm font-weight-bold" style="width:50px">+</button>
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-12 col-sm col-md-12 col-lg-12 col-xl-12 mt-1">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-1">
                         <input type="hidden" id="hfIdMenuAdd" />
                         <input type="hidden" id="hfPrecioMenuAdd" />
                         <input type="hidden" id="hfNombreMenuAdd" />

@@ -78,14 +78,19 @@ namespace RESTAURANTE
         public List<Clientes_BE> DAL_sp_clientes(Clientes_BE item)
         {
             List<Clientes_BE> result;
-            using (var model = new Base_SQL("sp_clientes"))
+            using (var model = new Base_SQL("sp_cliente"))
             {
                 model.Command.Parameters.AddWithValue("@ID_CLIENTE", item.ID_CLIENTE);
                 model.Command.Parameters.AddWithValue("@NOMBRE", item.NOMBRE);
-                model.Command.Parameters.AddWithValue("@DIRECCION", item.DIRECCION);
-                model.Command.Parameters.AddWithValue("@TELEFONO", item.TELEFONO);
-                model.Command.Parameters.AddWithValue("@EMAIL", item.EMAIL);
-                model.Command.Parameters.AddWithValue("@NIT", item.NIT);
+                model.Command.Parameters.AddWithValue("@DIRECCION_PRINCIPAL", item.DIRECCION_PRINCIPAL);
+                model.Command.Parameters.AddWithValue("@NIT", item.TELEFONO_PRINCIPAL);
+                model.Command.Parameters.AddWithValue("@TELEFONO_PRINCIPAL", item.TELEFONO_PRINCIPAL);
+                model.Command.Parameters.AddWithValue("@CORREO_ELECTRONICO", item.EMAIL);
+                model.Command.Parameters.AddWithValue("@JSON_DATOS", item.EMAIL);
+                model.Command.Parameters.AddWithValue("@JSON_DIRECCION", item.EMAIL);
+                model.Command.Parameters.AddWithValue("@JSON_TELEFONO", item.EMAIL);
+                model.Command.Parameters.AddWithValue("@JSON_CLIENTE", item.EMAIL);
+                model.Command.Parameters.AddWithValue("@FECHA_CREACION", DateTime.Now);
                 model.Command.Parameters.AddWithValue("@CREADO_POR", item.CREADO_POR);
                 model.Command.Parameters.AddWithValue("@MTIPO", item.MTIPO);
                 result = model.GetData<Clientes_BE>();
@@ -171,6 +176,7 @@ namespace RESTAURANTE
                 model.Command.Parameters.AddWithValue("@ID_TIPO_PEDIDO", item.ID_TIPO_PEDIDO);
                 model.Command.Parameters.AddWithValue("@ID_PEDIDO_DETALLE", item.ID_DETALLE_PEDIDO);
                 model.Command.Parameters.AddWithValue("@DETALLES_PEDIDO", item.DETALLES_JSON);
+                model.Command.Parameters.AddWithValue("@JSON_CLIENTE", item.CLIENTE_JSON);
                 model.Command.Parameters.AddWithValue("@OBSERVACIONES", item.OBSERVACIONES);
                 model.Command.Parameters.AddWithValue("@CREADO_POR", item.CREADO_POR);
                 result = model.GetData<Pedido_BE>();

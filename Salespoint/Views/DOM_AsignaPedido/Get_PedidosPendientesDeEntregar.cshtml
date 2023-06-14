@@ -3,49 +3,48 @@
 
 
 @{
-    List<Pedido_BE> lista_encabezado = ViewBag.data_encabezado;
-    List<Pedido_BE> lista_detalle = ViewBag.data_detalle;
+    List<Pedido_BE> lista = ViewBag.lista;
 }
 
 
-<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 btn">
-    <div class="card">
-        <div class="row justify-content-center">
-            <img class="elevation-2" src="https://cdn-icons-png.flaticon.com/256/1281/1281931.png" style="width:200px; height:150px"><br />
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
-                <span class="info-box-text text-danger font-weight-bold h3">Pedido 1</span><br />
-            </div>
-            @*<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left mt-1">
-                <span class="h5"><b>Recibe:</b> Raúl Alejandro López Fuentes</span><br />
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left mt-1">
-                <span class="h5"><b>Teléfono:</b> 55112244</span><br />
-            </div>*@
-            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left mt-1">
-                <span class="h5"><b>Dirección:</b>4ta Calle 9-30 Residenciales los arcos, frente a la calle que conduce a la terminal</span>
-            </div>
-            @*<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right mt-1">
-                <span class="h3 text-success"><b class="mr-3">Total:</b>Q250.00</span>
-            </div>*@
-        </div>
-    </div>
-</div>
-
-
-@*@foreach (var row in lista_encabezado)
-    {
-        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 btn">
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <div class="info-box">
-                        <img class="elevation-2" src="https://cdn-icons-png.flaticon.com/256/1281/1281931.png" style="width:100px; height:100px">
-                        <div class="info-box-content">
-                            <span class="info-box-text text-danger font-weight-bold">Pedido 1</span>
-                            <span class="info-box-text">Recibe: Raúl Alejandro López Fuentes</span>
-                            <span class="info-box-text">4ta Calle 9-30 Residenciales los arcos</span>
-                        </div>
-                    </div>
+@*<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 btn">
+        <div class="card">
+            <div class="row justify-content-center">
+                <img class="elevation-2" src="https://cdn-icons-png.flaticon.com/256/1281/1281931.png" style="width:200px; height:150px"><br />
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+                    <span class="info-box-text text-danger font-weight-bold h3">Pedido 1</span><br />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left mt-1">
+                    <span class="h5"><b>Recibe:</b> Raúl Alejandro López Fuentes</span><br />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left mt-1">
+                    <span class="h5"><b>Teléfono:</b> 55112244</span><br />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left mt-1">
+                    <span class="h5"><b>Dirección:</b>4ta Calle 9-30 Residenciales los arcos, frente a la calle que conduce a la terminal</span>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-right mt-1">
+                    <span class="h3 text-success"><b class="mr-3">Total:</b>Q250.00</span>
                 </div>
             </div>
         </div>
-    }*@
+    </div>*@
+
+
+@foreach (var row in lista)
+{
+    <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 btn">
+        <div class="card border-width-2 border-primary border hvr-grow" onclick="Asignar_Pedido(@row.ID_PEDIDO)">
+            <div class="row justify-content-center">
+                <img class="elevation-2" src="https://cdn-icons-png.flaticon.com/256/1281/1281931.png" style="width:200px; height:150px"><br />
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2">
+                    <span class="info-box-text text-danger font-weight-bold h3">Pedido @row.ID_PEDIDO</span><br />
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-left mt-1">
+                    <span class="h6 text-primary"><b class="text-primary">Fecha creado:</b>@row.FECHA_CREACION.ToString("dd/MM/yyyy HH:mm tt")</span><br />
+                    <span class="h5"><b>Dirección:</b>@row.DIRECCION</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}

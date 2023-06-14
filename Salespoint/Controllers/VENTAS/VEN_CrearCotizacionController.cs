@@ -292,8 +292,8 @@ namespace Salespoint.Controllers.VENTAS
                     if (datos_contribuyente.nombre != "")
                     {
                         itemCliente.NOMBRE = datos_contribuyente.nombre.Replace(",,", ", ");
-                        itemCliente.DIRECCION = "CIUDAD";
-                        itemCliente.TELEFONO = "";
+                        itemCliente.DIRECCION_PRINCIPAL = "CIUDAD";
+                        itemCliente.TELEFONO_PRINCIPAL = "";
                         itemCliente.EMAIL = "";
                         itemCliente.NIT = datos_contribuyente.nit;
                         itemCliente.CREADO_POR = Session["usuario"].ToString();

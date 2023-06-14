@@ -14,76 +14,24 @@
 
         $(document).ready(function () {
             Get_PedidosPendientesDeEntregar();
-            //setInterval(Get_PedidosPendientes, 10000);
+            setInterval(Get_PedidosPendientesDeEntregar, 10000);
         });
 
-        function Asignar(id_pedido) {
-            $.post('@Url.Action("Asignar")', { id_producto }, function (response) {
-                if (response.Codigo == '1') {
-                    $('#modalPedidos').modal('hide');
-                    Get_PedidosPendientesDeEntregar();
-                }
-                else {
-                    Alert(response.Descripcion, NotifyIcon.warning);
-                }
+        function Asignar_Pedido(id_pedido) {
+            Confirm('Te asignarás el Pedido '+id_pedido+' ¿Quieres continuar?', function () {
+                $.post('@Url.Action("Asignar_Pedido")', { id_pedido }, function (response) {
+                    console.log(response);
+                    if (response.Resultado) {
+                        Notify(response.Descripcion, NotifyIcon.success);
+                        Get_PedidosPendientesDeEntregar();
+                    }
+                    else {
+                        Alert(response.Descripcion, NotifyIcon.warning);
+                    }
+                });
             });
         }
     </script>
 }
 
-@section styles{
-    <style>
-        .headColor {
-            background-color: dimgray;
-            color: white;
-            font-size: 13px;
-        }
-
-        input {
-            margin-top: -10px;
-        }
-
-        .zoom {
-            transition: transform .2s;
-            margin: 0 auto;
-        }
-
-            .zoom:hover {
-                -ms-transform: scale(5); /* IE 9 */
-                -webkit-transform: scale(5); /* Safari 3-8 */
-                transform: scale(2);
-            }
-
-        .modal-fullscreen {
-            width: 100%;
-            max-width: none;
-            height: 100%;
-            margin: 0;
-        }
-
-            .modal-fullscreen .modal-content {
-                height: 100%;
-                border: 0;
-                border-radius: 0;
-            }
-    </style>
-}
-
 <div class="row" id="divPedidos"></div>
-
-<div class="modal" id="modalPedidos" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="background-color: #e4e5eb ">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="divdetalleLote">
-
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer text-center text-md-center bg-white">
-                <button class="btn btn-secondary btn-sm" data-dismiss="modal"><i class="fad fa-times me-1"></i> Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
