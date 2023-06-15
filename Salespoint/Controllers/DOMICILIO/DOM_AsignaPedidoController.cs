@@ -1,12 +1,10 @@
 ﻿using HELPERS;
-using RESTAURANTE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace Salespoint.Controllers.DOMICILIO
+namespace RESTAURANTE
 {
     public class DOM_AsignaPedidoController : Controller
     {

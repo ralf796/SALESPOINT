@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using HELPERS;
 using System.Web.Mvc;
 
-namespace Ventas.Controllers
+namespace RESTAURANTE
 {
     public class DefaultController : Controller
     {
-        // GET: Default
-        //[SessionExpireFilterAttribute]
+        [SessionExpireFilter]
         public ActionResult Index()
         {
             return View();

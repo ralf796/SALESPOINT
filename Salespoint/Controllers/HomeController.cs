@@ -1,18 +1,15 @@
-﻿using RESTAURANTE;
-using HELPERS;
+﻿using HELPERS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Text;
 
-namespace Ventas.Controllers
+namespace RESTAURANTE
 {
     public class HomeController : Controller
     {
-        // GET: Home
         public ActionResult Index()
         {
             return View();
@@ -20,13 +17,13 @@ namespace Ventas.Controllers
         private List<Usuarios_BE> GetSPLogin_(Usuarios_BE item)
         {
             List<Usuarios_BE> lista = new List<Usuarios_BE>();
-            lista = sp_store_procedure_BLL.GetSPLogin(item);
+            lista = Store_Procedure_Maxima_BLL.GetSPLogin(item);
             return lista;
         }
         private List<Accesos_BE> GetAccesos_(Accesos_BE item)
         {
             List<Accesos_BE> lista = new List<Accesos_BE>();
-            lista = sp_store_procedure_BLL.GetAccesos(item);
+            lista = Store_Procedure_Maxima_BLL.GetAccesos(item);
             return lista;
         }
         public JsonResult ValidarLogin(string usuario = "", string password = "")

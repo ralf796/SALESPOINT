@@ -1,25 +1,24 @@
 ﻿using HELPERS;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace RESTAURANTE
 {
-    public class DOM_MisCortesController : Controller
+    public class CAJCorteController : Controller
     {
-        [SessionExpireFilter]
+        // GET: CAJCorte
         public ActionResult Index()
         {
             return View();
         }
 
-        [SessionExpireFilter]
         public PartialViewResult Listar()
         {
-            string usuario = Session["usuario"].ToString();
             var item = new Caja_BE();
             item.MTIPO = 2;
-            item.CREADO_POR = usuario;
             List<Caja_BE> lista = new List<Caja_BE>();
             lista = Connect.Connect_Caja(item);
             ViewBag.data = lista;

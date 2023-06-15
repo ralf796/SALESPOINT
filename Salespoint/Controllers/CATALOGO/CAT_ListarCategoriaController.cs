@@ -1,10 +1,9 @@
-﻿using RESTAURANTE;
-using HELPERS;
+﻿using HELPERS;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace Salespoint.Controllers.CATALOGO
+namespace RESTAURANTE
 {
     public class CAT_ListarCategoriaController : Controller
     {

@@ -170,7 +170,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Backups\ScriptMaxima.sql" />
     <Content Include="Content\Admin LTE 3.2\.babelrc.js" />
     <Content Include="Content\Admin LTE 3.2\.gitattributes" />
     <Content Include="Content\Admin LTE 3.2\.gitignore" />
@@ -3317,6 +3316,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Backups\" />
     <Folder Include="Content\css\" />
     <Folder Include="Content\Images\Varios\" />
     <Folder Include="Files\" />

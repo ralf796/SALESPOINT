@@ -42,9 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base_SQL.cs" />
+    <Compile Include="UnitOfWork_Maxima.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sp_store_procedure_DAL.cs" />
+    <Compile Include="Store_Procedure_Maxima_DAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE\BE.csproj">

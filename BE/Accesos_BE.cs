@@ -1,5 +1,4 @@
-﻿using System;
-namespace RESTAURANTE
+﻿namespace RESTAURANTE
 {
     public class Accesos_BE
     {

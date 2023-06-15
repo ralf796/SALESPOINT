@@ -1,5 +1,4 @@
-﻿using RESTAURANTE;
-using HELPERS;
+﻿using HELPERS;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,7 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Salespoint.Controllers.USUARIOS
+namespace RESTAURANTE
 {
     public class USU_ListarController : Controller
     {

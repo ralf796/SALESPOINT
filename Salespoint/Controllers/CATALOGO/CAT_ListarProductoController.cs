@@ -1,5 +1,4 @@
-﻿using RESTAURANTE;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 using HELPERS;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Salespoint.Controllers.CATALOGO
+namespace RESTAURANTE
 {
     public class CAT_ListarProductoController : Controller
     {
