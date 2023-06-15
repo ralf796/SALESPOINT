@@ -30,6 +30,7 @@ namespace Salespoint.Controllers.DOMICILIO
             return PartialView();
         }
 
+        [SessionExpireFilter]
         public JsonResult Asignar_Pedido(int id_pedido = 0)
         {
             var respuesta = new Respuesta();

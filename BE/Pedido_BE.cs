@@ -25,6 +25,7 @@ namespace RESTAURANTE
         public string DIRECCION_PRINCIPAL{ get; set; } = string.Empty;
         public string DIRECCION{ get; set; } = string.Empty;
         public string TELEFONO_PRINCIPAL{ get; set; } = string.Empty;
+        public string TELEFONO{ get; set; } = string.Empty;
         public string NIT{ get; set; } = string.Empty;
         public int CANTIDAD { get; set; }
         public decimal PRECIO { get; set; }

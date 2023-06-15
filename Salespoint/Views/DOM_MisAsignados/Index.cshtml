@@ -1,7 +1,36 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+@section scripts{
+    <!--SWEET ALERT-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script>
+        function Get_MisPedidos() {
+            $('#divPedidos').load('@Url.Action("Get_MisPedidos")');
+        }
+
+        $(document).ready(function () {
+            Get_MisPedidos();
+            setInterval(Get_MisPedidos, 10000);
+        });
+
+        function Entregar_Pedido(id_pedido) {
+            Confirm('Confirmación de entrega de Pedido '+id_pedido+' ¿Quieres continuar?', function () {
+                $.post('@Url.Action("Entregar_Pedido")', { id_pedido }, function (response) {
+                    console.log(response);
+                    if (response.Resultado) {
+                        Notify(response.Descripcion, NotifyIcon.success);
+                        Get_MisPedidos();
+                    }
+                    else {
+                        Alert(response.Descripcion, NotifyIcon.warning);
+                    }
+                });
+            });
+        }
+    </script>
+}
+
+<div class="row" id="divPedidos"></div>
