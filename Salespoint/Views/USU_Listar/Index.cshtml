@@ -61,6 +61,18 @@
             var email = $('#txtGuardarEmail').val();
             var urlFoto = $('#idFotografia').val();
             var idRol = $('#selRolCreate').val();
+            
+            if (primerNombre == '' || primerNombre == null) {
+                Alert('DEBES INGRESAR UN NOMBRE DE USUARIO', NotifyIcon.warning);
+                $('#txtGuardarPrimerNombre').focus();
+                return;
+            }
+            
+            if (primerApellido == '' || primerApellido == null) {
+                Alert('DEBES INGRESAR UN APELLIDO DE USUARIO', NotifyIcon.warning);
+                $('#txtGuardarPrimerApellido').focus();
+                return;
+            }
 
             if (idRol == '' || idRol == null) {
                 Alert('¡DEBES SELECCIONAR EL ROL DE ACCESOS!', NotifyIcon.warning);

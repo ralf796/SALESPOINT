@@ -36,7 +36,7 @@ namespace Salespoint.Controllers.DOMICILIO
             var respuesta = new Respuesta();
             try
             {
-                string usuario = "ralopez"; // Session["usuario"].ToString();
+                string usuario = Session["usuario"].ToString();
 
                 List<Pedido_BE> RESULT_SP;
                 var item = new Pedido_BE();

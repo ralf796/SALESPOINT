@@ -49,16 +49,16 @@ namespace Salespoint.Controllers.USUARIOS
                     List<Usuarios_BE> lista = new List<Usuarios_BE>();
                     var item = new Usuarios_BE();
                     item.MTIPO = 3;
-                    item.USUARIO = $"{nombre.Trim()} . {apellido.Substring(0, i)}";
+                    item.USUARIO = $"{nombre.Trim()}.{apellido.Substring(0, i)}";
                     lista = Connect.Connect_Usuarios(item);
                     if (lista.Count() == 0)
-                        respuesta = $"{nombre.Trim()} . {apellido.Substring(0, i)}";
+                        respuesta = $"{nombre.Trim()}.{apellido.Substring(0, i)}";
                 }
             }
             if (respuesta == "")
             {
                 var randomNumber = new Random().Next(0, 10);
-                respuesta = $"{nombre.Trim()} . {apellido.Substring(0, 1)}{randomNumber}";
+                respuesta = $"{nombre.Trim()}.{apellido.Substring(0, 1)}{randomNumber}";
             }
 
             return respuesta;
@@ -119,6 +119,10 @@ namespace Salespoint.Controllers.USUARIOS
                 item.DIRECCION = direccion;
                 item.TELEFONO = telefono;
                 item.EMAIL = email;
+
+                if (url == "")
+                    url = null;
+
                 item.PATH = url;
                 item.CREADO_POR = Session["usuario"].ToString();
                 item.USUARIO = user;
