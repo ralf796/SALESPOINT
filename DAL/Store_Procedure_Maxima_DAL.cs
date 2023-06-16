@@ -1,6 +1,7 @@
-﻿using System;
+﻿using BE;
+using System;
 using System.Collections.Generic;
-namespace RESTAURANTE
+namespace DAL
 {
     public class Store_Procedure_Maxima_DAL : IDisposable
     {
@@ -137,7 +138,7 @@ namespace RESTAURANTE
         }
         public List<Usuarios_BE> GetSPLogin(Usuarios_BE item)
         {
-            List<Usuarios_BE> result ;
+            List<Usuarios_BE> result;
             using (var model = new UnitOfWork_Maxima("sp_login"))
             {
                 model.Command.Parameters.AddWithValue("@USUARIO", item.USUARIO);

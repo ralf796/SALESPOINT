@@ -1,5 +1,5 @@
 ﻿using System;
-namespace RESTAURANTE
+namespace BE
 {
     public class Inventario_BE
     {
@@ -47,5 +47,19 @@ namespace RESTAURANTE
         public string NOMBRE_LINEA_VEHICULO { get; set; }
         public string NOMBRE_COMPLETO{ get; set; }
         public string CODIGO_INTERNO { get; set; }
+        public string NOMBRE_PROVEEDOR { get; set; }
+        public string CONTACTO_PROVEEDOR { get; set; }
+        public DateTime FECHA_PEDIDO { get; set; }
+        public DateTime FECHA_PAGO { get; set; }
+        public DateTime FECHA_ENTREGA { get; set; }
+        public string FECHA_PEDIDO_STRING { get; set; }
+        public string FECHA_PAGO_STRING { get; set; }
+        public string FECHA_ENTREGA_STRING { get; set; }
+        public string NO_FACTURA { get; set; }
+        public decimal MONTO_FACTURA { get; set; }
+        public string SERIE_FACTURA { get; set; }
+        public string FILE1 { get; set; }
+        public string FILE2 { get; set; }
+        public int ID_COMPRA { get; set; }
     }
 }

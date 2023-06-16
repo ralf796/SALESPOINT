@@ -1,6 +1,8 @@
-﻿using System;
+﻿using BE;
+using DAL;
+using System;
 using System.Collections.Generic;
-namespace RESTAURANTE
+namespace BLL
 {
     public class Store_Procedure_Maxima_BLL : IDisposable
     {

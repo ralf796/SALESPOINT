@@ -44,9 +44,12 @@
     <Compile Include="Accesos_BE.cs" />
     <Compile Include="Anulacion_BE.cs" />
     <Compile Include="Caja_BE.cs" />
+    <Compile Include="Cartera_BE.cs" />
     <Compile Include="Catalogo_BE.cs" />
     <Compile Include="Clientes_BE.cs" />
     <Compile Include="Cotizaciones_BE.cs" />
+    <Compile Include="Devoluciones_BE.cs" />
+    <Compile Include="FEL_BE.cs" />
     <Compile Include="Inventario_BE.cs" />
     <Compile Include="Pedido_BE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +57,7 @@
     <Compile Include="Respuesta.cs" />
     <Compile Include="Usuarios_BE.cs" />
     <Compile Include="Ventas_BE.cs" />
+    <Compile Include="Ventas__BE.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

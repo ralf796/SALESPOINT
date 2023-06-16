@@ -1,0 +1,315 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BDF789CB-4844-4EF8-8E2A-729C0BC6A9BE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DISTRIBUIDORA_EL_EDEN</RootNamespace>
+    <AssemblyName>DISTRIBUIDORA_EL_EDEN</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44354</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MoreLinq, Version=3.4.2.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.3.4.2\lib\net462\MoreLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.9\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.9\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.9\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.1\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\Anulaciones\ANUCrearAnulacionVenta.js" />
+    <Content Include="Scripts\Caja\CAJCobro.js" />
+    <Content Include="Scripts\Caja\CAJCorte.js" />
+    <Content Include="Scripts\Cartera\CARAbonos.js" />
+    <Content Include="Scripts\Cartera\CARCrearCredito.js" />
+    <Content Include="Scripts\Cartera\CAREstadoCuenta.js" />
+    <Content Include="Scripts\Cartera\CARSaldos.js" />
+    <Content Include="Scripts\Clientes\CLIListarClientes.js" />
+    <Content Include="Scripts\Compras\COMListarCompras.js" />
+    <Content Include="Scripts\Compras\COMRegistrarCompra.js" />
+    <Content Include="Scripts\Default.js" />
+    <Content Include="Scripts\DevExtreme\21.1.5\dx-quill.min.js" />
+    <Content Include="Scripts\DevExtreme\21.1.5\dx.all.js" />
+    <Content Include="Scripts\DevExtreme\21.1.5\localization\dx.messages.en.js" />
+    <Content Include="Scripts\DevExtreme\21.1.5\localization\dx.messages.es.js" />
+    <Content Include="Scripts\DevExtreme\21.1.5\localization\dx.messages.fr.js" />
+    <Content Include="Scripts\Devoluciones\DEVCrearDevolucion.js" />
+    <Content Include="Scripts\Devoluciones\DEVCrearFactura.js" />
+    <Content Include="Scripts\Inventario\Bodega.js" />
+    <Content Include="Scripts\Inventario\Categoria.js" />
+    <Content Include="Scripts\Inventario\CrearProducto.js" />
+    <Content Include="Scripts\Inventario\EditarProducto.js" />
+    <Content Include="Scripts\Inventario\ListarProductos.js" />
+    <Content Include="Scripts\Inventario\MarcaRepuesto.js" />
+    <Content Include="Scripts\Inventario\MarcaVehiculo.js" />
+    <Content Include="Scripts\Inventario\Modelo.js" />
+    <Content Include="Scripts\Inventario\Proveedor.js" />
+    <Content Include="Scripts\Inventario\SerieVehiculo.js" />
+    <Content Include="Scripts\Inventario\Subcategoria.js" />
+    <Content Include="Scripts\Login\HomeLogin.js" />
+    <Content Include="Scripts\Reimpresiones\VENReimpresiones.js" />
+    <Content Include="Scripts\Reportes\REPAbonos.js" />
+    <Content Include="Scripts\Reportes\REPAntiguedadSaldos.js" />
+    <Content Include="Scripts\Reportes\REPAnulaciones.js" />
+    <Content Include="Scripts\Reportes\REPBitacora.js" />
+    <Content Include="Scripts\Reportes\REPCobros.js" />
+    <Content Include="Scripts\Reportes\REPCortes.js" />
+    <Content Include="Scripts\Reportes\REPGeneral.js" />
+    <Content Include="Scripts\Reportes\REPProdCasaComercial.js" />
+    <Content Include="Scripts\Reportes\REPProductos.js" />
+    <Content Include="Scripts\Reportes\REPProductosGeneral.js" />
+    <Content Include="Scripts\Reportes\REPProductosSinStock.js" />
+    <Content Include="Scripts\Reportes\REPProductosVendidos.js" />
+    <Content Include="Scripts\Reportes\REPProductoUnico.js" />
+    <Content Include="Scripts\Reportes\REPVentas.js" />
+    <Content Include="Scripts\Usuarios\USUListarUsuario.js" />
+    <Content Include="Scripts\Ventas\VENCrearVenta.js" />
+    <Content Include="Scripts\Ventas\VENPendientes.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Class\Certificador_FEL.cs" />
+    <Compile Include="Class\Connect.cs" />
+    <Compile Include="Class\Crystal.cs" />
+    <Compile Include="Class\Encryption.cs" />
+    <Compile Include="Class\EnviarNIT.cs" />
+    <Compile Include="Class\NumeroLetra.cs" />
+    <Compile Include="Class\PermissionFilterAttribute.cs" />
+    <Compile Include="Class\SessionExpireFilterAttribute.cs" />
+    <Compile Include="Class\Utils.cs" />
+    <Compile Include="Class\ValidarCui.cs" />
+    <Compile Include="Controllers\Anulaciones\ANUCrearAnulacionVentaController.cs" />
+    <Compile Include="Controllers\Caja\CAJCobroController.cs" />
+    <Compile Include="Controllers\Caja\CAJCorteController.cs" />
+    <Compile Include="Controllers\Cartera\CARAbonosController.cs" />
+    <Compile Include="Controllers\Cartera\CARCrearCreditoController.cs" />
+    <Compile Include="Controllers\Cartera\CAREstadoCuentaController.cs" />
+    <Compile Include="Controllers\Cartera\CARSaldosController.cs" />
+    <Compile Include="Controllers\Clientes\CLIListarClientesController.cs" />
+    <Compile Include="Controllers\Compras\COMListarComprasController.cs" />
+    <Compile Include="Controllers\Compras\COMRegistrarCompraController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\Devoluciones\DEVCrearDevolucionController.cs" />
+    <Compile Include="Controllers\Devoluciones\DEVCrearFacturaController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Inventario\INVMantenimientoController.cs" />
+    <Compile Include="Controllers\Reimpresiones\VENReimpresionesController.cs" />
+    <Compile Include="Controllers\Reportes\REPAbonosController.cs" />
+    <Compile Include="Controllers\Reportes\REPAntiguedadSaldosController.cs" />
+    <Compile Include="Controllers\Reportes\REPAnulacionesController.cs" />
+    <Compile Include="Controllers\Reportes\REPBitacoraController.cs" />
+    <Compile Include="Controllers\Reportes\REPCobrosController.cs" />
+    <Compile Include="Controllers\Reportes\REPCortesController.cs" />
+    <Compile Include="Controllers\Reportes\REPGeneralController.cs" />
+    <Compile Include="Controllers\Reportes\REPProdCasaComercialController.cs" />
+    <Compile Include="Controllers\Reportes\REPProductosController.cs" />
+    <Compile Include="Controllers\Reportes\REPProductosGeneralController.cs" />
+    <Compile Include="Controllers\Reportes\REPProductosSinStockController.cs" />
+    <Compile Include="Controllers\Reportes\REPProductosVendidosController.cs" />
+    <Compile Include="Controllers\Reportes\REPProductoUnicoController.cs" />
+    <Compile Include="Controllers\Reportes\REPVentasController.cs" />
+    <Compile Include="Controllers\Soporte\SOPGeneralController.cs" />
+    <Compile Include="Controllers\Usuarios\USUListarUsuarioController.cs" />
+    <Compile Include="Controllers\Ventas\VENCrearVentaController.cs" />
+    <Compile Include="Controllers\Ventas\VENPendientesController.cs" />
+    <Compile Include="Controllers\WS\AppController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Views\ANUCrearAnulacionVenta\Index.cshtml" />
+    <Content Include="Views\CAJCobro\Index.cshtml" />
+    <Content Include="Views\CAJCorte\Index.cshtml" />
+    <Content Include="Views\CARAbonos\Index.cshtml" />
+    <Content Include="Views\CARCrearCredito\Index.cshtml" />
+    <Content Include="Views\CAREstadoCuenta\Index.cshtml" />
+    <Content Include="Views\CARSaldos\Index.cshtml" />
+    <Content Include="Views\CLIListarClientes\Index.cshtml" />
+    <Content Include="Views\COMListarCompras\Index.cshtml" />
+    <Content Include="Views\COMRegistrarCompra\Index.cshtml" />
+    <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\DEVCrearDevolucion\Index.cshtml" />
+    <Content Include="Views\DEVCrearFactura\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexBodega.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexCategoria.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexCrearProducto.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexEditarProducto.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexListarProductos.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexMarcaRepuesto.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexMarcaVehiculo.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexModelo.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexProveedor.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexSerieVehiculo.cshtml" />
+    <Content Include="Views\INVMantenimiento\IndexSubcategoria.cshtml" />
+    <Content Include="Views\REPAbonos\Index.cshtml" />
+    <Content Include="Views\REPAntiguedadSaldos\Index.cshtml" />
+    <Content Include="Views\REPAnulaciones\Index.cshtml" />
+    <Content Include="Views\REPBitacora\Index.cshtml" />
+    <Content Include="Views\REPCobros\Index.cshtml" />
+    <Content Include="Views\REPCortes\Index.cshtml" />
+    <Content Include="Views\REPGeneral\Index.cshtml" />
+    <Content Include="Views\REPProdCasaComercial\Index.cshtml" />
+    <Content Include="Views\REPProductosGeneral\Index.cshtml" />
+    <Content Include="Views\REPProductosGeneral\Index2.cshtml" />
+    <Content Include="Views\REPProductosSinStock\Index.cshtml" />
+    <Content Include="Views\REPProductosVendidos\Index.cshtml" />
+    <Content Include="Views\REPProductos\Index.cshtml" />
+    <Content Include="Views\REPProductoUnico\Index.cshtml" />
+    <Content Include="Views\REPVentas\Index.cshtml" />
+    <Content Include="Views\Shared\_Head.cshtml" />
+    <Content Include="Views\Shared\_JS.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LoadingFire.cshtml" />
+    <Content Include="Views\USUListarUsuario\Index.cshtml" />
+    <Content Include="Views\VENCrearVenta\Index.cshtml" />
+    <Content Include="Views\VENPendientes\Index.cshtml" />
+    <Content Include="Views\VENReimpresiones\Index.cshtml" />
+    <Content Include="Views\web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\App\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BE\BE.csproj">
+      <Project>{3303d419-dd12-4512-a1f9-2df0185f1250}</Project>
+      <Name>BE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{0cfbbab2-b40e-4c7e-a525-bd491b38b8de}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60562</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44354/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

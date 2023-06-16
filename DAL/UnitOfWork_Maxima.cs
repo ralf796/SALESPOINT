@@ -1,12 +1,13 @@
-﻿using System;
+﻿using BE;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using System.Reflection;
 using System;
-namespace RESTAURANTE
+namespace DAL
 {
-    internal class UnitOfWork_Maxima:IDisposable
+    public class UnitOfWork_Maxima:IDisposable
     {
         SqlConnection Connection;
         public SqlCommand Command;

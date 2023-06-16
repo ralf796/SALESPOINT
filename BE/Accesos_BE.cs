@@ -1,4 +1,4 @@
-﻿namespace RESTAURANTE
+﻿namespace BE
 {
     public class Accesos_BE
     {

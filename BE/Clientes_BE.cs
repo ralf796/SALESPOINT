@@ -1,5 +1,5 @@
 ﻿using System;
-namespace RESTAURANTE
+namespace BE
 {
     public class Clientes_BE
     {
@@ -15,5 +15,7 @@ namespace RESTAURANTE
         public string RESPUESTA { get; set; }
         public string Descripcion { get; set; }
         public bool Resultado { get; set; }
+        public string DIRECCION { get; set; }
+        public string TELEFONO { get; set; }
     }
 }

@@ -3317,7 +3317,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Backups\" />
     <Folder Include="Content\css\" />
     <Folder Include="Content\Images\Varios\" />
     <Folder Include="Controllers\DEVOLUCIONES\" />

@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Store_Procedure_DistribuidoraElEden_DAL.cs" />
+    <Compile Include="UnitOfWork_DistribuidoraElEden.cs" />
     <Compile Include="UnitOfWork_Maxima.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store_Procedure_Maxima_DAL.cs" />

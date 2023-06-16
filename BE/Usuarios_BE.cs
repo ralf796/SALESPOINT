@@ -1,5 +1,5 @@
 ﻿using System;
-namespace RESTAURANTE
+namespace BE
 {
     public class Usuarios_BE
     {
